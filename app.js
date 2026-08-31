@@ -18,7 +18,7 @@ require("./config/passport.js")(passport);
 
 app.set("view engine", "ejs");
 app.use(expressLayouts);
-app.use("/assets", express.static(__dirname + "/assets"));
+app.use("/assets", express.static(__dirname + "/middleware/assets"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
