@@ -1,21 +1,59 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req,res) => {
-	res.render("home/welcome");
+// =========================
+// HOME PAGE
+// =========================
+router.get("/", (req, res) => {
+    res.render("home/welcome");
 });
 
-router.get("/home/about-us", (req,res) => {
-	res.render("home/aboutUs", { title: "About Us | Gujju Food Donate" });
+// =========================
+// ABOUT PAGE
+// =========================
+router.get("/about", (req, res) => {
+    res.render("home/aboutUs");
 });
 
-router.get("/home/mission", (req,res) => {
-	res.render("home/mission", { title: "Our mission | Gujju Food Donate" });
+// Also support /aboutUs
+router.get("/aboutUs", (req, res) => {
+    res.render("home/aboutUs");
 });
 
-router.get("/home/contact-us", (req,res) => {
-	res.render("home/contactUs", { title: "Contact us | Gujju Food Donate" });
+// =========================
+// HOW IT WORKS / MISSION
+// =========================
+router.get("/mission", (req, res) => {
+    res.render("home/mission");
 });
 
+// Also support /how-it-works
+router.get("/how-it-works", (req, res) => {
+    res.render("home/mission");
+});
+
+// Also support /howItWorks
+router.get("/howItWorks", (req, res) => {
+    res.render("home/mission");
+});
+
+// =========================
+// CONTACT PAGE
+// =========================
+router.get("/contact", (req, res) => {
+    res.render("home/contactUs");
+});
+
+// Also support /contactUs
+router.get("/contactUs", (req, res) => {
+    res.render("home/contactUs");
+});
+
+// =========================
+// WELCOME PAGE
+// =========================
+router.get("/welcome", (req, res) => {
+    res.render("home/welcome");
+});
 
 module.exports = router;

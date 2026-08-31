@@ -1,5 +1,770 @@
-<h1 class="m-4 color-theme">Our Mission</h1>
-	
-<div class="bg-white m-4 p-4 shadow">
-		<h4>Our mission is to feed all the needy people and no one feels that he is going to sleep hungry today.</h4>
+<style>
+    .fb-mission-page {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #173f2c;
+        background: #ffffff;
+        min-height: 100vh;
+    }
+
+    /* HERO */
+
+    .fb-mission-hero {
+        background: linear-gradient(135deg, #f5fff9, #e5f7ec);
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .fb-mission-label {
+        display: inline-block;
+        background: #d9f3e3;
+        color: #138c4d;
+        padding: 9px 18px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .fb-mission-hero h1 {
+        font-size: 55px;
+        line-height: 1.15;
+        margin: 0 0 20px;
+        color: #143d2b;
+    }
+
+    .fb-mission-hero h1 span {
+        color: #138c4d;
+    }
+
+    .fb-mission-hero p {
+        max-width: 760px;
+        margin: auto;
+        color: #61766b;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    /* INTRO */
+
+    .fb-mission-intro {
+        width: 90%;
+        max-width: 1150px;
+        margin: auto;
+        padding: 80px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        align-items: center;
+    }
+
+    .fb-mission-intro h2 {
+        font-size: 40px;
+        line-height: 1.25;
+        margin: 0 0 20px;
+    }
+
+    .fb-mission-intro p {
+        color: #63776d;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .fb-mission-highlight {
+        background: #f0faf4;
+        border-radius: 25px;
+        padding: 40px;
+    }
+
+    .fb-mission-highlight-icon {
+        font-size: 65px;
+        margin-bottom: 15px;
+    }
+
+    .fb-mission-highlight h3 {
+        font-size: 25px;
+        margin: 0 0 12px;
+    }
+
+    .fb-mission-highlight p {
+        margin: 0;
+    }
+
+    /* PROCESS */
+
+    .fb-process-section {
+        background: #064d2f;
+        padding: 80px 20px;
+        color: white;
+    }
+
+    .fb-process-heading {
+        text-align: center;
+        margin-bottom: 55px;
+    }
+
+    .fb-process-heading h2 {
+        font-size: 40px;
+        margin: 0 0 12px;
+    }
+
+    .fb-process-heading p {
+        color: #c8e6d5;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .fb-process {
+        width: 90%;
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .fb-process-card {
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 18px;
+        padding: 30px;
+        position: relative;
+    }
+
+    .fb-process-number {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #138c4d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .fb-process-icon {
+        font-size: 35px;
+        margin-bottom: 15px;
+    }
+
+    .fb-process-card h3 {
+        margin: 0 0 12px;
+        font-size: 20px;
+    }
+
+    .fb-process-card p {
+        color: #c9e4d5;
+        line-height: 1.65;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* QUALITY */
+
+    .fb-quality {
+        width: 90%;
+        max-width: 1150px;
+        margin: auto;
+        padding: 85px 0;
+    }
+
+    .fb-quality-heading {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    .fb-quality-heading h2 {
+        font-size: 40px;
+        margin: 0 0 12px;
+    }
+
+    .fb-quality-heading p {
+        color: #66786e;
+        margin: 0;
+    }
+
+    .fb-quality-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .fb-quality-card {
+        border: 1px solid #dceee4;
+        border-radius: 16px;
+        padding: 30px;
+        background: white;
+        box-shadow: 0 8px 25px rgba(20, 70, 45, 0.06);
+    }
+
+    .fb-quality-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 13px;
+        background: #e0f5e8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+        margin-bottom: 18px;
+    }
+
+    .fb-quality-card h3 {
+        margin: 0 0 10px;
+        font-size: 19px;
+    }
+
+    .fb-quality-card p {
+        color: #687a70;
+        line-height: 1.6;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* STATUS FLOW */
+
+    .fb-status-section {
+        background: #f3faf6;
+        padding: 80px 20px;
+    }
+
+    .fb-status-heading {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    .fb-status-heading h2 {
+        font-size: 38px;
+        margin: 0 0 12px;
+    }
+
+    .fb-status-heading p {
+        color: #687a70;
+        margin: 0;
+    }
+
+    .fb-status-flow {
+        width: 90%;
+        max-width: 1100px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .fb-status {
+        background: white;
+        border: 1px solid #dceee4;
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #138c4d;
+    }
+
+    .fb-arrow {
+        color: #138c4d;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    /* MISSION */
+
+    .fb-final-mission {
+        width: 90%;
+        max-width: 1000px;
+        margin: 80px auto;
+        text-align: center;
+    }
+
+    .fb-final-mission h2 {
+        font-size: 40px;
+        margin: 0 0 18px;
+    }
+
+    .fb-final-mission p {
+        color: #63776d;
+        max-width: 750px;
+        margin: auto;
+        line-height: 1.8;
+        font-size: 17px;
+    }
+
+    .fb-final-mission-box {
+        margin-top: 35px;
+        background: #e5f7ec;
+        border-radius: 22px;
+        padding: 40px;
+    }
+
+    .fb-final-mission-box h3 {
+        margin: 0 0 15px;
+        color: #138c4d;
+        font-size: 25px;
+    }
+
+    .fb-final-mission-box p {
+        font-size: 15px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+        .fb-mission-intro {
+            grid-template-columns: 1fr;
+        }
+
+        .fb-process {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .fb-quality-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .fb-mission-hero {
+            padding: 55px 20px;
+        }
+
+        .fb-mission-hero h1 {
+            font-size: 38px;
+        }
+
+        .fb-mission-hero p {
+            font-size: 16px;
+        }
+
+        .fb-mission-intro h2 {
+            font-size: 31px;
+        }
+
+        .fb-process {
+            grid-template-columns: 1fr;
+        }
+
+        .fb-process-heading h2,
+        .fb-quality-heading h2,
+        .fb-status-heading h2,
+        .fb-final-mission h2 {
+            font-size: 31px;
+        }
+
+        .fb-status-flow {
+            flex-direction: column;
+        }
+
+        .fb-arrow {
+            transform: rotate(90deg);
+        }
+    }
+</style>
+
+
+<div class="fb-mission-page">
+
+    <!-- HERO -->
+
+    <section class="fb-mission-hero">
+
+        <div class="fb-mission-label">
+            HOW FOODBRIDGE WORKS
+        </div>
+
+        <h1>
+            From Surplus Food<br>
+            to <span>People in Need</span>
+        </h1>
+
+        <p>
+            FoodBridge creates a safe and transparent process for
+            collecting, verifying and redistributing surplus food
+            through donors and NGOs.
+        </p>
+
+    </section>
+
+
+    <!-- INTRO -->
+
+    <section class="fb-mission-intro">
+
+        <div>
+
+            <h2>
+                Our mission is simple.
+            </h2>
+
+            <p>
+                FoodBridge aims to reduce food waste by creating a
+                digital connection between people and organizations
+                that have surplus food and NGOs that can redistribute
+                it to people in need.
+            </p>
+
+            <p>
+                The platform adds safety-focused verification,
+                freshness evaluation, shelf-life prediction and
+                transparent donation tracking to the redistribution
+                process.
+            </p>
+
+        </div>
+
+
+        <div class="fb-mission-highlight">
+
+            <div class="fb-mission-highlight-icon">
+                🌱
+            </div>
+
+            <h3>
+                Less Waste. More Impact.
+            </h3>
+
+            <p>
+                Safe surplus food should not become waste when it can
+                still provide meaningful support to someone in need.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROCESS -->
+
+    <section class="fb-process-section">
+
+        <div class="fb-process-heading">
+
+            <h2>
+                The FoodBridge Process
+            </h2>
+
+            <p>
+                A step-by-step journey from donation to redistribution.
+            </p>
+
+        </div>
+
+
+        <div class="fb-process">
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">01</div>
+
+                <div class="fb-process-icon">
+                    🍱
+                </div>
+
+                <h3>
+                    Food Donation
+                </h3>
+
+                <p>
+                    A donor provides information about the available
+                    surplus food, quantity, preparation time and other
+                    relevant details.
+                </p>
+
+            </div>
+
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">02</div>
+
+                <div class="fb-process-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Quality Verification
+                </h3>
+
+                <p>
+                    Rule-based food quality checks help determine
+                    whether the donation is suitable for redistribution.
+                </p>
+
+            </div>
+
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">03</div>
+
+                <div class="fb-process-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Freshness Score
+                </h3>
+
+                <p>
+                    The system calculates a freshness score using
+                    relevant food and storage information.
+                </p>
+
+            </div>
+
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">04</div>
+
+                <div class="fb-process-icon">
+                    ⏱️
+                </div>
+
+                <h3>
+                    Shelf-Life Prediction
+                </h3>
+
+                <p>
+                    The platform estimates the remaining safe time
+                    available for the donated food.
+                </p>
+
+            </div>
+
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">05</div>
+
+                <div class="fb-process-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    NGO Connection
+                </h3>
+
+                <p>
+                    NGOs can view suitable available donations and
+                    request food according to their requirements.
+                </p>
+
+            </div>
+
+
+            <div class="fb-process-card">
+
+                <div class="fb-process-number">06</div>
+
+                <div class="fb-process-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Physical Verification
+                </h3>
+
+                <p>
+                    The NGO can physically check the food before
+                    accepting the donation for redistribution.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUALITY -->
+
+    <section class="fb-quality">
+
+        <div class="fb-quality-heading">
+
+            <h2>
+                Built Around Food Safety
+            </h2>
+
+            <p>
+                FoodBridge focuses on responsible and transparent redistribution.
+            </p>
+
+        </div>
+
+
+        <div class="fb-quality-grid">
+
+            <div class="fb-quality-card">
+
+                <div class="fb-quality-icon">
+                    🧪
+                </div>
+
+                <h3>
+                    Rule-Based Verification
+                </h3>
+
+                <p>
+                    Predefined rules are used to evaluate important
+                    food quality and safety information.
+                </p>
+
+            </div>
+
+
+            <div class="fb-quality-card">
+
+                <div class="fb-quality-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Freshness Evaluation
+                </h3>
+
+                <p>
+                    A freshness score provides an easy way to understand
+                    the condition of a donation.
+                </p>
+
+            </div>
+
+
+            <div class="fb-quality-card">
+
+                <div class="fb-quality-icon">
+                    ⏳
+                </div>
+
+                <h3>
+                    Safe-Time Estimation
+                </h3>
+
+                <p>
+                    Shelf-life prediction helps identify how much safe
+                    time may remain for redistribution.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATUS FLOW -->
+
+    <section class="fb-status-section">
+
+        <div class="fb-status-heading">
+
+            <h2>
+                Donation Status Tracking
+            </h2>
+
+            <p>
+                Follow the journey of a donation through the platform.
+            </p>
+
+        </div>
+
+
+        <div class="fb-status-flow">
+
+            <div class="fb-status">
+                Pending
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Quality Verified
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Available
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Accepted
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Picked Up
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Delivered
+            </div>
+
+            <div class="fb-arrow">
+                →
+            </div>
+
+            <div class="fb-status">
+                Completed
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FINAL MISSION -->
+
+    <section class="fb-final-mission">
+
+        <h2>
+            Our Vision
+        </h2>
+
+        <p>
+            FoodBridge envisions a system where safe surplus food can
+            be efficiently redirected instead of being wasted, while
+            donors, NGOs and administrators can participate through a
+            transparent digital platform.
+        </p>
+
+
+        <div class="fb-final-mission-box">
+
+            <h3>
+                FoodBridge
+            </h3>
+
+            <p>
+                Connecting food donors with NGOs and helping safe food
+                reach people who need it.
+            </p>
+
+        </div>
+
+    </section>
+
 </div>

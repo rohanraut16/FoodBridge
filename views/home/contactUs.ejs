@@ -1,17 +1,526 @@
-<h1 class="m-4 color-theme">Contact us</h1>
-	
-<div class="bg-white m-4 p-4 shadow">
-	<ul class="fs-5">
-		<li>For any concerns, please call at our toll free numbers between 9 AM to 6 PM:</li>
-		<ul>
-			<li>1500-393-455 (within India)</li>
-			<li>1500-393-455 (within India)</li>
-		</ul>
-		<li>You can also visit our offices and to get insights of how our agents serve food at different places.</li>
-		<ul>
-			<li>XYZ Nagar, Delhi</li>
-			<li>XYZ Vihar, Noida</li>
-		</ul>
-		<li>You can also email your suggestions and feedback at <mark>xyz@gmail.com</mark></li>
-	</ul>
+<style>
+    .fb-contact-page {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #173f2c;
+        background: #ffffff;
+        min-height: 100vh;
+    }
+
+    /* HERO */
+
+    .fb-contact-hero {
+        background: linear-gradient(135deg, #f5fff9, #e5f7ec);
+        text-align: center;
+        padding: 75px 20px;
+    }
+
+    .fb-contact-label {
+        display: inline-block;
+        background: #d9f3e3;
+        color: #138c4d;
+        padding: 9px 18px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .fb-contact-hero h1 {
+        font-size: 52px;
+        margin: 0 0 18px;
+        color: #143d2b;
+    }
+
+    .fb-contact-hero h1 span {
+        color: #138c4d;
+    }
+
+    .fb-contact-hero p {
+        max-width: 700px;
+        margin: auto;
+        color: #61766b;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    /* MAIN */
+
+    .fb-contact-main {
+        width: 90%;
+        max-width: 1150px;
+        margin: auto;
+        padding: 80px 0;
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 55px;
+        align-items: start;
+    }
+
+    /* LEFT */
+
+    .fb-contact-info h2 {
+        font-size: 36px;
+        margin: 0 0 18px;
+    }
+
+    .fb-contact-info > p {
+        color: #63776d;
+        line-height: 1.7;
+        font-size: 16px;
+        margin-bottom: 35px;
+    }
+
+    .fb-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 17px;
+        margin-bottom: 25px;
+    }
+
+    .fb-contact-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        border-radius: 12px;
+        background: #e0f5e8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+    }
+
+    .fb-contact-item h3 {
+        margin: 0 0 6px;
+        font-size: 17px;
+    }
+
+    .fb-contact-item p {
+        margin: 0;
+        color: #687a70;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* FORM */
+
+    .fb-contact-form-box {
+        background: #f5fbf7;
+        border: 1px solid #dceee4;
+        border-radius: 22px;
+        padding: 38px;
+        box-shadow: 0 10px 35px rgba(20, 70, 45, 0.07);
+    }
+
+    .fb-contact-form-box h2 {
+        margin: 0 0 8px;
+        font-size: 28px;
+    }
+
+    .fb-contact-form-box > p {
+        margin: 0 0 28px;
+        color: #687a70;
+        font-size: 14px;
+    }
+
+    .fb-form-group {
+        margin-bottom: 20px;
+    }
+
+    .fb-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #234936;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .fb-form-group input,
+    .fb-form-group textarea,
+    .fb-form-group select {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #cfe2d6;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #173f2c;
+        font-size: 14px;
+        outline: none;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .fb-form-group input:focus,
+    .fb-form-group textarea:focus,
+    .fb-form-group select:focus {
+        border-color: #138c4d;
+        box-shadow: 0 0 0 3px rgba(19, 140, 77, 0.08);
+    }
+
+    .fb-form-group textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .fb-contact-submit {
+        width: 100%;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        background: #138c4d;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .fb-contact-submit:hover {
+        background: #0c703c;
+        transform: translateY(-1px);
+    }
+
+    /* HELP */
+
+    .fb-contact-help {
+        background: #064d2f;
+        padding: 70px 20px;
+        text-align: center;
+        color: white;
+    }
+
+    .fb-contact-help h2 {
+        font-size: 36px;
+        margin: 0 0 15px;
+    }
+
+    .fb-contact-help p {
+        max-width: 650px;
+        margin: 0 auto 28px;
+        color: #c9e4d5;
+        line-height: 1.7;
+    }
+
+    .fb-contact-help-btn {
+        display: inline-block;
+        padding: 14px 25px;
+        border-radius: 8px;
+        background: white;
+        color: #138c4d;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .fb-contact-help-btn:hover {
+        background: #e8f8ef;
+        color: #0c703c;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+
+        .fb-contact-main {
+            grid-template-columns: 1fr;
+        }
+
+        .fb-contact-hero h1 {
+            font-size: 42px;
+        }
+    }
+
+    @media (max-width: 550px) {
+
+        .fb-contact-hero {
+            padding: 55px 20px;
+        }
+
+        .fb-contact-hero h1 {
+            font-size: 35px;
+        }
+
+        .fb-contact-hero p {
+            font-size: 16px;
+        }
+
+        .fb-contact-main {
+            width: 92%;
+            padding: 55px 0;
+        }
+
+        .fb-contact-form-box {
+            padding: 25px;
+        }
+
+        .fb-contact-info h2 {
+            font-size: 30px;
+        }
+
+        .fb-contact-help h2 {
+            font-size: 30px;
+        }
+    }
+</style>
+
+
+<div class="fb-contact-page">
+
+    <!-- HERO -->
+
+    <section class="fb-contact-hero">
+
+        <div class="fb-contact-label">
+            GET IN TOUCH
+        </div>
+
+        <h1>
+            Let's Build a Better <span>Bridge</span>
+        </h1>
+
+        <p>
+            Have a question about FoodBridge, food donation or NGO
+            participation? We'd love to hear from you.
+        </p>
+
+    </section>
+
+
+    <!-- CONTACT MAIN -->
+
+    <section class="fb-contact-main">
+
+        <!-- CONTACT INFORMATION -->
+
+        <div class="fb-contact-info">
+
+            <h2>
+                Contact Us
+            </h2>
+
+            <p>
+                FoodBridge is built to make food redistribution easier,
+                safer and more transparent. Reach out to us for any
+                questions, suggestions or feedback.
+            </p>
+
+
+            <div class="fb-contact-item">
+
+                <div class="fb-contact-icon">
+                    📧
+                </div>
+
+                <div>
+
+                    <h3>
+                        Email
+                    </h3>
+
+                    <p>
+                        foodbridge@example.com
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="fb-contact-item">
+
+                <div class="fb-contact-icon">
+                    📞
+                </div>
+
+                <div>
+
+                    <h3>
+                        Phone
+                    </h3>
+
+                    <p>
+                        +91 00000 00000
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="fb-contact-item">
+
+                <div class="fb-contact-icon">
+                    📍
+                </div>
+
+                <div>
+
+                    <h3>
+                        Location
+                    </h3>
+
+                    <p>
+                        India
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="fb-contact-item">
+
+                <div class="fb-contact-icon">
+                    🤝
+                </div>
+
+                <div>
+
+                    <h3>
+                        Partnership
+                    </h3>
+
+                    <p>
+                        Donors, NGOs and organizations can work together
+                        through FoodBridge.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM -->
+
+        <div class="fb-contact-form-box">
+
+            <h2>
+                Send Us a Message
+            </h2>
+
+            <p>
+                Fill in the details below and share your message with us.
+            </p>
+
+
+            <form action="#" method="POST">
+
+                <div class="fb-form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="fb-form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="fb-form-group">
+
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <select id="subject" name="subject">
+
+                        <option value="">
+                            Select a subject
+                        </option>
+
+                        <option value="donor">
+                            Food Donation
+                        </option>
+
+                        <option value="ngo">
+                            NGO Partnership
+                        </option>
+
+                        <option value="feedback">
+                            Feedback
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="fb-form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="fb-contact-submit"
+                >
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- HELP / CTA -->
+
+    <section class="fb-contact-help">
+
+        <h2>
+            Want to Help Reduce Food Waste?
+        </h2>
+
+        <p>
+            Become a donor or NGO partner and help safe surplus food
+            reach people who need it.
+        </p>
+
+        <a
+            href="/auth/register"
+            class="fb-contact-help-btn"
+        >
+            Join FoodBridge
+        </a>
+
+    </section>
+
 </div>
