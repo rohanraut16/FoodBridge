@@ -5,12 +5,16 @@
     <div id="main-wrapper">
 
         <div class="donor-topbar">
+
             <div>
                 <h1 class="donor-title">Pending Donations</h1>
-                <p class="donor-subtitle">Track the status of your food donations.</p>
+                <p class="donor-subtitle">
+                    Track the status of your food donations.
+                </p>
             </div>
 
             <div class="donor-user">
+
                 <div class="donor-notification">
                     <i class="fas fa-bell"></i>
                 </div>
@@ -20,25 +24,38 @@
                 </div>
 
                 <div class="donor-user-info">
-                    <strong><%= currentUser.firstName %> <%= currentUser.lastName %></strong>
+                    <strong>
+                        <%= currentUser.firstName %>
+                        <%= currentUser.lastName %>
+                    </strong>
                     <span>Donor</span>
                 </div>
+
             </div>
+
         </div>
 
 
         <div class="donor-content">
 
             <div class="donor-page-heading">
+
                 <div>
                     <h2>My Pending Donations</h2>
-                    <p>View and track your active donation requests.</p>
+                    <p>
+                        View and track your active donation requests.
+                    </p>
                 </div>
 
-                <a href="/donor/donate" class="donor-primary-btn small">
+                <a
+                    href="/donor/donate"
+                    class="donor-primary-btn small">
+
                     <i class="fas fa-plus"></i>
                     Add Donation
+
                 </a>
+
             </div>
 
 
@@ -47,114 +64,223 @@
                 <% if (pendingDonations.length === 0) { %>
 
                     <div class="donor-empty-state">
+
                         <div class="empty-icon">
                             <i class="fas fa-box-open"></i>
                         </div>
 
                         <h3>No pending donations</h3>
-                        <p>Your active donations will appear here.</p>
 
-                        <a href="/donor/donate" class="donor-primary-btn">
+                        <p>
+                            Your active donations will appear here.
+                        </p>
+
+                        <a
+                            href="/donor/donate"
+                            class="donor-primary-btn">
+
                             <i class="fas fa-plus"></i>
                             Donate Food
+
                         </a>
+
                     </div>
 
                 <% } else { %>
+
 
                     <% for(let i = 0; i < pendingDonations.length; i++) { %>
 
                         <div class="pending-donation-card">
 
+
+                            <!-- FOOD IMAGE + BASIC INFO -->
+
                             <div class="pending-donation-main">
 
-                                <div class="food-icon">
-                                    <i class="fas fa-utensils"></i>
-                                </div>
+                                <% if (pendingDonations[i].foodImage) { %>
+
+                                    <div class="pending-food-image">
+
+                                        <img
+                                            src="<%= pendingDonations[i].foodImage %>"
+                                            alt="<%= pendingDonations[i].foodType %>">
+
+                                    </div>
+
+                                <% } else { %>
+
+                                    <div class="food-icon">
+
+                                        <i class="fas fa-utensils"></i>
+
+                                    </div>
+
+                                <% } %>
+
 
                                 <div>
-                                    <h3><%= pendingDonations[i].foodType %></h3>
+
+                                    <h3>
+                                        <%= pendingDonations[i].foodType %>
+                                    </h3>
 
                                     <p>
+
                                         <i class="fas fa-weight-hanging"></i>
+
                                         <%= pendingDonations[i].quantity %>
+
                                     </p>
+
+
+                                    <!-- FOOD CONDITION -->
+
+                                    <p>
+
+                                        <% if (pendingDonations[i].foodCondition === "cooked") { %>
+
+                                            <span class="food-condition cooked">
+                                                <i class="fas fa-utensils"></i>
+                                                Cooked
+                                            </span>
+
+                                        <% } else if (pendingDonations[i].foodCondition === "raw") { %>
+
+                                            <span class="food-condition raw">
+                                                <i class="fas fa-seedling"></i>
+                                                Raw
+                                            </span>
+
+                                        <% } %>
+
+                                    </p>
+
                                 </div>
 
                             </div>
 
+
+
+                            <!-- DONATION DETAILS -->
 
                             <div class="pending-details">
 
                                 <div>
+
                                     <span>Collection Address</span>
+
                                     <strong>
                                         <%= pendingDonations[i].address %>
                                     </strong>
+
                                 </div>
 
+
                                 <div>
+
                                     <span>Phone</span>
+
                                     <strong>
                                         <%= pendingDonations[i].phone %>
                                     </strong>
+
                                 </div>
 
+
                                 <div>
+
                                     <span>Cooking Time</span>
+
                                     <strong>
+
                                         <%= pendingDonations[i].cookingTime.toLocaleString("en-IN", {
                                             dateStyle: "medium",
                                             timeStyle: "short"
                                         }) %>
+
                                     </strong>
+
                                 </div>
 
                             </div>
 
 
+
+                            <!-- STATUS -->
+
                             <div class="pending-status">
 
-                                <span class="donation-status status-<%= pendingDonations[i].status %>">
-                                    <%= pendingDonations[i].status.charAt(0).toUpperCase() + pendingDonations[i].status.slice(1) %>
+                                <span
+                                    class="donation-status status-<%= pendingDonations[i].status %>">
+
+                                    <%= pendingDonations[i].status.charAt(0).toUpperCase() +
+                                        pendingDonations[i].status.slice(1) %>
+
                                 </span>
+
 
                                 <% if(pendingDonations[i].status == "pending") { %>
 
                                     <p>
+
                                         <i class="fas fa-clock"></i>
+
                                         Waiting for admin approval.
+
                                     </p>
+
 
                                 <% } else if(pendingDonations[i].status == "rejected") { %>
 
                                     <p class="danger-text">
+
                                         <i class="fas fa-times-circle"></i>
+
                                         Your donation request has been rejected.
+
                                     </p>
+
 
                                     <a
                                         href="/donor/donation/deleteRejected/<%= pendingDonations[i]._id %>"
                                         class="donor-outline-btn">
+
                                         Okay
+
                                     </a>
+
 
                                 <% } else if(pendingDonations[i].status == "accepted") { %>
 
                                     <p>
+
                                         <i class="fas fa-check-circle"></i>
+
                                         Accepted. Waiting for agent assignment.
+
                                     </p>
+
 
                                 <% } else if(pendingDonations[i].status == "assigned") { %>
 
                                     <p>
+
                                         <i class="fas fa-user-check"></i>
+
                                         Agent
+
                                         <strong>
-                                            <%= pendingDonations[i].agent.firstName + " " + pendingDonations[i].agent.lastName %>
+
+                                            <%= pendingDonations[i].agent
+                                                ? pendingDonations[i].agent.firstName + " " +
+                                                  pendingDonations[i].agent.lastName
+                                                : "Assigned" %>
+
                                         </strong>
+
                                         has been assigned.
+
                                     </p>
 
                                 <% } %>

@@ -5,12 +5,16 @@
     <div id="main-wrapper">
 
         <div class="donor-topbar">
+
             <div>
                 <h1 class="donor-title">Previous Donations</h1>
-                <p class="donor-subtitle">Your completed food donation history.</p>
+                <p class="donor-subtitle">
+                    Your completed food donation history.
+                </p>
             </div>
 
             <div class="donor-user">
+
                 <div class="donor-notification">
                     <i class="fas fa-bell"></i>
                 </div>
@@ -20,20 +24,34 @@
                 </div>
 
                 <div class="donor-user-info">
-                    <strong><%= currentUser.firstName %> <%= currentUser.lastName %></strong>
+                    <strong>
+                        <%= currentUser.firstName %>
+                        <%= currentUser.lastName %>
+                    </strong>
                     <span>Donor</span>
                 </div>
+
             </div>
+
         </div>
 
 
         <div class="donor-content">
 
             <div class="donor-page-heading">
+
                 <div>
                     <h2>Donation History</h2>
-                    <p>See all the food you've successfully donated.</p>
+                    <p>
+                        See all the food you've successfully donated.
+                    </p>
                 </div>
+
+                <a href="/donor/donate" class="donor-primary-btn small">
+                    <i class="fas fa-plus"></i>
+                    Add Donation
+                </a>
+
             </div>
 
 
@@ -42,17 +60,22 @@
                 <% if (previousDonations.length === 0) { %>
 
                     <div class="donor-empty-state">
+
                         <div class="empty-icon">
                             <i class="fas fa-history"></i>
                         </div>
 
                         <h3>No previous donations</h3>
-                        <p>Your completed donations will appear here.</p>
+
+                        <p>
+                            Your completed donations will appear here.
+                        </p>
 
                         <a href="/donor/donate" class="donor-primary-btn">
                             <i class="fas fa-plus"></i>
                             Make Your First Donation
                         </a>
+
                     </div>
 
                 <% } else { %>
@@ -63,7 +86,9 @@
 
                             <thead>
                                 <tr>
-                                    <th>Food Item</th>
+                                    <th>Food</th>
+                                    <th>Image</th>
+                                    <th>Condition</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
                                     <th>Cooking Time</th>
@@ -78,38 +103,132 @@
 
                                     <tr>
 
+                                        <!-- Food -->
                                         <td>
                                             <strong>
                                                 <%= previousDonations[i].foodType %>
                                             </strong>
                                         </td>
 
+
+                                        <!-- Food Image -->
+                                        <td>
+
+                                            <% if (previousDonations[i].foodImage) { %>
+
+                                                <img
+                                                    src="/assets/uploads/<%= previousDonations[i].foodImage %>"
+                                                    alt="Food Image"
+                                                    class="donation-food-image"
+                                                >
+
+                                            <% } else { %>
+
+                                                <div class="donation-no-image">
+                                                    <i class="fas fa-image"></i>
+                                                </div>
+
+                                            <% } %>
+
+                                        </td>
+
+
+                                        <!-- Food Condition -->
+                                        <td>
+
+                                            <% if (previousDonations[i].foodCondition === "cooked") { %>
+
+                                                <span class="donation-condition cooked">
+                                                    <i class="fas fa-utensils"></i>
+                                                    Cooked
+                                                </span>
+
+                                            <% } else if (previousDonations[i].foodCondition === "raw") { %>
+
+                                                <span class="donation-condition raw">
+                                                    <i class="fas fa-carrot"></i>
+                                                    Raw
+                                                </span>
+
+                                            <% } else { %>
+
+                                                <span class="donation-condition">
+                                                    Not specified
+                                                </span>
+
+                                            <% } %>
+
+                                        </td>
+
+
+                                        <!-- Quantity -->
                                         <td>
                                             <%= previousDonations[i].quantity %>
                                         </td>
 
+
+                                        <!-- Status -->
                                         <td>
+
                                             <span class="donation-status status-collected">
                                                 Collected
                                             </span>
+
                                         </td>
 
+
+                                        <!-- Cooking Time -->
                                         <td>
-                                            <%= previousDonations[i].cookingTime.toLocaleString("en-IN", {
-                                                dateStyle: "medium",
-                                                timeStyle: "short"
-                                            }) %>
+
+                                            <% if (previousDonations[i].cookingTime) { %>
+
+                                                <%= previousDonations[i].cookingTime.toLocaleString("en-IN", {
+                                                    dateStyle: "medium",
+                                                    timeStyle: "short"
+                                                }) %>
+
+                                            <% } else { %>
+
+                                                -
+
+                                            <% } %>
+
                                         </td>
 
+
+                                        <!-- Agent -->
                                         <td>
-                                            <%= previousDonations[i].agent.firstName + " " + previousDonations[i].agent.lastName %>
+
+                                            <% if (previousDonations[i].agent) { %>
+
+                                                <%= previousDonations[i].agent.firstName %>
+                                                <%= previousDonations[i].agent.lastName %>
+
+                                            <% } else { %>
+
+                                                -
+
+                                            <% } %>
+
                                         </td>
 
+
+                                        <!-- Collection Time -->
                                         <td>
-                                            <%= previousDonations[i].collectionTime.toLocaleString("en-IN", {
-                                                dateStyle: "medium",
-                                                timeStyle: "short"
-                                            }) %>
+
+                                            <% if (previousDonations[i].collectionTime) { %>
+
+                                                <%= previousDonations[i].collectionTime.toLocaleString("en-IN", {
+                                                    dateStyle: "medium",
+                                                    timeStyle: "short"
+                                                }) %>
+
+                                            <% } else { %>
+
+                                                -
+
+                                            <% } %>
+
                                         </td>
 
                                     </tr>

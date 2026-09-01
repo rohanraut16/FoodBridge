@@ -1188,3 +1188,143 @@
         display: none;
     }
 }
+
+/* =====================================================
+   DONATION FOOD CONDITION + IMAGE
+   ===================================================== */
+
+.food-condition-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.food-condition-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.food-condition-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.food-condition-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 130px;
+    padding: 11px 18px;
+    border: 1px solid #dce7df;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #526158;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.food-condition-option span i {
+    color: #168443;
+}
+
+.food-condition-option input:checked + span {
+    background: #eaf7ef;
+    border-color: #168443;
+    color: #168443;
+    font-weight: 600;
+}
+
+.food-image-upload {
+    margin-top: 8px;
+}
+
+.food-image-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    padding: 25px;
+    border: 2px dashed #cddbd2;
+    border-radius: 12px;
+    background: #fbfdfb;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.food-image-label:hover {
+    border-color: #168443;
+    background: #f5fbf7;
+}
+
+.food-image-label i {
+    font-size: 30px;
+    color: #168443;
+    margin-bottom: 10px;
+}
+
+.food-image-label strong {
+    color: #34443b;
+    font-size: 13px;
+}
+
+.food-image-label small {
+    color: #87938c;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.food-image-input {
+    display: none;
+}
+
+.food-image-preview {
+    display: none;
+    margin-top: 12px;
+}
+
+.food-image-preview img {
+    width: 130px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #dce7df;
+}
+/* ===============================
+   DONATION FOOD IMAGE
+================================ */
+
+.donation-image-upload {
+    margin-top: 8px;
+}
+
+.donation-image-upload input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+
+/* ===============================
+   PENDING DONATION IMAGE
+================================ */
+
+.pending-food-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f1f5f9;
+}
+
+.pending-food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
