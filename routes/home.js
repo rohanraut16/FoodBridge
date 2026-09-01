@@ -1,59 +1,85 @@
 const express = require("express");
+
 const router = express.Router();
+
 
 // =========================
 // HOME PAGE
 // =========================
+
 router.get("/", (req, res) => {
-    res.render("home/welcome");
+    res.render("home/welcome", {
+        title: "FoodBridge - Home"
+    });
 });
+
 
 // =========================
 // ABOUT PAGE
 // =========================
+
 router.get("/about", (req, res) => {
-    res.render("home/aboutUs");
+    res.render("home/aboutUs", {
+        title: "About FoodBridge"
+    });
 });
 
-// Also support /aboutUs
 router.get("/aboutUs", (req, res) => {
-    res.render("home/aboutUs");
+    res.render("home/aboutUs", {
+        title: "About FoodBridge"
+    });
 });
 
+
 // =========================
-// HOW IT WORKS / MISSION
+// HOW IT WORKS
 // =========================
+
 router.get("/mission", (req, res) => {
-    res.render("home/mission");
+    res.render("home/mission", {
+        title: "How It Works"
+    });
 });
 
-// Also support /how-it-works
 router.get("/how-it-works", (req, res) => {
-    res.render("home/mission");
+    res.render("home/mission", {
+        title: "How It Works"
+    });
 });
 
-// Also support /howItWorks
 router.get("/howItWorks", (req, res) => {
-    res.render("home/mission");
+    res.render("home/mission", {
+        title: "How It Works"
+    });
 });
+
 
 // =========================
 // CONTACT PAGE
 // =========================
+
 router.get("/contact", (req, res) => {
-    res.render("home/contactUs");
+    res.render("home/contactUs", {
+        title: "Contact FoodBridge"
+    });
 });
 
-// Also support /contactUs
 router.get("/contactUs", (req, res) => {
-    res.render("home/contactUs");
+    res.render("home/contactUs", {
+        title: "Contact FoodBridge"
+    });
 });
+
 
 // =========================
 // WELCOME PAGE
 // =========================
+
 router.get("/welcome", (req, res) => {
-    res.render("home/welcome");
+    res.render("home/welcome", {
+        title: "FoodBridge - Home"
+    });
 });
+
 
 module.exports = router;

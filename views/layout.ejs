@@ -4,198 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FoodBridge</title>
+    <title><%= typeof title !== 'undefined' ? title : 'FoodBridge' %></title>
+
+    <link rel="stylesheet" href="/css/style.css">
 
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
+            margin: 0;
+            padding: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #ffffff;
-            color: #123b2a;
+            background: #f4fbf7;
+            color: #123d2b;
         }
 
-        /* =========================
-           NAVBAR
-        ========================= */
+        /* ================= NAVBAR ================= */
 
         .fb-navbar {
             width: 100%;
-            height: 88px;
+            min-height: 82px;
             background: #ffffff;
-            border-bottom: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5ebe7;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            padding: 0 7%;
+            padding: 0 6%;
             position: relative;
             z-index: 1000;
         }
 
-        /* LOGO */
-
-        .fb-logo {
+        .fb-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-
             text-decoration: none;
-            color: #087f45;
-
-            font-size: 30px;
-            font-weight: 700;
         }
 
-        .fb-logo-icon {
+        .fb-logo {
             width: 48px;
             height: 48px;
+            border-radius: 13px;
 
-            background: #138b4d;
-            border-radius: 14px;
+            background: #108d4b;
+            color: #ffffff;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            color: white;
             font-size: 25px;
+            font-weight: 700;
         }
 
-        /* NAV LINKS */
+        .fb-brand-name {
+            font-size: 27px;
+            font-weight: 700;
+            color: #087d43;
+            letter-spacing: -0.5px;
+        }
 
         .fb-nav-links {
             display: flex;
             align-items: center;
-            gap: 42px;
+            gap: 34px;
         }
 
         .fb-nav-links a {
+            color: #202522;
             text-decoration: none;
-            color: #16231d;
-
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 600;
-
             transition: 0.2s ease;
         }
 
         .fb-nav-links a:hover {
-            color: #138b4d;
+            color: #108d4b;
         }
 
-        /* BUTTONS */
-
-        .fb-nav-buttons {
+        .fb-nav-actions {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .fb-login {
             text-decoration: none;
+            color: #087d43;
+            border: 1.5px solid #108d4b;
 
-            border: 1.5px solid #138b4d;
-            color: #138b4d;
-
-            padding: 13px 25px;
+            padding: 11px 22px;
             border-radius: 8px;
 
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
 
             transition: 0.2s ease;
         }
 
         .fb-login:hover {
-            background: #f0faf5;
+            background: #effaf4;
         }
 
         .fb-signup {
             text-decoration: none;
+            color: #ffffff;
+            background: #108d4b;
 
-            background: #138b4d;
-            color: white;
-
-            padding: 14px 27px;
+            padding: 12px 22px;
             border-radius: 8px;
 
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
 
             transition: 0.2s ease;
         }
 
         .fb-signup:hover {
-            background: #0d713d;
+            background: #087d43;
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
+        /* ================= PAGE ================= */
+
+        .fb-page {
+            width: 100%;
+            min-height: calc(100vh - 82px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .fb-footer {
+            background: #123d2b;
+            color: #ffffff;
+            padding: 45px 6% 25px;
+        }
+
+        .fb-footer-grid {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 45px;
+        }
+
+        .fb-footer-brand {
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .fb-footer-description {
+            color: #c9d9d0;
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 330px;
+        }
+
+        .fb-footer h3 {
+            margin: 0 0 17px;
+            font-size: 16px;
+        }
+
+        .fb-footer a {
+            display: block;
+            color: #c9d9d0;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 11px;
+        }
+
+        .fb-footer a:hover {
+            color: #ffffff;
+        }
+
+        .fb-footer-bottom {
+            max-width: 1250px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+            color: #aebfb6;
+            font-size: 13px;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ================= MOBILE ================= */
 
         @media (max-width: 900px) {
 
             .fb-navbar {
-                height: auto;
-                min-height: 80px;
-                padding: 18px 5%;
-
+                padding: 15px 4%;
                 flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .fb-logo {
-                font-size: 25px;
+                gap: 15px;
             }
 
             .fb-nav-links {
                 order: 3;
                 width: 100%;
-
                 justify-content: center;
+                padding-bottom: 8px;
                 gap: 25px;
-
-                flex-wrap: wrap;
             }
 
-            .fb-nav-buttons {
-                gap: 8px;
-            }
-
-            .fb-login,
-            .fb-signup {
-                padding: 10px 16px;
+            .fb-footer-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 600px) {
 
-            .fb-navbar {
-                flex-direction: column;
-                align-items: center;
+            .fb-brand-name {
+                font-size: 22px;
+            }
+
+            .fb-logo {
+                width: 42px;
+                height: 42px;
             }
 
             .fb-nav-links {
-                gap: 18px;
+                gap: 14px;
             }
 
             .fb-nav-links a {
-                font-size: 14px;
+                font-size: 12px;
             }
 
-            .fb-nav-buttons {
-                width: 100%;
-                justify-content: center;
+            .fb-login,
+            .fb-signup {
+                padding: 9px 13px;
+                font-size: 12px;
+            }
+
+            .fb-footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fb-footer-bottom {
+                flex-direction: column;
             }
         }
     </style>
@@ -203,44 +258,51 @@
 
 <body>
 
-    <!-- =========================
-         FOODBRIDGE NAVBAR
-    ========================= -->
+    <!-- ================= NAVBAR ================= -->
 
     <header class="fb-navbar">
 
-        <!-- LOGO -->
-        <a href="/" class="fb-logo">
+        <a href="/" class="fb-brand">
 
-            <span class="fb-logo-icon">♻</span>
+            <div class="fb-logo">
+                ♻
+            </div>
 
-            <span>FoodBridge</span>
+            <span class="fb-brand-name">
+                FoodBridge
+            </span>
 
         </a>
 
 
-        <!-- NAVIGATION -->
         <nav class="fb-nav-links">
 
-            <a href="/">Home</a>
+            <a href="/">
+                Home
+            </a>
 
-            <a href="/aboutUs">About</a>
+            <a href="/aboutUs">
+                About
+            </a>
 
-            <a href="/mission">How It Works</a>
+            <a href="/mission">
+                How It Works
+            </a>
 
-            <a href="/contactUs">Contact</a>
+            <a href="/contactUs">
+                Contact
+            </a>
 
         </nav>
 
 
-        <!-- AUTH BUTTONS -->
-        <div class="fb-nav-buttons">
+        <div class="fb-nav-actions">
 
-            <a href="/login" class="fb-login">
+            <a href="/auth/login" class="fb-login">
                 Login
             </a>
 
-            <a href="/signup" class="fb-signup">
+            <a href="/auth/signup" class="fb-signup">
                 Sign Up
             </a>
 
@@ -249,14 +311,109 @@
     </header>
 
 
-    <!-- =========================
-         PAGE CONTENT
-    ========================= -->
+    <!-- ================= PAGE CONTENT ================= -->
 
-    <main>
+    <main class="fb-page">
+
         <%- body %>
+
     </main>
 
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="fb-footer">
+
+        <div class="fb-footer-grid">
+
+            <div>
+
+                <div class="fb-footer-brand">
+                    FoodBridge
+                </div>
+
+                <p class="fb-footer-description">
+                    Connecting surplus food donors with NGOs to reduce
+                    food waste and help communities in need.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Platform
+                </h3>
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/aboutUs">
+                    About
+                </a>
+
+                <a href="/mission">
+                    How It Works
+                </a>
+
+                <a href="/contactUs">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Get Started
+                </h3>
+
+                <a href="/auth/login">
+                    Login
+                </a>
+
+                <a href="/auth/signup">
+                    Sign Up
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    FoodBridge
+                </h3>
+
+                <a href="/contactUs">
+                    Contact Us
+                </a>
+
+                <a href="/mission">
+                    Our Mission
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="fb-footer-bottom">
+
+            <span>
+                © <%= new Date().getFullYear() %> FoodBridge. All rights reserved.
+            </span>
+
+            <span>
+                Reducing Waste • Creating Hope
+            </span>
+
+        </div>
+
+    </footer>
 
 </body>
 </html>

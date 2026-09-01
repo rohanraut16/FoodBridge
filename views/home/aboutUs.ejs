@@ -1,667 +1,507 @@
 <style>
-  * {
-    box-sizing: border-box;
-  }
-
-  .about-page {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #123d2b;
-    background: #f3fcf7;
-    min-height: calc(100vh - 105px);
-  }
-
-  /* HERO */
-
-  .about-hero {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 80px 60px 70px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 70px;
-    align-items: center;
-  }
-
-  .about-badge {
-    display: inline-block;
-    background: #dcf5e8;
-    color: #078447;
-    padding: 11px 22px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    margin-bottom: 25px;
-  }
-
-  .about-title {
-    margin: 0;
-    font-size: 64px;
-    line-height: 1.08;
-    font-weight: 500;
-    letter-spacing: -2px;
-  }
-
-  .about-title span {
-    color: #10904d;
-    font-weight: 600;
-  }
-
-  .about-text {
-    margin-top: 28px;
-    max-width: 650px;
-    font-size: 19px;
-    line-height: 1.7;
-    color: #527064;
-  }
-
-  /* VISUAL CARD */
-
-  .about-card {
-    height: 440px;
-    border-radius: 30px;
-    background: #d2f0df;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .about-circle-one {
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background: #e4f7ec;
-    right: -80px;
-    top: -90px;
-  }
-
-  .about-circle-two {
-    position: absolute;
-    width: 190px;
-    height: 190px;
-    border-radius: 50%;
-    background: #e5f8ed;
-    left: -75px;
-    bottom: -70px;
-  }
-
-  .about-card-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-
-  .about-icon {
-    width: 130px;
-    height: 130px;
-    border-radius: 25px;
-    background: #108b4d;
-    margin: 0 auto 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 65px;
-    box-shadow: 0 15px 30px rgba(0,0,0,.08);
-  }
-
-  .about-card-title {
-    margin: 0;
-    color: #087d43;
-    font-size: 28px;
-    font-weight: 700;
-  }
-
-  .about-card-text {
-    margin-top: 10px;
-    color: #527565;
-    font-size: 17px;
-  }
-
-  /* OUR PURPOSE */
-
-  .purpose-section {
-    background: white;
-    padding: 75px 40px;
-  }
-
-  .section-heading {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-
-  .section-heading h2 {
-    margin: 0;
-    font-size: 42px;
-    color: #123d2b;
-  }
-
-  .section-heading p {
-    margin: 15px auto 0;
-    max-width: 700px;
-    color: #61796e;
-    font-size: 18px;
-    line-height: 1.6;
-  }
-
-  .purpose-grid {
-    max-width: 1200px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .purpose-card {
-    padding: 32px;
-    background: #f8fdfa;
-    border: 1px solid #dcebe3;
-    border-radius: 18px;
-    transition: .2s ease;
-  }
-
-  .purpose-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(0,0,0,.06);
-  }
-
-  .purpose-icon {
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
-    background: #dff5e8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-
-  .purpose-card h3 {
-    margin: 0 0 12px;
-    font-size: 22px;
-    color: #123d2b;
-  }
-
-  .purpose-card p {
-    margin: 0;
-    color: #61786d;
-    line-height: 1.65;
-    font-size: 16px;
-  }
-
-  /* HOW WE HELP */
-
-  .help-section {
-    background: #f3fcf7;
-    padding: 80px 40px;
-  }
-
-  .help-content {
-    max-width: 1200px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 70px;
-    align-items: center;
-  }
-
-  .help-content h2 {
-    margin: 0 0 20px;
-    font-size: 42px;
-    color: #123d2b;
-  }
-
-  .help-content h2 span {
-    color: #10904d;
-  }
-
-  .help-content p {
-    color: #587266;
-    font-size: 18px;
-    line-height: 1.7;
-  }
-
-  .help-list {
-    margin-top: 25px;
-    padding: 0;
-    list-style: none;
-  }
-
-  .help-list li {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 18px;
-    font-size: 17px;
-    color: #315746;
-  }
-
-  .check {
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #d9f4e5;
-    color: #078447;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-
-  .help-box {
-    background: white;
-    border: 1px solid #dcebe3;
-    border-radius: 22px;
-    padding: 40px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.04);
-  }
-
-  .help-box h3 {
-    margin: 0 0 25px;
-    color: #123d2b;
-    font-size: 25px;
-  }
-
-  .help-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    margin-bottom: 25px;
-  }
-
-  .step-number {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #108b4d;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-  }
-
-  .help-step h4 {
-    margin: 0 0 5px;
-    color: #123d2b;
-    font-size: 17px;
-  }
-
-  .help-step p {
-    margin: 0;
-    color: #70847b;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* CTA */
-
-  .about-cta {
-    background: #087d43;
-    padding: 70px 30px;
-    text-align: center;
-    color: white;
-  }
-
-  .about-cta h2 {
-    margin: 0;
-    font-size: 40px;
-  }
-
-  .about-cta p {
-    max-width: 650px;
-    margin: 15px auto 30px;
-    font-size: 18px;
-    line-height: 1.6;
-    opacity: .92;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 15px 30px;
-    background: white;
-    color: #087d43;
-    border-radius: 9px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 17px;
-  }
-
-  .cta-button:hover {
-    background: #eefaf3;
-  }
-
-  /* RESPONSIVE */
-
-  @media (max-width: 1000px) {
+    .about-page {
+        background: #f5fbf7;
+        color: #123d2b;
+    }
 
     .about-hero {
-      grid-template-columns: 1fr;
-      padding: 60px 35px;
+        padding: 85px 7% 75px;
+        text-align: center;
+        background: #dff5e8;
     }
 
-    .about-title {
-      font-size: 55px;
+    .about-badge {
+        display: inline-block;
+        padding: 9px 17px;
+        border-radius: 30px;
+        background: #c8eed8;
+        color: #087f43;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 20px;
     }
 
-    .purpose-grid {
-      grid-template-columns: 1fr;
-      max-width: 600px;
+    .about-hero h1 {
+        margin: 0 0 18px;
+        font-size: clamp(42px, 5vw, 64px);
+        line-height: 1.1;
+        color: #123d2b;
     }
 
-    .help-content {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 600px) {
-
-    .about-hero {
-      padding: 45px 20px;
+    .about-hero h1 span {
+        color: #108d4b;
     }
 
-    .about-title {
-      font-size: 42px;
+    .about-hero p {
+        max-width: 720px;
+        margin: auto;
+        color: #60766b;
+        font-size: 17px;
+        line-height: 1.7;
     }
 
-    .about-text {
-      font-size: 17px;
+    .about-section {
+        padding: 85px 7%;
     }
 
-    .about-card {
-      height: 350px;
+    .about-container {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
     }
 
-    .purpose-section,
-    .help-section {
-      padding: 55px 20px;
+    .about-label {
+        color: #108d4b;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .section-heading h2,
-    .help-content h2 {
-      font-size: 32px;
+    .about-content h2 {
+        margin: 12px 0 18px;
+        font-size: 40px;
+        line-height: 1.2;
+        color: #123d2b;
+    }
+
+    .about-content p {
+        color: #6a7e74;
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .about-visual {
+        min-height: 370px;
+        background: #dff5e8;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .about-icon {
+        width: 190px;
+        height: 190px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 90px;
+        box-shadow: 0 20px 45px rgba(20, 80, 45, 0.12);
+    }
+
+    .about-cards {
+        position: absolute;
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .about-mini-card {
+        background: #ffffff;
+        padding: 14px 17px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(20, 80, 45, 0.10);
+        font-size: 13px;
+        font-weight: 700;
+        color: #123d2b;
+    }
+
+    .mission-section {
+        padding: 85px 7%;
+        background: #ffffff;
+    }
+
+    .center-heading {
+        max-width: 700px;
+        margin: 0 auto 50px;
+        text-align: center;
+    }
+
+    .center-heading h2 {
+        margin: 12px 0 15px;
+        font-size: 40px;
+        color: #123d2b;
+    }
+
+    .center-heading p {
+        margin: 0;
+        color: #6a7e74;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .about-feature-grid {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .about-feature {
+        padding: 30px;
+        border: 1px solid #e3ece7;
+        border-radius: 18px;
+        background: #f9fcfa;
+    }
+
+    .about-feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        background: #dff5e8;
+        color: #108d4b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+        margin-bottom: 20px;
+    }
+
+    .about-feature h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #123d2b;
+    }
+
+    .about-feature p {
+        margin: 0;
+        color: #71847b;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .about-cta {
+        padding: 75px 7%;
+        background: #dff5e8;
+        text-align: center;
     }
 
     .about-cta h2 {
-      font-size: 30px;
+        margin: 0 0 14px;
+        font-size: 38px;
+        color: #123d2b;
     }
-  }
+
+    .about-cta p {
+        max-width: 650px;
+        margin: 0 auto 27px;
+        color: #60766b;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .about-btn {
+        display: inline-block;
+        padding: 14px 25px;
+        background: #108d4b;
+        color: #ffffff;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .about-btn:hover {
+        background: #087d43;
+    }
+
+    @media (max-width: 850px) {
+        .about-container {
+            grid-template-columns: 1fr;
+        }
+
+        .about-feature-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .about-section,
+        .mission-section {
+            padding: 60px 5%;
+        }
+
+        .about-feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-content h2,
+        .center-heading h2 {
+            font-size: 31px;
+        }
+
+        .about-cards {
+            position: static;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .about-visual {
+            min-height: 330px;
+            padding: 25px;
+        }
+    }
 </style>
 
 
 <div class="about-page">
 
-  <!-- ABOUT HERO -->
+    <!-- ================= ABOUT HERO ================= -->
 
-  <section class="about-hero">
+    <section class="about-hero">
 
-    <div>
+        <span class="about-badge">
+            ABOUT FOODBRIDGE
+        </span>
 
-      <div class="about-badge">
-        ABOUT FOODBRIDGE
-      </div>
-
-      <h1 class="about-title">
-        Connecting Food.<br>
-        <span>Creating Impact.</span>
-      </h1>
-
-      <p class="about-text">
-        FoodBridge is a smart food redistribution platform designed
-        to connect surplus food donors with NGOs. Our goal is to make
-        safe and edible food redistribution easier, faster and more
-        transparent.
-      </p>
-
-    </div>
-
-
-    <div class="about-card">
-
-      <div class="about-circle-one"></div>
-      <div class="about-circle-two"></div>
-
-      <div class="about-card-content">
-
-        <div class="about-icon">
-          ♻️
-        </div>
-
-        <h2 class="about-card-title">
-          Food That Matters
-        </h2>
-
-        <p class="about-card-text">
-          Turning surplus food into meaningful support.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- OUR PURPOSE -->
-
-  <section class="purpose-section">
-
-    <div class="section-heading">
-
-      <h2>
-        Our Purpose
-      </h2>
-
-      <p>
-        FoodBridge focuses on reducing food waste while helping
-        surplus food reach people who need it.
-      </p>
-
-    </div>
-
-
-    <div class="purpose-grid">
-
-      <div class="purpose-card">
-
-        <div class="purpose-icon">
-          🍱
-        </div>
-
-        <h3>
-          Reduce Food Waste
-        </h3>
+        <h1>
+            Connecting Surplus Food<br>
+            <span>With Those Who Need It.</span>
+        </h1>
 
         <p>
-          Help prevent safe surplus food from being unnecessarily
-          wasted by connecting donors with organizations that can
-          redistribute it.
+            FoodBridge is a Smart Food Redistribution Platform
+            designed to create a digital bridge between food donors
+            and NGOs while helping reduce avoidable food waste.
         </p>
 
-      </div>
+    </section>
 
 
-      <div class="purpose-card">
+    <!-- ================= WHO WE ARE ================= -->
 
-        <div class="purpose-icon">
-          🤝
+    <section class="about-section">
+
+        <div class="about-container">
+
+            <div class="about-content">
+
+                <span class="about-label">
+                    Who We Are
+                </span>
+
+                <h2>
+                    Turning surplus into meaningful impact.
+                </h2>
+
+                <p>
+                    Restaurants, hotels, grocery stores and individuals
+                    can often have safe surplus food that goes unused.
+                    At the same time, NGOs work to support people who
+                    need food and resources.
+                </p>
+
+                <p>
+                    FoodBridge brings these two sides together through
+                    a centralized digital platform that helps coordinate
+                    food donations and redistribution.
+                </p>
+
+                <p>
+                    Our goal is simple: make food redistribution more
+                    organized, transparent and focused on safety.
+                </p>
+
+            </div>
+
+
+            <div class="about-visual">
+
+                <div class="about-icon">
+                    🍱
+                </div>
+
+                <div class="about-cards">
+
+                    <div class="about-mini-card">
+                        ✓ Safe Food
+                    </div>
+
+                    <div class="about-mini-card">
+                        ♻ Less Waste
+                    </div>
+
+                    <div class="about-mini-card">
+                        🤝 Community
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <h3>
-          Connect Donors & NGOs
-        </h3>
-
-        <p>
-          Create a digital bridge between food donors and NGOs
-          through a centralized redistribution platform.
-        </p>
-
-      </div>
+    </section>
 
 
-      <div class="purpose-card">
+    <!-- ================= WHAT WE DO ================= -->
 
-        <div class="purpose-icon">
-          🛡️
+    <section class="mission-section">
+
+        <div class="center-heading">
+
+            <span class="about-label">
+                What We Do
+            </span>
+
+            <h2>
+                Built around safe and responsible redistribution
+            </h2>
+
+            <p>
+                FoodBridge combines food quality checks, freshness
+                information, NGO verification and donation tracking
+                to support a reliable redistribution process.
+            </p>
+
         </div>
 
-        <h3>
-          Promote Safe Redistribution
-        </h3>
 
-        <p>
-          Support safer food redistribution through food quality
-          verification, freshness information and transparent tracking.
-        </p>
+        <div class="about-feature-grid">
 
-      </div>
+            <div class="about-feature">
 
-    </div>
+                <div class="about-feature-icon">
+                    ✓
+                </div>
 
-  </section>
+                <h3>
+                    Food Quality Verification
+                </h3>
+
+                <p>
+                    Rule-based food quality verification helps evaluate
+                    whether donated food meets defined safety criteria.
+                </p>
+
+            </div>
 
 
-  <!-- HOW FOODBRIDGE HELPS -->
+            <div class="about-feature">
 
-  <section class="help-section">
+                <div class="about-feature-icon">
+                    ⏱
+                </div>
 
-    <div class="help-content">
+                <h3>
+                    Freshness Score
+                </h3>
 
-      <div>
+                <p>
+                    Freshness score calculation provides useful
+                    information about the condition of donated food.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Shelf-Life Prediction
+                </h3>
+
+                <p>
+                    Shelf-life prediction helps support better
+                    decisions about the usability of surplus food.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    NGO Physical Verification
+                </h3>
+
+                <p>
+                    NGO verification helps maintain a more trusted
+                    network of organizations on the platform.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Donation Status Tracking
+                </h3>
+
+                <p>
+                    Donation status tracking helps users understand
+                    the progress of food redistribution.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Donor Trust Score
+                </h3>
+
+                <p>
+                    Donor trust score management encourages responsible
+                    participation and reliable donations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="about-cta">
 
         <h2>
-          How FoodBridge
-          <span>Makes a Difference</span>
+            Be Part of the FoodBridge
         </h2>
 
         <p>
-          FoodBridge brings the important steps of food redistribution
-          together in one platform, helping donors and NGOs manage
-          donations more effectively.
+            Whether you want to donate surplus food or learn more
+            about our platform, every contribution can help create
+            a stronger food redistribution network.
         </p>
 
-        <ul class="help-list">
+        <a href="/auth/signup" class="about-btn">
+            Join FoodBridge
+        </a>
 
-          <li>
-            <span class="check">✓</span>
-            Food donors can share surplus food.
-          </li>
-
-          <li>
-            <span class="check">✓</span>
-            Food quality and freshness can be evaluated.
-          </li>
-
-          <li>
-            <span class="check">✓</span>
-            NGOs can discover available donations.
-          </li>
-
-          <li>
-            <span class="check">✓</span>
-            Donation status can be tracked.
-          </li>
-
-          <li>
-            <span class="check">✓</span>
-            Donor trust can be built through transparent records.
-          </li>
-
-        </ul>
-
-      </div>
-
-
-      <div class="help-box">
-
-        <h3>
-          The FoodBridge Journey
-        </h3>
-
-        <div class="help-step">
-
-          <div class="step-number">1</div>
-
-          <div>
-            <h4>Donate</h4>
-            <p>
-              A donor adds safe surplus food to the platform.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="help-step">
-
-          <div class="step-number">2</div>
-
-          <div>
-            <h4>Verify</h4>
-            <p>
-              Food information and quality details are evaluated.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="help-step">
-
-          <div class="step-number">3</div>
-
-          <div>
-            <h4>Connect</h4>
-            <p>
-              NGOs can find suitable available donations.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="help-step">
-
-          <div class="step-number">4</div>
-
-          <div>
-            <h4>Redistribute</h4>
-            <p>
-              Food reaches the people who need it instead of going to waste.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CTA -->
-
-  <section class="about-cta">
-
-    <h2>
-      Be Part of the FoodBridge
-    </h2>
-
-    <p>
-      Together, we can turn surplus food into support and help build
-      a more responsible and caring food redistribution system.
-    </p>
-
-    <a href="/home/contactUs" class="cta-button">
-      Contact Us
-    </a>
-
-  </section>
+    </section>
 
 </div>

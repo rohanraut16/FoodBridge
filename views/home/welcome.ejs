@@ -1,512 +1,943 @@
+<!-- ================= FOODBRIDGE HOME PAGE ================= -->
+
 <style>
-  * {
-    box-sizing: border-box;
-  }
-
-  .fb-home {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #123d2b;
-    background: #f3fcf7;
-    min-height: calc(100vh - 105px);
-  }
-
-  .fb-hero {
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 90px 70px 70px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 70px;
-    align-items: center;
-  }
-
-  .fb-badge {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 30px;
-    background: #dcf5e8;
-    color: #087b42;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    margin-bottom: 30px;
-  }
-
-  .fb-title {
-    margin: 0;
-    font-size: 76px;
-    line-height: 1.05;
-    font-weight: 500;
-    letter-spacing: -2px;
-  }
-
-  .fb-title span {
-    color: #149451;
-    font-weight: 600;
-  }
-
-  .fb-description {
-    max-width: 700px;
-    margin: 30px 0;
-    font-size: 20px;
-    line-height: 1.65;
-    color: #496b5c;
-  }
-
-  .fb-buttons {
-    display: flex;
-    gap: 18px;
-    margin-top: 30px;
-  }
-
-  .fb-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 175px;
-    padding: 17px 28px;
-    border-radius: 9px;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 700;
-    transition: 0.2s ease;
-  }
-
-  .fb-btn-primary {
-    background: #108b4d;
-    color: white;
-    border: 2px solid #108b4d;
-  }
-
-  .fb-btn-primary:hover {
-    background: #08783f;
-    border-color: #08783f;
-  }
-
-  .fb-btn-outline {
-    background: white;
-    color: #108b4d;
-    border: 2px solid #108b4d;
-  }
-
-  .fb-btn-outline:hover {
-    background: #eaf8f0;
-  }
-
-  /* Right hero card */
-
-  .fb-visual {
-    height: 520px;
-    border-radius: 30px;
-    background: #d1f0de;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .fb-circle-top {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: #e4f7ec;
-    right: -90px;
-    top: -100px;
-  }
-
-  .fb-circle-bottom {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: #e3f7ec;
-    left: -100px;
-    bottom: -100px;
-  }
-
-  .fb-food-icons {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 35px;
-    margin-bottom: 40px;
-  }
-
-  .fb-food-box {
-    width: 125px;
-    height: 105px;
-    border-radius: 12px;
-    background: #65518d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 58px;
-    transform: rotate(2deg);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.08);
-  }
-
-  .fb-food-bowl {
-    width: 125px;
-    height: 85px;
-    border-radius: 0 0 60px 60px;
-    background: #aaa5c2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 55px;
-    box-shadow: 0 12px 20px rgba(0,0,0,0.08);
-  }
-
-  .fb-visual-title {
-    position: relative;
-    z-index: 2;
-    color: #078447;
-    font-size: 26px;
-    font-weight: 700;
-    margin: 0 0 12px;
-    text-align: center;
-  }
-
-  .fb-visual-text {
-    position: relative;
-    z-index: 2;
-    color: #4b7562;
-    font-size: 18px;
-    margin: 0;
-    text-align: center;
-  }
-
-  /* Statistics */
-
-  .fb-stats {
-    max-width: 1350px;
-    margin: -10px auto 70px;
-    padding: 0 30px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    position: relative;
-    z-index: 5;
-  }
-
-  .fb-stat {
-    background: white;
-    border: 1px solid #d9e9e1;
-    border-radius: 18px;
-    padding: 32px 20px;
-    text-align: center;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.04);
-  }
-
-  .fb-stat-number {
-    display: block;
-    color: #07904d;
-    font-size: 38px;
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-
-  .fb-stat-label {
-    color: #537064;
-    font-size: 18px;
-  }
-
-  /* Features */
-
-  .fb-features {
-    background: white;
-    padding: 70px 50px;
-  }
-
-  .fb-section-title {
-    text-align: center;
-    color: #123d2b;
-    font-size: 40px;
-    margin: 0 0 15px;
-  }
-
-  .fb-section-subtitle {
-    text-align: center;
-    color: #61796e;
-    font-size: 18px;
-    margin: 0 auto 45px;
-  }
-
-  .fb-feature-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-
-  .fb-feature {
-    border: 1px solid #dcebe3;
-    border-radius: 18px;
-    padding: 30px;
-    background: #fbfffd;
-  }
-
-  .fb-feature-icon {
-    width: 55px;
-    height: 55px;
-    border-radius: 12px;
-    background: #dff5e8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 27px;
-    margin-bottom: 20px;
-  }
-
-  .fb-feature h3 {
-    margin: 0 0 10px;
-    font-size: 21px;
-    color: #123d2b;
-  }
-
-  .fb-feature p {
-    margin: 0;
-    color: #60786d;
-    line-height: 1.6;
-    font-size: 16px;
-  }
-
-  /* Mobile */
-
-  @media (max-width: 1000px) {
-    .fb-hero {
-      grid-template-columns: 1fr;
-      padding: 60px 35px;
+    * {
+        box-sizing: border-box;
     }
 
-    .fb-title {
-      font-size: 58px;
+    .home-page {
+        background: #f5fbf7;
+        color: #123d2b;
+        overflow: hidden;
     }
 
-    .fb-visual {
-      height: 430px;
+    /* ================= HERO ================= */
+
+    .hero {
+        min-height: 650px;
+        padding: 75px 7% 65px;
+
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: 60px;
+
+        background:
+            radial-gradient(circle at 90% 20%, rgba(30, 180, 95, 0.12), transparent 35%),
+            #f5fbf7;
     }
 
-    .fb-stats {
-      grid-template-columns: 1fr;
-      margin-top: 0;
+    .hero-content {
+        max-width: 650px;
     }
 
-    .fb-feature-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
 
-  @media (max-width: 600px) {
-    .fb-hero {
-      padding: 40px 20px;
-    }
+        padding: 9px 16px;
 
-    .fb-title {
-      font-size: 43px;
-    }
+        background: #dff5e8;
+        color: #087f43;
 
-    .fb-description {
-      font-size: 17px;
-    }
+        border-radius: 30px;
 
-    .fb-buttons {
-      flex-direction: column;
+        font-size: 13px;
+        font-weight: 700;
+
+        margin-bottom: 25px;
     }
 
-    .fb-btn {
-      width: 100%;
+    .hero-badge span {
+        width: 8px;
+        height: 8px;
+
+        background: #119447;
+        border-radius: 50%;
     }
 
-    .fb-visual {
-      height: 360px;
+    .hero h1 {
+        margin: 0;
+
+        font-size: clamp(48px, 6vw, 76px);
+        line-height: 1.02;
+
+        letter-spacing: -2.5px;
+
+        color: #123d2b;
     }
 
-    .fb-food-box,
-    .fb-food-bowl {
-      width: 90px;
-      height: 80px;
-      font-size: 40px;
+    .hero h1 .green {
+        color: #119447;
     }
 
-    .fb-visual-title {
-      font-size: 21px;
+    .hero-description {
+        max-width: 590px;
+
+        margin: 27px 0 32px;
+
+        color: #60766b;
+
+        font-size: 18px;
+        line-height: 1.7;
     }
 
-    .fb-visual-text {
-      font-size: 15px;
+    .hero-buttons {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        flex-wrap: wrap;
     }
 
-    .fb-features {
-      padding: 50px 20px;
+    .primary-btn,
+    .secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 155px;
+
+        padding: 14px 24px;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        transition: 0.2s ease;
     }
-  }
+
+    .primary-btn {
+        background: #108d4b;
+        color: #ffffff;
+    }
+
+    .primary-btn:hover {
+        background: #087d43;
+        transform: translateY(-2px);
+    }
+
+    .secondary-btn {
+        background: #ffffff;
+        color: #087f43;
+
+        border: 1.5px solid #108d4b;
+    }
+
+    .secondary-btn:hover {
+        background: #eaf8f0;
+        transform: translateY(-2px);
+    }
+
+    /* ================= HERO VISUAL ================= */
+
+    .hero-visual {
+        position: relative;
+        min-height: 480px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .visual-card {
+        width: min(440px, 100%);
+        min-height: 420px;
+
+        background: #dff5e8;
+
+        border-radius: 35px;
+
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-shadow: 0 25px 55px rgba(25, 100, 55, 0.10);
+    }
+
+    .food-circle {
+        width: 245px;
+        height: 245px;
+
+        background: #ffffff;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 125px;
+
+        box-shadow: 0 20px 40px rgba(20, 80, 45, 0.12);
+    }
+
+    .floating-card {
+        position: absolute;
+
+        background: #ffffff;
+
+        padding: 16px 19px;
+
+        border-radius: 13px;
+
+        box-shadow: 0 12px 35px rgba(20, 80, 45, 0.13);
+
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .floating-card strong {
+        display: block;
+        color: #123d2b;
+        font-size: 14px;
+    }
+
+    .floating-card small {
+        color: #71847b;
+        font-size: 11px;
+    }
+
+    .floating-icon {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 10px;
+
+        background: #dff5e8;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 19px;
+    }
+
+    .card-one {
+        left: -25px;
+        top: 65px;
+    }
+
+    .card-two {
+        right: -25px;
+        bottom: 65px;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats {
+        background: #ffffff;
+
+        padding: 45px 7%;
+
+        border-top: 1px solid #e7eee9;
+        border-bottom: 1px solid #e7eee9;
+    }
+
+    .stats-grid {
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+    }
+
+    .stat {
+        text-align: center;
+
+        padding: 15px;
+    }
+
+    .stat h2 {
+        margin: 0 0 7px;
+
+        font-size: 34px;
+        color: #108d4b;
+    }
+
+    .stat p {
+        margin: 0;
+
+        color: #71847b;
+        font-size: 14px;
+    }
+
+    /* ================= INTRO ================= */
+
+    .intro {
+        padding: 90px 7%;
+
+        background: #f5fbf7;
+    }
+
+    .section-heading {
+        max-width: 720px;
+        margin: 0 auto 55px;
+
+        text-align: center;
+    }
+
+    .section-label {
+        color: #108d4b;
+
+        font-size: 13px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+        margin: 12px 0 15px;
+
+        color: #123d2b;
+
+        font-size: 42px;
+        line-height: 1.15;
+    }
+
+    .section-heading p {
+        margin: 0;
+
+        color: #6a7e74;
+
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* ================= FEATURES ================= */
+
+    .features-grid {
+        max-width: 1150px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 22px;
+    }
+
+    .feature-card {
+        background: #ffffff;
+
+        border: 1px solid #e3ece7;
+
+        border-radius: 18px;
+
+        padding: 30px;
+
+        transition: 0.2s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow: 0 15px 35px rgba(20, 80, 45, 0.08);
+    }
+
+    .feature-icon {
+        width: 54px;
+        height: 54px;
+
+        background: #dff5e8;
+        color: #108d4b;
+
+        border-radius: 14px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 25px;
+
+        margin-bottom: 22px;
+    }
+
+    .feature-card h3 {
+        margin: 0 0 10px;
+
+        color: #123d2b;
+
+        font-size: 19px;
+    }
+
+    .feature-card p {
+        margin: 0;
+
+        color: #71847b;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* ================= HOW IT WORKS ================= */
+
+    .process {
+        padding: 90px 7%;
+
+        background: #ffffff;
+    }
+
+    .process-grid {
+        max-width: 1100px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 30px;
+    }
+
+    .process-card {
+        text-align: center;
+
+        padding: 25px;
+    }
+
+    .process-number {
+        width: 58px;
+        height: 58px;
+
+        margin: 0 auto 20px;
+
+        border-radius: 50%;
+
+        background: #108d4b;
+        color: #ffffff;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .process-card h3 {
+        margin: 0 0 10px;
+
+        font-size: 19px;
+        color: #123d2b;
+    }
+
+    .process-card p {
+        margin: 0;
+
+        color: #71847b;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+        padding: 75px 7%;
+
+        background: #dff5e8;
+    }
+
+    .cta-box {
+        max-width: 1050px;
+        margin: auto;
+
+        text-align: center;
+    }
+
+    .cta-box h2 {
+        margin: 0 0 15px;
+
+        color: #123d2b;
+
+        font-size: 42px;
+    }
+
+    .cta-box p {
+        max-width: 650px;
+        margin: 0 auto 28px;
+
+        color: #5f756a;
+
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 950px) {
+
+        .hero {
+            grid-template-columns: 1fr;
+            padding-top: 55px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .hero-description {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            justify-content: center;
+        }
+
+        .hero-visual {
+            min-height: 430px;
+        }
+
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 650px) {
+
+        .hero {
+            padding: 45px 5%;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+        }
+
+        .visual-card {
+            min-height: 350px;
+        }
+
+        .food-circle {
+            width: 190px;
+            height: 190px;
+            font-size: 95px;
+        }
+
+        .card-one {
+            left: 0;
+            top: 35px;
+        }
+
+        .card-two {
+            right: 0;
+            bottom: 35px;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .intro,
+        .process {
+            padding: 65px 5%;
+        }
+
+        .section-heading h2,
+        .cta-box h2 {
+            font-size: 32px;
+        }
+
+        .features-grid,
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cta {
+            padding: 60px 5%;
+        }
+    }
 </style>
 
 
-<div class="fb-home">
+<div class="home-page">
 
-  <!-- HERO -->
-  <section class="fb-hero">
+    <!-- ================= HERO ================= -->
 
-    <div class="fb-hero-content">
+    <section class="hero">
 
-      <div class="fb-badge">
-        SMART FOOD REDISTRIBUTION PLATFORM
-      </div>
+        <div class="hero-content">
 
-      <h1 class="fb-title">
-        Bridging Food.<br>
-        <span>Building Hope.</span>
-      </h1>
+            <div class="hero-badge">
+                <span></span>
+                SMART FOOD REDISTRIBUTION PLATFORM
+            </div>
 
-      <p class="fb-description">
-        FoodBridge connects surplus food donors with NGOs and helps ensure
-        safe and edible surplus food reaches people who need it instead
-        of going to waste.
-      </p>
+            <h1>
+                Bridging Food.<br>
+                <span class="green">Building Hope.</span>
+            </h1>
 
-      <div class="fb-buttons">
+            <p class="hero-description">
+                FoodBridge connects food donors with verified NGOs,
+                helping safe surplus food reach people who need it
+                while reducing unnecessary food waste.
+            </p>
 
-        <a href="/auth/login" class="fb-btn fb-btn-primary">
-          Donate Food
-        </a>
+            <div class="hero-buttons">
 
-        <a href="/home/aboutUs" class="fb-btn fb-btn-outline">
-          Learn More
-        </a>
+                <a href="/auth/login" class="primary-btn">
+                    Donate Food
+                </a>
 
-      </div>
+                <a href="/mission" class="secondary-btn">
+                    Learn More
+                </a>
 
-    </div>
+            </div>
 
-
-    <!-- RIGHT VISUAL -->
-    <div class="fb-visual">
-
-      <div class="fb-circle-top"></div>
-      <div class="fb-circle-bottom"></div>
-
-      <div class="fb-food-icons">
-
-        <div class="fb-food-box">
-          🥕
         </div>
 
-        <div class="fb-food-bowl">
-          🥗
+
+        <div class="hero-visual">
+
+            <div class="visual-card">
+
+                <div class="food-circle">
+                    🍱
+                </div>
+
+                <div class="floating-card card-one">
+
+                    <div class="floating-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Verified Food</strong>
+                        <small>Quality checked</small>
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card card-two">
+
+                    <div class="floating-icon">
+                        ♻
+                    </div>
+
+                    <div>
+                        <strong>Less Waste</strong>
+                        <small>More impact</small>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-      </div>
-
-      <h2 class="fb-visual-title">
-        Share Food • Spread Hope
-      </h2>
-
-      <p class="fb-visual-text">
-        Turning surplus into meaningful support.
-      </p>
-
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- STATISTICS -->
-  <section class="fb-stats">
+    <!-- ================= STATS ================= -->
 
-    <div class="fb-stat">
-      <span class="fb-stat-number">1200+</span>
-      <span class="fb-stat-label">Food Donations</span>
-    </div>
+    <section class="stats">
 
-    <div class="fb-stat">
-      <span class="fb-stat-number">350+</span>
-      <span class="fb-stat-label">NGOs Connected</span>
-    </div>
+        <div class="stats-grid">
 
-    <div class="fb-stat">
-      <span class="fb-stat-number">20K+</span>
-      <span class="fb-stat-label">Meals Reached</span>
-    </div>
+            <div class="stat">
 
-  </section>
+                <h2>Food</h2>
+
+                <p>
+                    Surplus food redirected to communities
+                </p>
+
+            </div>
 
 
-  <!-- FEATURES -->
-  <section class="fb-features">
+            <div class="stat">
 
-    <h2 class="fb-section-title">
-      Why FoodBridge?
-    </h2>
+                <h2>NGOs</h2>
 
-    <p class="fb-section-subtitle">
-      Making food redistribution safe, transparent and meaningful.
-    </p>
+                <p>
+                    Connecting donors with organizations
+                </p>
+
+            </div>
 
 
-    <div class="fb-feature-grid">
+            <div class="stat">
 
-      <div class="fb-feature">
+                <h2>Impact</h2>
 
-        <div class="fb-feature-icon">
-          🛡️
+                <p>
+                    Working together to reduce food waste
+                </p>
+
+            </div>
+
         </div>
 
-        <h3>
-          Safe & Verified Food
-        </h3>
-
-        <p>
-          Food quality is checked before the donation reaches NGOs,
-          helping ensure safe redistribution.
-        </p>
-
-      </div>
+    </section>
 
 
-      <div class="fb-feature">
+    <!-- ================= FEATURES ================= -->
 
-        <div class="fb-feature-icon">
-          📍
+    <section class="intro">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                Why FoodBridge
+            </span>
+
+            <h2>
+                A smarter way to redistribute surplus food
+            </h2>
+
+            <p>
+                FoodBridge creates a digital bridge between donors
+                and NGOs with a focus on safety, transparency and
+                efficient food redistribution.
+            </p>
+
         </div>
 
-        <h3>
-          Real-time Updates
-        </h3>
 
-        <p>
-          Track donation progress and status at every stage of
-          the redistribution process.
-        </p>
+        <div class="features-grid">
 
-      </div>
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Rule-Based Food Verification
+                </h3>
+
+                <p>
+                    Food information is checked using defined
+                    quality and safety rules before redistribution.
+                </p>
+
+            </div>
 
 
-      <div class="fb-feature">
+            <div class="feature-card">
 
-        <div class="fb-feature-icon">
-          🤝
+                <div class="feature-icon">
+                    ⏱
+                </div>
+
+                <h3>
+                    Freshness & Shelf-Life
+                </h3>
+
+                <p>
+                    Freshness score calculation and shelf-life
+                    prediction help support safer donation decisions.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    NGO Verification
+                </h3>
+
+                <p>
+                    NGO physical verification helps create a more
+                    trustworthy food redistribution network.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Donation Tracking
+                </h3>
+
+                <p>
+                    Donors and organizations can follow donation
+                    progress through status tracking.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Donor Trust Score
+                </h3>
+
+                <p>
+                    Donor trust score management encourages
+                    responsible and reliable participation.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Donor–NGO Connection
+                </h3>
+
+                <p>
+                    FoodBridge provides a centralized platform
+                    for donors and NGOs to coordinate donations.
+                </p>
+
+            </div>
+
         </div>
 
-        <h3>
-          Trusted & Transparent
-        </h3>
+    </section>
 
-        <p>
-          Build trust between donors and NGOs through verification,
-          tracking and transparent donation records.
-        </p>
 
-      </div>
+    <!-- ================= PROCESS ================= -->
 
-    </div>
+    <section class="process">
 
-  </section>
+        <div class="section-heading">
+
+            <span class="section-label">
+                How It Works
+            </span>
+
+            <h2>
+                From surplus food to meaningful impact
+            </h2>
+
+            <p>
+                A simple flow that helps make food redistribution
+                safer and more organized.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    01
+                </div>
+
+                <h3>
+                    Donate
+                </h3>
+
+                <p>
+                    Donors provide information about their safe
+                    surplus food through FoodBridge.
+                </p>
+
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    02
+                </div>
+
+                <h3>
+                    Verify
+                </h3>
+
+                <p>
+                    Food quality, freshness and shelf-life are
+                    evaluated according to the platform rules.
+                </p>
+
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    03
+                </div>
+
+                <h3>
+                    Redistribute
+                </h3>
+
+                <p>
+                    Verified NGOs coordinate the donation so safe
+                    food can reach people in need.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <div class="cta-box">
+
+            <h2>
+                Together, We Can Reduce Food Waste.
+            </h2>
+
+            <p>
+                Join FoodBridge and become part of a digital
+                food redistribution network connecting surplus
+                food with organizations that can put it to good use.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/auth/login" class="primary-btn">
+                    Donate Food
+                </a>
+
+                <a href="/contactUs" class="secondary-btn">
+                    Contact Us
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </div>
