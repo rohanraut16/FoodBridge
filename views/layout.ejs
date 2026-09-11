@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><%= typeof title !== 'undefined' ? title : 'FoodBridge' %></title>
+    <meta name="theme-color" content="#108d4b">
 
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    >
+
+    <!-- Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2qZ6jIW3"
+        crossorigin="anonymous"
+    >
+
+    <!-- Existing project CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/donor.css">
+
+    <!-- FoodBridge Home CSS -->
     <link rel="stylesheet" href="/css/style.css">
 
+    <title>
+        <%= typeof title !== 'undefined' ? title : 'FoodBridge' %>
+    </title>
+
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -21,7 +52,7 @@
             color: #123d2b;
         }
 
-        /* ================= NAVBAR ================= */
+        /* ================= PUBLIC NAVBAR ================= */
 
         .fb-navbar {
             width: 100%;
@@ -128,7 +159,7 @@
             background: #087d43;
         }
 
-        /* ================= PAGE ================= */
+        /* ================= PUBLIC PAGE ================= */
 
         .fb-page {
             width: 100%;
@@ -253,98 +284,32 @@
                 flex-direction: column;
             }
         }
+
     </style>
+
 </head>
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+    <!-- ================= PUBLIC NAVBAR ================= -->
 
-    <header class="fb-navbar">
+    <% if (typeof currentUser === 'undefined' || !currentUser || currentUser.role !== 'donor') { %>
 
-        <a href="/" class="fb-brand">
+        <header class="fb-navbar">
 
-            <div class="fb-logo">
-                ♻
-            </div>
+            <a href="/" class="fb-brand">
 
-            <span class="fb-brand-name">
-                FoodBridge
-            </span>
-
-        </a>
-
-
-        <nav class="fb-nav-links">
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/aboutUs">
-                About
-            </a>
-
-            <a href="/mission">
-                How It Works
-            </a>
-
-            <a href="/contactUs">
-                Contact
-            </a>
-
-        </nav>
-
-
-        <div class="fb-nav-actions">
-
-            <a href="/auth/login" class="fb-login">
-                Login
-            </a>
-
-            <a href="/auth/signup" class="fb-signup">
-                Sign Up
-            </a>
-
-        </div>
-
-    </header>
-
-
-    <!-- ================= PAGE CONTENT ================= -->
-
-    <main class="fb-page">
-
-        <%- body %>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="fb-footer">
-
-        <div class="fb-footer-grid">
-
-            <div>
-
-                <div class="fb-footer-brand">
-                    FoodBridge
+                <div class="fb-logo">
+                    ♻
                 </div>
 
-                <p class="fb-footer-description">
-                    Connecting surplus food donors with NGOs to reduce
-                    food waste and help communities in need.
-                </p>
+                <span class="fb-brand-name">
+                    FoodBridge
+                </span>
 
-            </div>
+            </a>
 
-
-            <div>
-
-                <h3>
-                    Platform
-                </h3>
+            <nav class="fb-nav-links">
 
                 <a href="/">
                     Home
@@ -362,58 +327,145 @@
                     Contact
                 </a>
 
-            </div>
+            </nav>
 
+            <div class="fb-nav-actions">
 
-            <div>
-
-                <h3>
-                    Get Started
-                </h3>
-
-                <a href="/auth/login">
+                <a href="/auth/login" class="fb-login">
                     Login
                 </a>
 
-                <a href="/auth/signup">
+                <a href="/auth/signup" class="fb-signup">
                     Sign Up
                 </a>
 
             </div>
 
+        </header>
 
-            <div>
+    <% } %>
 
-                <h3>
-                    FoodBridge
-                </h3>
 
-                <a href="/contactUs">
-                    Contact Us
-                </a>
+    <!-- ================= ALERTS ================= -->
 
-                <a href="/mission">
-                    Our Mission
-                </a>
+    <%- include('partials/alerts') %>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main class="fb-page">
+
+        <%- body %>
+
+    </main>
+
+
+    <!-- ================= PUBLIC FOOTER ================= -->
+
+    <% if (typeof currentUser === 'undefined' || !currentUser || currentUser.role !== 'donor') { %>
+
+        <footer class="fb-footer">
+
+            <div class="fb-footer-grid">
+
+                <div>
+
+                    <div class="fb-footer-brand">
+                        FoodBridge
+                    </div>
+
+                    <p class="fb-footer-description">
+                        Connecting surplus food donors with NGOs to reduce
+                        food waste and help communities in need.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Platform
+                    </h3>
+
+                    <a href="/">
+                        Home
+                    </a>
+
+                    <a href="/aboutUs">
+                        About
+                    </a>
+
+                    <a href="/mission">
+                        How It Works
+                    </a>
+
+                    <a href="/contactUs">
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Get Started
+                    </h3>
+
+                    <a href="/auth/login">
+                        Login
+                    </a>
+
+                    <a href="/auth/signup">
+                        Sign Up
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        FoodBridge
+                    </h3>
+
+                    <a href="/contactUs">
+                        Contact Us
+                    </a>
+
+                    <a href="/mission">
+                        Our Mission
+                    </a>
+
+                </div>
 
             </div>
 
-        </div>
+
+            <div class="fb-footer-bottom">
+
+                <span>
+                    © <%= new Date().getFullYear() %> FoodBridge. All rights reserved.
+                </span>
+
+                <span>
+                    Reducing Waste • Creating Hope
+                </span>
+
+            </div>
+
+        </footer>
+
+    <% } %>
 
 
-        <div class="fb-footer-bottom">
+    <!-- ================= SCRIPTS ================= -->
 
-            <span>
-                © <%= new Date().getFullYear() %> FoodBridge. All rights reserved.
-            </span>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-            <span>
-                Reducing Waste • Creating Hope
-            </span>
-
-        </div>
-
-    </footer>
+    <script src="/assets/js/script.js"></script>
 
 </body>
+
 </html>

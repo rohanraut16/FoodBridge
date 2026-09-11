@@ -1,11 +1,61 @@
-<div id="sidebar">
-	<ul id="sidebar-nav">
-		<li>Welcome <%= currentUser.firstName %></li>
-		<li><a href="/donor/dashboard">Dashboard</a></li>
-		<li><a href="/donor/donate">Donate</a></li>
-		<li><a href="/donor/donations/pending">My Pending Donations</a></li>
-		<li><a href="/donor/donations/previous">My Previous Donations</a></li>
-		<li><a href="/donor/profile">My Profile</a></li>
-		<li><a href="/auth/logout" class="btn">Logout</a></li>
-	</ul>
-</div>
+<aside class="donor-sidebar">
+
+    <!-- Logo -->
+    <div class="donor-logo">
+        <div class="donor-logo-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <span>FoodBridge</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="donor-nav">
+
+        <a href="/donor/dashboard"
+           class="<%= title === 'Dashboard' ? 'active' : '' %>">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/donor/donate"
+           class="<%= title === 'Donate' ? 'active' : '' %>">
+            <i class="fas fa-plus-square"></i>
+            <span>Add Donation</span>
+        </a>
+
+        <a href="/donor/donations/pending"
+           class="<%= title === 'Pending Donations' ? 'active' : '' %>">
+            <i class="fas fa-clock"></i>
+            <span>Pending Donations</span>
+        </a>
+
+        <a href="/donor/donations/previous"
+           class="<%= title === 'Previous Donations' ? 'active' : '' %>">
+            <i class="fas fa-history"></i>
+            <span>Previous Donations</span>
+        </a>
+
+        <a href="/donor/profile"
+           class="<%= title === 'My Profile' ? 'active' : '' %>">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+
+    </nav>
+
+    <!-- Bottom -->
+    <div class="donor-sidebar-bottom">
+
+        <div class="donor-sidebar-message">
+            <i class="fas fa-heart"></i>
+            <p>Making every meal<br>count. Together.</p>
+        </div>
+
+        <a href="/auth/logout" class="donor-logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>
