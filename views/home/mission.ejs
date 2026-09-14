@@ -1,5 +1,828 @@
-<h1 class="m-4 color-theme">Our Mission</h1>
-	
-<div class="bg-white m-4 p-4 shadow">
-		<h4>Our mission is to feed all the needy people and no one feels that he is going to sleep hungry today.</h4>
+<style>
+    .works-page {
+        background: #f5fbf7;
+        color: #123d2b;
+    }
+
+    .works-hero {
+        padding: 85px 7% 75px;
+        text-align: center;
+        background: #dff5e8;
+    }
+
+    .works-badge {
+        display: inline-block;
+        padding: 9px 17px;
+        border-radius: 30px;
+        background: #c8eed8;
+        color: #087f43;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .works-hero h1 {
+        margin: 0 0 18px;
+        font-size: clamp(42px, 5vw, 64px);
+        line-height: 1.1;
+        color: #123d2b;
+    }
+
+    .works-hero h1 span {
+        color: #108d4b;
+    }
+
+    .works-hero p {
+        max-width: 720px;
+        margin: auto;
+        color: #60766b;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    /* ================= STEPS ================= */
+
+    .steps-section {
+        padding: 85px 7%;
+        background: #ffffff;
+    }
+
+    .section-heading {
+        max-width: 720px;
+        margin: 0 auto 55px;
+        text-align: center;
+    }
+
+    .section-label {
+        color: #108d4b;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-heading h2 {
+        margin: 12px 0 15px;
+        color: #123d2b;
+        font-size: 40px;
+        line-height: 1.2;
+    }
+
+    .section-heading p {
+        margin: 0;
+        color: #6a7e74;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .steps-grid {
+        max-width: 1150px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .step-card {
+        position: relative;
+
+        padding: 32px 28px;
+
+        background: #f8fcfa;
+
+        border: 1px solid #e2ece6;
+        border-radius: 18px;
+
+        text-align: center;
+    }
+
+    .step-number {
+        width: 62px;
+        height: 62px;
+
+        margin: 0 auto 22px;
+
+        border-radius: 50%;
+
+        background: #108d4b;
+        color: #ffffff;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 19px;
+        font-weight: 800;
+    }
+
+    .step-card h3 {
+        margin: 0 0 12px;
+
+        color: #123d2b;
+        font-size: 19px;
+    }
+
+    .step-card p {
+        margin: 0;
+
+        color: #71847b;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* ================= SAFETY ================= */
+
+    .safety-section {
+        padding: 85px 7%;
+        background: #f5fbf7;
+    }
+
+    .safety-container {
+        max-width: 1150px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 60px;
+
+        align-items: center;
+    }
+
+    .safety-content h2 {
+        margin: 12px 0 18px;
+
+        font-size: 40px;
+        line-height: 1.2;
+
+        color: #123d2b;
+    }
+
+    .safety-content p {
+        color: #6a7e74;
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .safety-list {
+        margin-top: 25px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .safety-item {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+
+        color: #34594a;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .safety-icon {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+
+        border-radius: 10px;
+
+        background: #dff5e8;
+        color: #108d4b;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: 800;
+    }
+
+    .safety-visual {
+        min-height: 380px;
+
+        border-radius: 28px;
+
+        background: #dff5e8;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .verification-card {
+        width: 280px;
+
+        padding: 28px;
+
+        background: #ffffff;
+
+        border-radius: 20px;
+
+        box-shadow: 0 20px 45px rgba(20, 80, 45, 0.12);
+    }
+
+    .verification-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        margin-bottom: 25px;
+    }
+
+    .verification-check {
+        width: 45px;
+        height: 45px;
+
+        border-radius: 12px;
+
+        background: #dff5e8;
+        color: #108d4b;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .verification-header strong {
+        color: #123d2b;
+        font-size: 15px;
+    }
+
+    .verification-header small {
+        display: block;
+        margin-top: 4px;
+        color: #82938b;
+        font-size: 11px;
+    }
+
+    .verification-row {
+        display: flex;
+        justify-content: space-between;
+
+        padding: 12px 0;
+
+        border-bottom: 1px solid #edf1ef;
+
+        color: #60766b;
+        font-size: 13px;
+    }
+
+    .verification-row:last-child {
+        border-bottom: none;
+    }
+
+    .verified {
+        color: #108d4b;
+        font-weight: 700;
+    }
+
+    /* ================= ROLES ================= */
+
+    .roles-section {
+        padding: 85px 7%;
+        background: #ffffff;
+    }
+
+    .roles-grid {
+        max-width: 1050px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .role-card {
+        padding: 32px;
+
+        border: 1px solid #e2ece6;
+        border-radius: 18px;
+
+        background: #f9fcfa;
+    }
+
+    .role-icon {
+        width: 55px;
+        height: 55px;
+
+        margin-bottom: 20px;
+
+        border-radius: 14px;
+
+        background: #dff5e8;
+        color: #108d4b;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 24px;
+    }
+
+    .role-card h3 {
+        margin: 0 0 10px;
+
+        color: #123d2b;
+        font-size: 19px;
+    }
+
+    .role-card p {
+        margin: 0;
+
+        color: #71847b;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* ================= CTA ================= */
+
+    .works-cta {
+        padding: 75px 7%;
+        background: #dff5e8;
+        text-align: center;
+    }
+
+    .works-cta h2 {
+        margin: 0 0 14px;
+
+        color: #123d2b;
+        font-size: 38px;
+    }
+
+    .works-cta p {
+        max-width: 650px;
+        margin: 0 auto 28px;
+
+        color: #60766b;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .works-btn {
+        display: inline-block;
+
+        padding: 14px 25px;
+
+        background: #108d4b;
+        color: #ffffff;
+
+        border-radius: 9px;
+
+        text-decoration: none;
+
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .works-btn:hover {
+        background: #087d43;
+    }
+
+    @media (max-width: 850px) {
+
+        .steps-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .safety-container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .steps-section,
+        .safety-section,
+        .roles-section {
+            padding: 60px 5%;
+        }
+
+        .steps-grid,
+        .roles-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-heading h2,
+        .safety-content h2 {
+            font-size: 31px;
+        }
+
+        .safety-visual {
+            min-height: 320px;
+        }
+    }
+</style>
+
+
+<div class="works-page">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="works-hero">
+
+        <span class="works-badge">
+            HOW FOODBRIDGE WORKS
+        </span>
+
+        <h1>
+            From Surplus Food<br>
+            <span>To Meaningful Impact.</span>
+        </h1>
+
+        <p>
+            FoodBridge provides a structured process that helps
+            donors and NGOs coordinate safe surplus food
+            redistribution.
+        </p>
+
+    </section>
+
+
+    <!-- ================= PROCESS ================= -->
+
+    <section class="steps-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                The Process
+            </span>
+
+            <h2>
+                Simple, organized and safety-focused
+            </h2>
+
+            <p>
+                FoodBridge connects the major steps involved in
+                responsible food redistribution.
+            </p>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>
+                    Donor Adds Food
+                </h3>
+
+                <p>
+                    A donor provides details about available
+                    surplus food through the platform.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>
+                    Food Quality Check
+                </h3>
+
+                <p>
+                    Food information is evaluated using
+                    rule-based quality verification.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>
+                    Freshness Evaluation
+                </h3>
+
+                <p>
+                    Freshness score and shelf-life information
+                    help support safer decisions.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <h3>
+                    NGO Verification
+                </h3>
+
+                <p>
+                    NGOs are physically verified to support a
+                    trusted redistribution network.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    05
+                </div>
+
+                <h3>
+                    Donation Tracking
+                </h3>
+
+                <p>
+                    Donation status can be tracked as the
+                    redistribution process progresses.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    06
+                </div>
+
+                <h3>
+                    Food Redistributed
+                </h3>
+
+                <p>
+                    Verified and suitable surplus food reaches
+                    communities through participating NGOs.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SAFETY ================= -->
+
+    <section class="safety-section">
+
+        <div class="safety-container">
+
+            <div class="safety-content">
+
+                <span class="section-label">
+                    Food Safety
+                </span>
+
+                <h2>
+                    Safety comes before redistribution.
+                </h2>
+
+                <p>
+                    FoodBridge is designed around the principle that
+                    surplus food should be redistributed only when
+                    it is considered suitable according to the
+                    platform's defined verification process.
+                </p>
+
+
+                <div class="safety-list">
+
+                    <div class="safety-item">
+
+                        <div class="safety-icon">
+                            ✓
+                        </div>
+
+                        Rule-Based Food Quality Verification
+
+                    </div>
+
+
+                    <div class="safety-item">
+
+                        <div class="safety-icon">
+                            ✓
+                        </div>
+
+                        Freshness Score Calculation
+
+                    </div>
+
+
+                    <div class="safety-item">
+
+                        <div class="safety-icon">
+                            ✓
+                        </div>
+
+                        Shelf-Life Prediction
+
+                    </div>
+
+
+                    <div class="safety-item">
+
+                        <div class="safety-icon">
+                            ✓
+                        </div>
+
+                        NGO Physical Verification
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="safety-visual">
+
+                <div class="verification-card">
+
+                    <div class="verification-header">
+
+                        <div class="verification-check">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Food Verification
+                            </strong>
+
+                            <small>
+                                FoodBridge safety process
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="verification-row">
+
+                        <span>
+                            Quality Check
+                        </span>
+
+                        <span class="verified">
+                            Verified
+                        </span>
+
+                    </div>
+
+
+                    <div class="verification-row">
+
+                        <span>
+                            Freshness
+                        </span>
+
+                        <span class="verified">
+                            Checked
+                        </span>
+
+                    </div>
+
+
+                    <div class="verification-row">
+
+                        <span>
+                            Shelf-Life
+                        </span>
+
+                        <span class="verified">
+                            Evaluated
+                        </span>
+
+                    </div>
+
+
+                    <div class="verification-row">
+
+                        <span>
+                            NGO
+                        </span>
+
+                        <span class="verified">
+                            Verified
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ROLES ================= -->
+
+    <section class="roles-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                Platform Roles
+            </span>
+
+            <h2>
+                Everyone has a role in the bridge
+            </h2>
+
+            <p>
+                FoodBridge provides different interfaces for
+                participants involved in the redistribution process.
+            </p>
+
+        </div>
+
+
+        <div class="roles-grid">
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Food Donor
+                </h3>
+
+                <p>
+                    Donors can contribute safe surplus food,
+                    monitor donations and build their donor
+                    trust score through responsible participation.
+                </p>
+
+            </div>
+
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    NGO / Agent
+                </h3>
+
+                <p>
+                    NGOs and agents can participate in verification,
+                    coordinate suitable donations and support the
+                    redistribution process.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="works-cta">
+
+        <h2>
+            Ready to Make a Difference?
+        </h2>
+
+        <p>
+            Join FoodBridge and help create a more organized
+            and responsible way to redistribute surplus food.
+        </p>
+
+        <a href="/auth/signup" class="works-btn">
+            Join FoodBridge
+        </a>
+
+    </section>
+
 </div>

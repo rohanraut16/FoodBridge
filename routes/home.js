@@ -1,20 +1,84 @@
 const express = require("express");
+
 const router = express.Router();
 
-router.get("/", (req,res) => {
-	res.render("home/welcome");
+
+// =========================
+// HOME PAGE
+// =========================
+
+router.get("/", (req, res) => {
+    res.render("home/welcome", {
+        title: "FoodBridge - Home"
+    });
 });
 
-router.get("/home/about-us", (req,res) => {
-	res.render("home/aboutUs", { title: "About Us | Gujju Food Donate" });
+
+// =========================
+// ABOUT PAGE
+// =========================
+
+router.get("/about", (req, res) => {
+    res.render("home/aboutUs", {
+        title: "About FoodBridge"
+    });
 });
 
-router.get("/home/mission", (req,res) => {
-	res.render("home/mission", { title: "Our mission | Gujju Food Donate" });
+router.get("/aboutUs", (req, res) => {
+    res.render("home/aboutUs", {
+        title: "About FoodBridge"
+    });
 });
 
-router.get("/home/contact-us", (req,res) => {
-	res.render("home/contactUs", { title: "Contact us | Gujju Food Donate" });
+
+// =========================
+// HOW IT WORKS
+// =========================
+
+router.get("/mission", (req, res) => {
+    res.render("home/mission", {
+        title: "How It Works"
+    });
+});
+
+router.get("/how-it-works", (req, res) => {
+    res.render("home/mission", {
+        title: "How It Works"
+    });
+});
+
+router.get("/howItWorks", (req, res) => {
+    res.render("home/mission", {
+        title: "How It Works"
+    });
+});
+
+
+// =========================
+// CONTACT PAGE
+// =========================
+
+router.get("/contact", (req, res) => {
+    res.render("home/contactUs", {
+        title: "Contact FoodBridge"
+    });
+});
+
+router.get("/contactUs", (req, res) => {
+    res.render("home/contactUs", {
+        title: "Contact FoodBridge"
+    });
+});
+
+
+// =========================
+// WELCOME PAGE
+// =========================
+
+router.get("/welcome", (req, res) => {
+    res.render("home/welcome", {
+        title: "FoodBridge - Home"
+    });
 });
 
 

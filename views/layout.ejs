@@ -1,30 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#3f51b5">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" href="/assets/css/style.css">
-	<link rel="stylesheet" href="/assets/css/sidebar.css">
-	<link rel="stylesheet" href="/assets/css/donor.css">
-	<title> <%= typeof title != 'undefined' ? title : "Gujjuflavour - Samarpana" %> </title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#108d4b">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    >
+
+    <!-- Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2qZ6jIW3"
+        crossorigin="anonymous"
+    >
+
+    <!-- Existing project CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/donor.css">
+
+    <!-- FoodBridge Home CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>
+        <%= typeof title !== 'undefined' ? title : 'FoodBridge' %>
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4fbf7;
+            color: #123d2b;
+        }
+
+        /* ================= PUBLIC NAVBAR ================= */
+
+        .fb-navbar {
+            width: 100%;
+            min-height: 82px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5ebe7;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .fb-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .fb-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+
+            background: #108d4b;
+            color: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .fb-brand-name {
+            font-size: 27px;
+            font-weight: 700;
+            color: #087d43;
+            letter-spacing: -0.5px;
+        }
+
+        .fb-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+        }
+
+        .fb-nav-links a {
+            color: #202522;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .fb-nav-links a:hover {
+            color: #108d4b;
+        }
+
+        .fb-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fb-login {
+            text-decoration: none;
+            color: #087d43;
+            border: 1.5px solid #108d4b;
+
+            padding: 11px 22px;
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .fb-login:hover {
+            background: #effaf4;
+        }
+
+        .fb-signup {
+            text-decoration: none;
+            color: #ffffff;
+            background: #108d4b;
+
+            padding: 12px 22px;
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .fb-signup:hover {
+            background: #087d43;
+        }
+
+        /* ================= PUBLIC PAGE ================= */
+
+        .fb-page {
+            width: 100%;
+            min-height: calc(100vh - 82px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .fb-footer {
+            background: #123d2b;
+            color: #ffffff;
+            padding: 45px 6% 25px;
+        }
+
+        .fb-footer-grid {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 45px;
+        }
+
+        .fb-footer-brand {
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .fb-footer-description {
+            color: #c9d9d0;
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 330px;
+        }
+
+        .fb-footer h3 {
+            margin: 0 0 17px;
+            font-size: 16px;
+        }
+
+        .fb-footer a {
+            display: block;
+            color: #c9d9d0;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 11px;
+        }
+
+        .fb-footer a:hover {
+            color: #ffffff;
+        }
+
+        .fb-footer-bottom {
+            max-width: 1250px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+            color: #aebfb6;
+            font-size: 13px;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 900px) {
+
+            .fb-navbar {
+                padding: 15px 4%;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .fb-nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                padding-bottom: 8px;
+                gap: 25px;
+            }
+
+            .fb-footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .fb-brand-name {
+                font-size: 22px;
+            }
+
+            .fb-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .fb-nav-links {
+                gap: 14px;
+            }
+
+            .fb-nav-links a {
+                font-size: 12px;
+            }
+
+            .fb-login,
+            .fb-signup {
+                padding: 9px 13px;
+                font-size: 12px;
+            }
+
+            .fb-footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fb-footer-bottom {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-    <% if (!currentUser || currentUser.role !== "donor") { %>
-        <%- include('partials/header') %>
+    <!-- ================= PUBLIC NAVBAR ================= -->
+
+    <% if (typeof currentUser === 'undefined' || !currentUser || currentUser.role !== 'donor') { %>
+
+        <header class="fb-navbar">
+
+            <a href="/" class="fb-brand">
+
+                <div class="fb-logo">
+                    ♻
+                </div>
+
+                <span class="fb-brand-name">
+                    FoodBridge
+                </span>
+
+            </a>
+
+            <nav class="fb-nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/aboutUs">
+                    About
+                </a>
+
+                <a href="/mission">
+                    How It Works
+                </a>
+
+                <a href="/contactUs">
+                    Contact
+                </a>
+
+            </nav>
+
+            <div class="fb-nav-actions">
+
+                <a href="/auth/login" class="fb-login">
+                    Login
+                </a>
+
+                <a href="/auth/signup" class="fb-signup">
+                    Sign Up
+                </a>
+
+            </div>
+
+        </header>
+
     <% } %>
+
+
+    <!-- ================= ALERTS ================= -->
 
     <%- include('partials/alerts') %>
 
-    <%- body %>
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main class="fb-page">
+
+        <%- body %>
+
+    </main>
+
+
+    <!-- ================= PUBLIC FOOTER ================= -->
+
+    <% if (typeof currentUser === 'undefined' || !currentUser || currentUser.role !== 'donor') { %>
+
+        <footer class="fb-footer">
+
+            <div class="fb-footer-grid">
+
+                <div>
+
+                    <div class="fb-footer-brand">
+                        FoodBridge
+                    </div>
+
+                    <p class="fb-footer-description">
+                        Connecting surplus food donors with NGOs to reduce
+                        food waste and help communities in need.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Platform
+                    </h3>
+
+                    <a href="/">
+                        Home
+                    </a>
+
+                    <a href="/aboutUs">
+                        About
+                    </a>
+
+                    <a href="/mission">
+                        How It Works
+                    </a>
+
+                    <a href="/contactUs">
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Get Started
+                    </h3>
+
+                    <a href="/auth/login">
+                        Login
+                    </a>
+
+                    <a href="/auth/signup">
+                        Sign Up
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        FoodBridge
+                    </h3>
+
+                    <a href="/contactUs">
+                        Contact Us
+                    </a>
+
+                    <a href="/mission">
+                        Our Mission
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="fb-footer-bottom">
+
+                <span>
+                    © <%= new Date().getFullYear() %> FoodBridge. All rights reserved.
+                </span>
+
+                <span>
+                    Reducing Waste • Creating Hope
+                </span>
+
+            </div>
+
+        </footer>
+
+    <% } %>
+
+
+    <!-- ================= SCRIPTS ================= -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="/assets/js/script.js"></script>
 
 </body>
+
 </html>

@@ -1,17 +1,604 @@
-<h1 class="m-4 color-theme">Contact us</h1>
-	
-<div class="bg-white m-4 p-4 shadow">
-	<ul class="fs-5">
-		<li>For any concerns, please call at our toll free numbers between 9 AM to 6 PM:</li>
-		<ul>
-			<li>1500-393-455 (within India)</li>
-			<li>1500-393-455 (within India)</li>
-		</ul>
-		<li>You can also visit our offices and to get insights of how our agents serve food at different places.</li>
-		<ul>
-			<li>XYZ Nagar, Delhi</li>
-			<li>XYZ Vihar, Noida</li>
-		</ul>
-		<li>You can also email your suggestions and feedback at <mark>xyz@gmail.com</mark></li>
-	</ul>
+<style>
+    .contact-page {
+        background: #f5fbf7;
+        color: #123d2b;
+    }
+
+    .contact-hero {
+        padding: 80px 7% 70px;
+        text-align: center;
+        background: #dff5e8;
+    }
+
+    .contact-badge {
+        display: inline-block;
+        padding: 9px 17px;
+        border-radius: 30px;
+        background: #c8eed8;
+        color: #087f43;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .contact-hero h1 {
+        margin: 0 0 18px;
+        font-size: clamp(42px, 5vw, 62px);
+        line-height: 1.1;
+        color: #123d2b;
+    }
+
+    .contact-hero h1 span {
+        color: #108d4b;
+    }
+
+    .contact-hero p {
+        max-width: 700px;
+        margin: auto;
+        color: #60766b;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    /* ================= CONTACT SECTION ================= */
+
+    .contact-section {
+        padding: 85px 7%;
+    }
+
+    .contact-container {
+        max-width: 1100px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+
+        gap: 45px;
+    }
+
+    /* ================= INFO ================= */
+
+    .contact-info {
+        background: #123d2b;
+        color: #ffffff;
+
+        border-radius: 22px;
+        padding: 38px;
+    }
+
+    .contact-info h2 {
+        margin: 0 0 15px;
+
+        font-size: 30px;
+    }
+
+    .contact-info > p {
+        margin: 0 0 35px;
+
+        color: #cbdad2;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+
+        gap: 15px;
+
+        margin-bottom: 25px;
+    }
+
+    .contact-icon {
+        width: 44px;
+        height: 44px;
+
+        flex-shrink: 0;
+
+        border-radius: 11px;
+
+        background: #dff5e8;
+        color: #108d4b;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 19px;
+    }
+
+    .contact-item strong {
+        display: block;
+
+        margin-bottom: 5px;
+
+        font-size: 14px;
+    }
+
+    .contact-item span {
+        color: #cbdad2;
+
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* ================= FORM ================= */
+
+    .contact-form-box {
+        background: #ffffff;
+
+        border: 1px solid #e2ece6;
+
+        border-radius: 22px;
+
+        padding: 38px;
+
+        box-shadow: 0 15px 40px rgba(20, 80, 45, 0.06);
+    }
+
+    .contact-form-box h2 {
+        margin: 0 0 8px;
+
+        font-size: 30px;
+
+        color: #123d2b;
+    }
+
+    .contact-form-box > p {
+        margin: 0 0 28px;
+
+        color: #71847b;
+
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 19px;
+    }
+
+    .form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #34594a;
+
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+
+        padding: 13px 14px;
+
+        border: 1px solid #d8e4dd;
+
+        border-radius: 9px;
+
+        background: #fbfdfc;
+
+        color: #123d2b;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #108d4b;
+
+        background: #ffffff;
+    }
+
+    .form-group textarea {
+        min-height: 135px;
+
+        resize: vertical;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 17px;
+    }
+
+    .contact-submit {
+        width: 100%;
+
+        border: none;
+
+        padding: 14px 20px;
+
+        border-radius: 9px;
+
+        background: #108d4b;
+        color: #ffffff;
+
+        font-family: inherit;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+    .contact-submit:hover {
+        background: #087d43;
+    }
+
+    /* ================= BOTTOM CTA ================= */
+
+    .contact-cta {
+        padding: 70px 7%;
+
+        text-align: center;
+
+        background: #dff5e8;
+    }
+
+    .contact-cta h2 {
+        margin: 0 0 13px;
+
+        font-size: 36px;
+
+        color: #123d2b;
+    }
+
+    .contact-cta p {
+        max-width: 620px;
+
+        margin: 0 auto 25px;
+
+        color: #60766b;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+    .contact-cta-btn {
+        display: inline-block;
+
+        padding: 13px 23px;
+
+        border-radius: 9px;
+
+        background: #108d4b;
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .contact-cta-btn:hover {
+        background: #087d43;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 850px) {
+
+        .contact-container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .contact-section {
+            padding: 60px 5%;
+        }
+
+        .contact-info,
+        .contact-form-box {
+            padding: 27px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .contact-form-box h2,
+        .contact-info h2 {
+            font-size: 25px;
+        }
+
+        .contact-cta h2 {
+            font-size: 30px;
+        }
+    }
+</style>
+
+
+<div class="contact-page">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="contact-hero">
+
+        <span class="contact-badge">
+            CONTACT FOODBRIDGE
+        </span>
+
+        <h1>
+            Let's Build a Better<br>
+            <span>Food Redistribution Network.</span>
+        </h1>
+
+        <p>
+            Have a question, suggestion or want to know more about
+            FoodBridge? Get in touch with us.
+        </p>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact-section">
+
+        <div class="contact-container">
+
+            <!-- CONTACT INFORMATION -->
+
+            <div class="contact-info">
+
+                <h2>
+                    Get in Touch
+                </h2>
+
+                <p>
+                    We would love to hear from donors, NGOs and anyone
+                    interested in helping reduce food waste.
+                </p>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        ✉
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Email
+                        </strong>
+
+                        <span>
+                            support@foodbridge.org
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        ☎
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Phone
+                        </strong>
+
+                        <span>
+                            +91 00000 00000
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        📍
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Location
+                        </strong>
+
+                        <span>
+                            India
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        🤝
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Community
+                        </strong>
+
+                        <span>
+                            Donors • NGOs • Volunteers
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT FORM -->
+
+            <div class="contact-form-box">
+
+                <h2>
+                    Send Us a Message
+                </h2>
+
+                <p>
+                    Fill in the details below and tell us how we can help.
+                </p>
+
+
+                <form action="/contactUs" method="POST">
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="subject">
+                            Subject
+                        </label>
+
+                        <select
+                            id="subject"
+                            name="subject"
+                            required
+                        >
+
+                            <option value="">
+                                Select a subject
+                            </option>
+
+                            <option value="food-donation">
+                                Food Donation
+                            </option>
+
+                            <option value="ngo">
+                                NGO Partnership
+                            </option>
+
+                            <option value="platform">
+                                FoodBridge Platform
+                            </option>
+
+                            <option value="feedback">
+                                Feedback
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Write your message..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="contact-submit"
+                    >
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="contact-cta">
+
+        <h2>
+            Want to Join FoodBridge?
+        </h2>
+
+        <p>
+            Create an account and become part of a platform that
+            connects surplus food with organizations working for
+            communities in need.
+        </p>
+
+        <a
+            href="/auth/signup"
+            class="contact-cta-btn"
+        >
+            Create Account
+        </a>
+
+    </section>
+
 </div>

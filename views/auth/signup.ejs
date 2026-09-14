@@ -1,58 +1,719 @@
-<div class="m-0 pt-5 w-100 bg-img-1">
-	<form action="/auth/signup" method="POST" class="w-50 trbg p-5 m-auto" style="min-width: 320px;">
-		<h3 class="text-center mb-3">User Signup</h3>
+<style>
+    .signup-page {
+        min-height: calc(100vh - 82px);
+        background: linear-gradient(135deg, #f2fbf6 0%, #e9f8ef 100%);
+        padding: 55px 25px 70px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-		<% if(typeof errors != 'undefined') { %>
-			<% errors.forEach(function(error) { %>
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<%= error.msg %>
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-			<% }); %>
-		<% } %>
-		
-		<div class="mb-3">
-			<label for="first-name" class="form-label">First name</label>
-			<input type="text" name="firstName" class="form-control" id="first-name" placeholder="Enter first name.." value="<%= typeof firstName != 'undefined' ? firstName : '' %>" required autofocus>
-		</div>
-		
-		<div class="mb-3">
-			<label for="last-name" class="form-label">Last name</label>
-			<input type="text" name="lastName" class="form-control" id="last-name" placeholder="Enter last name.." value="<%= typeof lastName != 'undefined' ? lastName : '' %>" required>
-		</div>
-		
-		<div class="mb-3">
-			<label for="email" class="form-label">Email address</label>
-			<input type="email" name="email" class="form-control" id="email" placeholder="Enter email.." value="<%= typeof email != 'undefined' ? email : '' %>" required>
-			<div class="form-text">We'll never share your email with anyone else.</div>
-		</div>
-		
-		<div class="mb-3">
-			<label for="password1" class="form-label">Password</label>
-			<input type="password" name="password1" class="form-control" id="password1" placeholder="Enter password.." value="<%= typeof password1 != 'undefined' ? password1 : '' %>" required>
-		</div>
+    .signup-container {
+        max-width: 1050px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 45% 55%;
+        background: #fff;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(20, 100, 60, 0.12);
+        border: 1px solid #dcefe3;
+    }
 
-		<div class="mb-3">
-			<label for="password2" class="form-label">Confirm Password</label>
-			<input type="password" name="password2" class="form-control" id="password2" placeholder="Re-enter password.." value="<%= typeof password2 != 'undefined' ? password2 : '' %>" required>
-		</div>
-		
-		<div class="mb-3">
-			<label for="role" class="form-label">Signup as</label>
-			<select class="form-select" name="role" id="role">
-				<option value="donor">Donor</option>
-				<!-- <option value="agent">Agent</option>
-				<option value="admin">Admin</option> -->
-			</select>
-		</div>
-		
-		<button type="submit" class="btn d-block m-auto mt-4">Submit</button>
-		
-		
-		<div class="mt-3">
-			<span>Already have an account?</span>
-			<a href="/auth/login">Login here</a>
-		</div>
-		
-	</form>
+    /* ================= LEFT SIDE ================= */
+
+    .signup-left {
+        background: linear-gradient(145deg, #e7f9ee, #d3f2de);
+        padding: 50px 45px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .signup-left::before {
+        content: "";
+        position: absolute;
+        width: 270px;
+        height: 270px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.40);
+        top: -130px;
+        right: -100px;
+    }
+
+    .signup-left::after {
+        content: "";
+        position: absolute;
+        width: 230px;
+        height: 230px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.35);
+        bottom: -130px;
+        left: -110px;
+    }
+
+    .left-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .signup-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 45px;
+    }
+
+    .signup-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: #10904d;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+        font-weight: bold;
+    }
+
+    .signup-brand-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: #087d43;
+    }
+
+    .signup-left h1 {
+        margin: 0 0 18px;
+        font-size: 36px;
+        line-height: 1.15;
+        color: #104f36;
+    }
+
+    .signup-left h1 span {
+        color: #10904d;
+    }
+
+    .signup-left-description {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #477464;
+        margin: 0;
+    }
+
+    /* Food illustration */
+
+    .food-illustration {
+        height: 190px;
+        margin: 25px 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .food-card {
+        width: 190px;
+        height: 105px;
+        background: #d99b5e;
+        border-radius: 10px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 15px 25px rgba(50,100,70,0.15);
+    }
+
+    .food-card::before {
+        content: "";
+        position: absolute;
+        width: 205px;
+        height: 28px;
+        background: #e8b676;
+        border-radius: 7px;
+        top: -13px;
+    }
+
+    .food-items {
+        position: absolute;
+        top: 5px;
+        z-index: 3;
+        font-size: 42px;
+        letter-spacing: -8px;
+    }
+
+    .food-heart {
+        position: relative;
+        z-index: 4;
+        color: white;
+        font-size: 38px;
+    }
+
+    /* Features */
+
+    .signup-features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .feature {
+        text-align: center;
+        color: #176b48;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .feature-icon {
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 8px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    /* ================= RIGHT SIDE ================= */
+
+    .signup-right {
+        padding: 45px 50px;
+        background: white;
+    }
+
+    .signup-heading {
+        margin-bottom: 25px;
+    }
+
+    .signup-heading h2 {
+        margin: 0 0 8px;
+        font-size: 30px;
+        color: #124f38;
+    }
+
+    .signup-heading p {
+        margin: 0;
+        font-size: 14px;
+        color: #789087;
+    }
+
+    /* Error messages */
+
+    .signup-errors {
+        margin-bottom: 18px;
+    }
+
+    .signup-error {
+        background: #fff0f0;
+        color: #a52d2d;
+        border: 1px solid #f1caca;
+        border-radius: 8px;
+        padding: 10px 13px;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    /* Form */
+
+    .signup-form .form-group {
+        margin-bottom: 17px;
+    }
+
+    .signup-form label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #174f3b;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #65957e;
+        font-size: 16px;
+        z-index: 2;
+    }
+
+    .signup-form input,
+    .signup-form select {
+        width: 100%;
+        height: 46px;
+        border: 1px solid #d5e3dc;
+        border-radius: 9px;
+        background: #fff;
+        outline: none;
+        padding: 0 14px 0 42px;
+        font-size: 14px;
+        color: #254d3e;
+        transition: 0.2s ease;
+    }
+
+    .signup-form input::placeholder {
+        color: #9aada5;
+    }
+
+    .signup-form input:focus,
+    .signup-form select:focus {
+        border-color: #10904d;
+        box-shadow: 0 0 0 3px rgba(16,144,77,0.10);
+    }
+
+    .form-help {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #8a9d95;
+    }
+
+    .signup-form select {
+        cursor: pointer;
+    }
+
+    /* Submit */
+
+    .signup-submit {
+        width: 100%;
+        height: 48px;
+        margin-top: 7px;
+        border: none;
+        border-radius: 9px;
+        background: #10904d;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .signup-submit:hover {
+        background: #087d43;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 18px rgba(16,144,77,0.20);
+    }
+
+    .login-text {
+        text-align: center;
+        margin-top: 21px;
+        font-size: 14px;
+        color: #718b81;
+    }
+
+    .login-text a {
+        color: #087d43;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 900px) {
+
+        .signup-container {
+            grid-template-columns: 1fr;
+            max-width: 650px;
+        }
+
+        .signup-left {
+            padding: 35px;
+        }
+
+        .signup-right {
+            padding: 40px 35px;
+        }
+
+        .food-illustration {
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .signup-page {
+            padding: 25px 15px 45px;
+        }
+
+        .signup-left {
+            padding: 30px 25px;
+        }
+
+        .signup-left h1 {
+            font-size: 29px;
+        }
+
+        .signup-brand {
+            margin-bottom: 28px;
+        }
+
+        .signup-features {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .signup-right {
+            padding: 30px 22px;
+        }
+
+        .signup-heading h2 {
+            font-size: 26px;
+        }
+    }
+</style>
+
+
+<div class="signup-page">
+
+    <div class="signup-container">
+
+        <!-- ================= LEFT SIDE ================= -->
+
+        <div class="signup-left">
+
+            <div class="left-content">
+
+                <div class="signup-brand">
+
+                    <div class="signup-logo">
+                        ♻
+                    </div>
+
+                    <div class="signup-brand-name">
+                        FoodBridge
+                    </div>
+
+                </div>
+
+
+                <h1>
+                    Join FoodBridge.<br>
+                    <span>Make an Impact.</span>
+                </h1>
+
+
+                <p class="signup-left-description">
+                    Join our community and help connect surplus food
+                    with NGOs. Together, we can reduce food waste
+                    and help people in need.
+                </p>
+
+
+                <!-- Food Illustration -->
+
+                <div class="food-illustration">
+
+                    <div class="food-items">
+                        🥕 🍅 🥬
+                    </div>
+
+                    <div class="food-card">
+                        <div class="food-heart">
+                            ♥
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Features -->
+
+                <div class="signup-features">
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🌱
+                        </div>
+
+                        Reduce<br>
+                        Food Waste
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🤝
+                        </div>
+
+                        Connect<br>
+                        With NGOs
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ❤️
+                        </div>
+
+                        Help<br>
+                        Communities
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div class="signup-right">
+
+            <div class="signup-heading">
+
+                <h2>
+                    Create Your Account
+                </h2>
+
+                <p>
+                    Fill in your details to get started with FoodBridge.
+                </p>
+
+            </div>
+
+
+            <!-- ================= EXISTING ERRORS ================= -->
+
+            <% if(typeof errors != 'undefined') { %>
+
+                <div class="signup-errors">
+
+                    <% errors.forEach(function(error) { %>
+
+                        <div class="signup-error">
+
+                            <%= error.msg %>
+
+                        </div>
+
+                    <% }); %>
+
+                </div>
+
+            <% } %>
+
+
+            <!-- ================= EXISTING FORM ================= -->
+
+            <form
+                action="/auth/signup"
+                method="POST"
+                class="signup-form"
+            >
+
+
+                <!-- First Name -->
+
+                <div class="form-group">
+
+                    <label for="first-name">
+                        First name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            name="firstName"
+                            id="first-name"
+                            placeholder="Enter first name.."
+                            value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+                            required
+                            autofocus
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Last Name -->
+
+                <div class="form-group">
+
+                    <label for="last-name">
+                        Last name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            name="lastName"
+                            id="last-name"
+                            placeholder="Enter last name.."
+                            value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉
+                        </span>
+
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter email.."
+                            value="<%= typeof email != 'undefined' ? email : '' %>"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-help">
+                        We'll never share your email with anyone else.
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password1">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            name="password1"
+                            id="password1"
+                            placeholder="Enter password.."
+                            value="<%= typeof password1 != 'undefined' ? password1 : '' %>"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="password2">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            name="password2"
+                            id="password2"
+                            placeholder="Re-enter password.."
+                            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Signup As -->
+
+                <div class="form-group">
+
+                    <label for="role">
+                        Signup as
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👥
+                        </span>
+
+                        <select
+                            name="role"
+                            id="role"
+                        >
+
+                            <option value="donor">
+                                Donor
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="signup-submit"
+                >
+                    Create Account →
+                </button>
+
+
+                <!-- Login -->
+
+                <div class="login-text">
+
+                    Already have an account?
+
+                    <a href="/auth/login">
+                        Login here
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </div>

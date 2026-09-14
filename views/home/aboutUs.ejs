@@ -1,8 +1,507 @@
-<h1 class="m-4 color-theme">About us</h1>
-	
-<div class="bg-white m-4 p-4 shadow">
-	<ul class="fs-5">
-		<li>We, at Gujju Food Donate, provides food to poor people across the country.</li>
-		<li>Our main aim is to eliminate the hunger and satisfy the food needs of needy people by providing them from our donors.</li>
-	</ul>
+<style>
+    .about-page {
+        background: #f5fbf7;
+        color: #123d2b;
+    }
+
+    .about-hero {
+        padding: 85px 7% 75px;
+        text-align: center;
+        background: #dff5e8;
+    }
+
+    .about-badge {
+        display: inline-block;
+        padding: 9px 17px;
+        border-radius: 30px;
+        background: #c8eed8;
+        color: #087f43;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .about-hero h1 {
+        margin: 0 0 18px;
+        font-size: clamp(42px, 5vw, 64px);
+        line-height: 1.1;
+        color: #123d2b;
+    }
+
+    .about-hero h1 span {
+        color: #108d4b;
+    }
+
+    .about-hero p {
+        max-width: 720px;
+        margin: auto;
+        color: #60766b;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .about-section {
+        padding: 85px 7%;
+    }
+
+    .about-container {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .about-label {
+        color: #108d4b;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .about-content h2 {
+        margin: 12px 0 18px;
+        font-size: 40px;
+        line-height: 1.2;
+        color: #123d2b;
+    }
+
+    .about-content p {
+        color: #6a7e74;
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .about-visual {
+        min-height: 370px;
+        background: #dff5e8;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .about-icon {
+        width: 190px;
+        height: 190px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 90px;
+        box-shadow: 0 20px 45px rgba(20, 80, 45, 0.12);
+    }
+
+    .about-cards {
+        position: absolute;
+        left: 25px;
+        right: 25px;
+        bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .about-mini-card {
+        background: #ffffff;
+        padding: 14px 17px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(20, 80, 45, 0.10);
+        font-size: 13px;
+        font-weight: 700;
+        color: #123d2b;
+    }
+
+    .mission-section {
+        padding: 85px 7%;
+        background: #ffffff;
+    }
+
+    .center-heading {
+        max-width: 700px;
+        margin: 0 auto 50px;
+        text-align: center;
+    }
+
+    .center-heading h2 {
+        margin: 12px 0 15px;
+        font-size: 40px;
+        color: #123d2b;
+    }
+
+    .center-heading p {
+        margin: 0;
+        color: #6a7e74;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .about-feature-grid {
+        max-width: 1150px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .about-feature {
+        padding: 30px;
+        border: 1px solid #e3ece7;
+        border-radius: 18px;
+        background: #f9fcfa;
+    }
+
+    .about-feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        background: #dff5e8;
+        color: #108d4b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+        margin-bottom: 20px;
+    }
+
+    .about-feature h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #123d2b;
+    }
+
+    .about-feature p {
+        margin: 0;
+        color: #71847b;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .about-cta {
+        padding: 75px 7%;
+        background: #dff5e8;
+        text-align: center;
+    }
+
+    .about-cta h2 {
+        margin: 0 0 14px;
+        font-size: 38px;
+        color: #123d2b;
+    }
+
+    .about-cta p {
+        max-width: 650px;
+        margin: 0 auto 27px;
+        color: #60766b;
+        line-height: 1.7;
+        font-size: 15px;
+    }
+
+    .about-btn {
+        display: inline-block;
+        padding: 14px 25px;
+        background: #108d4b;
+        color: #ffffff;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .about-btn:hover {
+        background: #087d43;
+    }
+
+    @media (max-width: 850px) {
+        .about-container {
+            grid-template-columns: 1fr;
+        }
+
+        .about-feature-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .about-section,
+        .mission-section {
+            padding: 60px 5%;
+        }
+
+        .about-feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-content h2,
+        .center-heading h2 {
+            font-size: 31px;
+        }
+
+        .about-cards {
+            position: static;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .about-visual {
+            min-height: 330px;
+            padding: 25px;
+        }
+    }
+</style>
+
+
+<div class="about-page">
+
+    <!-- ================= ABOUT HERO ================= -->
+
+    <section class="about-hero">
+
+        <span class="about-badge">
+            ABOUT FOODBRIDGE
+        </span>
+
+        <h1>
+            Connecting Surplus Food<br>
+            <span>With Those Who Need It.</span>
+        </h1>
+
+        <p>
+            FoodBridge is a Smart Food Redistribution Platform
+            designed to create a digital bridge between food donors
+            and NGOs while helping reduce avoidable food waste.
+        </p>
+
+    </section>
+
+
+    <!-- ================= WHO WE ARE ================= -->
+
+    <section class="about-section">
+
+        <div class="about-container">
+
+            <div class="about-content">
+
+                <span class="about-label">
+                    Who We Are
+                </span>
+
+                <h2>
+                    Turning surplus into meaningful impact.
+                </h2>
+
+                <p>
+                    Restaurants, hotels, grocery stores and individuals
+                    can often have safe surplus food that goes unused.
+                    At the same time, NGOs work to support people who
+                    need food and resources.
+                </p>
+
+                <p>
+                    FoodBridge brings these two sides together through
+                    a centralized digital platform that helps coordinate
+                    food donations and redistribution.
+                </p>
+
+                <p>
+                    Our goal is simple: make food redistribution more
+                    organized, transparent and focused on safety.
+                </p>
+
+            </div>
+
+
+            <div class="about-visual">
+
+                <div class="about-icon">
+                    🍱
+                </div>
+
+                <div class="about-cards">
+
+                    <div class="about-mini-card">
+                        ✓ Safe Food
+                    </div>
+
+                    <div class="about-mini-card">
+                        ♻ Less Waste
+                    </div>
+
+                    <div class="about-mini-card">
+                        🤝 Community
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHAT WE DO ================= -->
+
+    <section class="mission-section">
+
+        <div class="center-heading">
+
+            <span class="about-label">
+                What We Do
+            </span>
+
+            <h2>
+                Built around safe and responsible redistribution
+            </h2>
+
+            <p>
+                FoodBridge combines food quality checks, freshness
+                information, NGO verification and donation tracking
+                to support a reliable redistribution process.
+            </p>
+
+        </div>
+
+
+        <div class="about-feature-grid">
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Food Quality Verification
+                </h3>
+
+                <p>
+                    Rule-based food quality verification helps evaluate
+                    whether donated food meets defined safety criteria.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    ⏱
+                </div>
+
+                <h3>
+                    Freshness Score
+                </h3>
+
+                <p>
+                    Freshness score calculation provides useful
+                    information about the condition of donated food.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Shelf-Life Prediction
+                </h3>
+
+                <p>
+                    Shelf-life prediction helps support better
+                    decisions about the usability of surplus food.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    NGO Physical Verification
+                </h3>
+
+                <p>
+                    NGO verification helps maintain a more trusted
+                    network of organizations on the platform.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Donation Status Tracking
+                </h3>
+
+                <p>
+                    Donation status tracking helps users understand
+                    the progress of food redistribution.
+                </p>
+
+            </div>
+
+
+            <div class="about-feature">
+
+                <div class="about-feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Donor Trust Score
+                </h3>
+
+                <p>
+                    Donor trust score management encourages responsible
+                    participation and reliable donations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="about-cta">
+
+        <h2>
+            Be Part of the FoodBridge
+        </h2>
+
+        <p>
+            Whether you want to donate surplus food or learn more
+            about our platform, every contribution can help create
+            a stronger food redistribution network.
+        </p>
+
+        <a href="/auth/signup" class="about-btn">
+            Join FoodBridge
+        </a>
+
+    </section>
+
 </div>
