@@ -1,0 +1,486 @@
+<style>
+    .edit-donation-card {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .edit-donation-card .donor-form-group {
+        margin-bottom: 22px;
+    }
+
+    .edit-donation-card label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .edit-donation-card input,
+    .edit-donation-card textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edit-donation-card .donor-form-row {
+        display: flex;
+        gap: 20px;
+    }
+
+    .edit-donation-card .donor-form-row .donor-form-group {
+        flex: 1;
+    }
+
+    .edit-donation-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+        .edit-donation-card {
+            padding: 20px;
+        }
+
+        .edit-donation-card .donor-form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+
+<main class="donor-page">
+
+    <%- include('../partials/donorSidebar') %>
+
+    <div id="main-wrapper">
+
+        <!-- TOPBAR -->
+        <div class="donor-topbar">
+
+            <div>
+                <h1 class="donor-title">Edit Donation</h1>
+
+                <p class="donor-subtitle">
+                    Update your donation details before admin approval.
+                </p>
+            </div>
+
+            <div class="donor-user">
+
+                <div class="donor-notification">
+                    <i class="fas fa-bell"></i>
+                </div>
+
+                <div class="donor-avatar">
+                    <%= currentUser.firstName.charAt(0) %>
+                </div>
+
+                <div class="donor-user-info">
+
+                    <strong>
+                        <%= currentUser.firstName %>
+                        <%= currentUser.lastName %>
+                    </strong>
+
+                    <span>Donor</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTENT -->
+        <div class="donor-content">
+
+            <div class="donor-page-heading">
+
+                <div>
+                    <h2>Edit Donation</h2>
+
+                    <p>
+                        Update your donation information.
+                    </p>
+                </div>
+
+                <a
+                    href="/donor/donations/pending"
+                    class="donor-outline-btn"
+                >
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </a>
+
+            </div>
+
+
+            <!-- FORM CARD -->
+            <div class="donor-list-card edit-donation-card">
+
+                <form
+                    action="/donor/donation/edit/<%= donation._id %>?_method=PUT"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    <!-- FOOD NAME -->
+                    <div class="donor-form-group">
+
+                        <label for="food">
+                            Food Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="donation[foodType]"
+                            id="food"
+                            value="<%= donation.foodType %>"
+                            placeholder="e.g. Veg Biryani, Dal Tadka"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+                    <div class="donor-form-group">
+
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="text"
+                            name="donation[quantity]"
+                            id="quantity"
+                            value="<%= donation.quantity %>"
+                            placeholder="e.g. 5 kg"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- FOOD CONDITION -->
+                    <div class="donor-form-group">
+
+                        <label>
+                            Food Type
+                        </label>
+
+                        <div class="food-condition-options">
+
+                            <!-- COOKED -->
+                            <label class="food-condition-option">
+
+                                <input
+                                    type="radio"
+                                    name="donation[foodCondition]"
+                                    value="cooked"
+                                    <%= donation.foodCondition === "cooked" ? "checked" : "" %>
+                                    required
+                                >
+
+                                <span>
+                                    <i class="fas fa-utensils"></i>
+                                    Cooked Food
+                                </span>
+
+                            </label>
+
+
+                            <!-- PACKAGED -->
+                            <label class="food-condition-option">
+
+                                <input
+                                    type="radio"
+                                    name="donation[foodCondition]"
+                                    value="packaged"
+                                    <%= donation.foodCondition === "packaged" ? "checked" : "" %>
+                                >
+
+                                <span>
+                                    <i class="fas fa-box"></i>
+                                    Packaged Food
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COOKING TIME -->
+                    <div
+                        class="donor-form-group"
+                        id="cookingTimeGroup"
+                        style="display: none;"
+                    >
+
+                        <label for="time">
+                            Time of Cooking
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            name="donation[cookingTime]"
+                            id="time"
+                            value="<%= donation.cookingTime ? new Date(donation.cookingTime).toISOString().slice(0, 16) : '' %>"
+                        >
+
+                    </div>
+
+
+                    <!-- PACKAGED DATES -->
+                    <div
+                        class="donor-form-group"
+                        id="packagedDatesGroup"
+                        style="display: none;"
+                    >
+
+                        <div class="donor-form-row">
+
+                            <div class="donor-form-group">
+
+                                <label for="manufactureDate">
+                                    Manufacture Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="donation[manufactureDate]"
+                                    id="manufactureDate"
+                                    value="<%= donation.manufactureDate ? new Date(donation.manufactureDate).toISOString().slice(0, 10) : '' %>"
+                                >
+
+                            </div>
+
+
+                            <div class="donor-form-group">
+
+                                <label for="expiryDate">
+                                    Expiry Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="donation[expiryDate]"
+                                    id="expiryDate"
+                                    value="<%= donation.expiryDate ? new Date(donation.expiryDate).toISOString().slice(0, 10) : '' %>"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOOD IMAGE -->
+                    <div class="donor-form-group">
+
+                        <label for="foodImage">
+                            Food Image
+                        </label>
+
+                        <input
+                            type="file"
+                            name="foodImage"
+                            id="foodImage"
+                            accept="image/*"
+                        >
+
+                        <% if (donation.foodImage) { %>
+
+                            <p>
+                                Current food image is already uploaded.
+                            </p>
+
+                            <img
+                                src="<%= donation.foodImage %>"
+                                alt="Current Food Image"
+                                style="max-width: 150px; margin-top: 10px; border-radius: 8px;"
+                            >
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- COLLECTION ADDRESS -->
+                    <div class="donor-form-group">
+
+                        <label for="address">
+                            Collection Address
+                        </label>
+
+                        <input
+                            type="text"
+                            name="donation[address]"
+                            id="address"
+                            value="<%= donation.address %>"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="donor-form-group">
+
+                        <label for="phone">
+                            Phone
+                        </label>
+
+                        <input
+                            type="number"
+                            name="donation[phone]"
+                            id="phone"
+                            value="<%= donation.phone %>"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+                    <div class="donor-form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <textarea
+                            name="donation[donorToAdminMsg]"
+                            id="message"
+                            rows="4"
+                            placeholder="Optional message for admin"
+                        ><%= donation.donorToAdminMsg || "" %></textarea>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+                    <div class="edit-donation-buttons">
+
+                        <button
+                            type="submit"
+                            class="donor-primary-btn"
+                        >
+                            <i class="fas fa-save"></i>
+                            Update Donation
+                        </button>
+
+
+                        <a
+                            href="/donor/donations/pending"
+                            class="donor-outline-btn"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    // Food condition fields
+
+    const foodConditionInputs =
+        document.querySelectorAll(
+            'input[name="donation[foodCondition]"]'
+        );
+
+    const cookingTimeGroup =
+        document.getElementById("cookingTimeGroup");
+
+    const cookingTimeInput =
+        document.getElementById("time");
+
+    const packagedDatesGroup =
+        document.getElementById("packagedDatesGroup");
+
+    const manufactureDate =
+        document.getElementById("manufactureDate");
+
+    const expiryDate =
+        document.getElementById("expiryDate");
+
+
+    function updateFoodFields(condition) {
+
+        if (condition === "cooked") {
+
+            cookingTimeGroup.style.display = "block";
+
+            packagedDatesGroup.style.display = "none";
+
+            cookingTimeInput.required = true;
+
+            manufactureDate.required = false;
+
+            expiryDate.required = false;
+
+        }
+
+
+        if (condition === "packaged") {
+
+            cookingTimeGroup.style.display = "none";
+
+            packagedDatesGroup.style.display = "block";
+
+            cookingTimeInput.required = false;
+
+            manufactureDate.required = true;
+
+            expiryDate.required = true;
+
+        }
+
+    }
+
+
+    foodConditionInputs.forEach(function (input) {
+
+        input.addEventListener("change", function () {
+
+            updateFoodFields(this.value);
+
+        });
+
+    });
+
+
+    // Show correct fields when edit page opens
+
+    const selectedCondition =
+        document.querySelector(
+            'input[name="donation[foodCondition]"]:checked'
+        );
+
+
+    if (selectedCondition) {
+
+        updateFoodFields(
+            selectedCondition.value
+        );
+
+    }
+
+</script>

@@ -145,11 +145,11 @@
                                                 Cooked
                                             </span>
 
-                                        <% } else if (pendingDonations[i].foodCondition === "raw") { %>
+                                        <% } else if (pendingDonations[i].foodCondition === "packaged") { %>
 
                                             <span class="food-condition raw">
-                                                <i class="fas fa-seedling"></i>
-                                                Raw
+                                                <i class="fas fa-box"></i>
+                                                Packaged
                                             </span>
 
                                         <% } %>
@@ -188,20 +188,39 @@
                                 </div>
 
 
-                                <div>
+                <% if (pendingDonations[i].foodCondition === "cooked" && pendingDonations[i].cookingTime) { %>
 
-                                    <span>Cooking Time</span>
+                            <div>
+                                <span>Cooking Time</span>
+                                <strong>
+                                    <%= pendingDonations[i].cookingTime.toLocaleString("en-IN", {
+                                    dateStyle: "medium",
+                                    timeStyle: "short"
+                                    }) %>
+                                </strong>
+                            </div>
 
-                                    <strong>
+                <% } else if (pendingDonations[i].foodCondition === "packaged") { %>
 
-                                        <%= pendingDonations[i].cookingTime.toLocaleString("en-IN", {
-                                            dateStyle: "medium",
-                                            timeStyle: "short"
-                                        }) %>
+                            <div>
+                                <span>Manufacture Date</span>
+                                <strong>
+                                    <%= pendingDonations[i].manufactureDate
+                                    ? new Date(pendingDonations[i].manufactureDate).toLocaleDateString("en-IN")
+                                    : "—" %>
+                                </strong>
+                            </div>
 
-                                    </strong>
+                            <div>
+                                <span>Expiry Date</span>
+                                <strong>
+                                    <%= pendingDonations[i].expiryDate
+                                    ? new Date(pendingDonations[i].expiryDate).toLocaleDateString("en-IN")
+                                    : "—" %>
+                                </strong>
+                            </div>
 
-                                </div>
+                        <% } %>
 
                             </div>
 
@@ -223,12 +242,32 @@
                                 <% if(pendingDonations[i].status == "pending") { %>
 
                                     <p>
-
                                         <i class="fas fa-clock"></i>
-
-                                        Waiting for admin approval.
-
+                                            Waiting for admin approval.
                                     </p>
+
+                                    <div class="donation-actions">
+
+                                        <a
+                                                href="/donor/donation/edit/<%= pendingDonations[i]._id %>"
+                                                class="donor-outline-btn">
+
+                                                <i class="fas fa-edit"></i>
+                                                    Edit
+
+                                        </a>
+
+                                        <a
+                                            href="/donor/donation/cancel/<%= pendingDonations[i]._id %>"
+                                            class="donor-outline-btn"
+                                            onclick="return confirm('Are you sure you want to cancel this donation?');">
+
+                                            <i class="fas fa-times"></i>
+                                                Cancel
+
+                                        </a>
+
+                                </div>
 
 
                                 <% } else if(pendingDonations[i].status == "rejected") { %>

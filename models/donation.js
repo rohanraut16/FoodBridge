@@ -25,7 +25,7 @@ const donationSchema = new mongoose.Schema({
 
     foodCondition: {
         type: String,
-        enum: ["cooked", "raw"],
+        enum: ["cooked", "packaged"],
         required: true
     },
 
@@ -34,8 +34,15 @@ const donationSchema = new mongoose.Schema({
     },
 
     cookingTime: {
-        type: Date,
-        required: true
+    type: Date
+    },
+    
+    manufactureDate: {
+    type: Date
+    },
+
+    expiryDate: {
+    type: Date
     },
 
     address: {
