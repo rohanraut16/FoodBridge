@@ -79,7 +79,7 @@
                     <div class="donor-form-group">
 
                         <label for="food">
-                            Food Type
+                            Food Name
                         </label>
 
                         <input
@@ -113,7 +113,7 @@
                         </div>
 
 
-                        <div class="donor-form-group">
+                        <div class="donor-form-group " id="cookingTimeGroup">
 
                             <label for="time">
                                 Time of Cooking
@@ -123,12 +123,47 @@
                                 type="datetime-local"
                                 name="donation[cookingTime]"
                                 id="time"
-                                required
                             >
 
                         </div>
 
-                    </div>
+                        <div class="donor-form-group" id="packagedDatesGroup" style="display: none;">
+
+                         <div class="donor-form-row">
+
+                             <div class="donor-form-group">
+
+                             <label for="manufactureDate">
+                                   Manufacture Date
+                             </label>
+
+                             <input
+                                   type="date"
+                                  name="donation[manufactureDate]"
+                                    id="manufactureDate"
+                                  >
+
+                                 </div>
+
+
+                             <div class="donor-form-group">
+
+                                <label for="expiryDate">
+                                    Expiry Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="donation[expiryDate]"
+                                    id="expiryDate"
+                                    >
+
+                            </div>
+
+                        </div>
+
+                        </div>
+                             </div>
 
 
                     <!-- FOOD CONDITION -->
@@ -163,12 +198,12 @@
                                 <input
                                     type="radio"
                                     name="donation[foodCondition]"
-                                    value="raw"
+                                    value="packaged"
                                 >
 
                                 <span>
-                                    <i class="fas fa-carrot"></i>
-                                    Raw
+                                    <i class="fas fa-box"></i>
+                                    Packaged Food
                                 </span>
 
                             </label>
@@ -359,18 +394,72 @@
 
 <script>
 
-    // Default cooking time
+    // Food condition fields
 
-    const d = new Date();
+const foodConditionInputs =
+    document.querySelectorAll(
+        'input[name="donation[foodCondition]"]'
+    );
 
-    const dateString =
-        d.getFullYear() + "-" +
-        ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-        ("0" + d.getDate()).slice(-2) + "T" +
-        ("0" + d.getHours()).slice(-2) + ":" +
-        ("0" + d.getMinutes()).slice(-2);
+const cookingTimeGroup =
+    document.getElementById("cookingTimeGroup");
 
-    document.getElementById("time").value = dateString;
+const cookingTimeInput =
+    document.getElementById("time");
+
+const packagedDatesGroup =
+    document.getElementById("packagedDatesGroup");
+
+const manufactureDate =
+    document.getElementById("manufactureDate");
+
+const expiryDate =
+    document.getElementById("expiryDate");
+
+
+foodConditionInputs.forEach(input => {
+
+    input.addEventListener("change", function () {
+
+        if (this.value === "cooked") {
+
+            cookingTimeGroup.style.display = "block";
+            packagedDatesGroup.style.display = "none";
+
+            cookingTimeInput.required = true;
+
+            manufactureDate.required = false;
+            expiryDate.required = false;
+
+            const d = new Date();
+
+            const dateString =
+                d.getFullYear() + "-" +
+                ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+                ("0" + d.getDate()).slice(-2) + "T" +
+                ("0" + d.getHours()).slice(-2) + ":" +
+                ("0" + d.getMinutes()).slice(-2);
+
+            cookingTimeInput.value = dateString;
+
+        }
+
+        else if (this.value === "packaged") {
+
+            cookingTimeGroup.style.display = "none";
+            packagedDatesGroup.style.display = "block";
+
+            cookingTimeInput.required = false;
+            cookingTimeInput.value = "";
+
+            manufactureDate.required = true;
+            expiryDate.required = true;
+
+        }
+
+    });
+
+});
 
 
     // Food image preview

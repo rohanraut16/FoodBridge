@@ -262,6 +262,187 @@ router.get(
     }
 );
 
+// ===============================
+// EDIT DONATION PAGE
+// ===============================
+
+router.get(
+    "/donor/donation/edit/:donationId",
+    middleware.ensureDonorLoggedIn,
+    async (req, res) => {
+
+        try {
+
+            const donation =
+                await Donation.findOne({
+                    _id: req.params.donationId,
+                    donor: req.user._id,
+                    status: "pending"
+                });
+
+            if (!donation) {
+
+                req.flash(
+                    "error",
+                    "This donation cannot be edited."
+                );
+
+                return res.redirect(
+                    "/donor/donations/pending"
+                );
+            }
+
+            res.render(
+                "donor/editDonation",
+                {
+                    title: "Edit Donation",
+                    donation
+                }
+            );
+
+        } catch (err) {
+
+            console.log(err);
+
+            req.flash(
+                "error",
+                "Some error occurred on the server."
+            );
+
+            res.redirect("back");
+        }
+    }
+);
+
+
+// ===============================
+// UPDATE DONATION
+// ===============================
+
+router.put(
+    "/donor/donation/edit/:donationId",
+    middleware.ensureDonorLoggedIn,
+    upload.single("foodImage"),
+
+    async (req, res) => {
+
+        try {
+
+            const donation =
+                await Donation.findOne({
+                    _id: req.params.donationId,
+                    donor: req.user._id,
+                    status: "pending"
+                });
+
+            if (!donation) {
+
+                req.flash(
+                    "error",
+                    "This donation cannot be edited."
+                );
+
+                return res.redirect(
+                    "/donor/donations/pending"
+                );
+            }
+
+            const updateData =
+                req.body.donation;
+
+            if (req.file) {
+
+                updateData.foodImage =
+                    "/assets/uploads/" +
+                    req.file.filename;
+
+            }
+
+            await Donation.findByIdAndUpdate(
+                req.params.donationId,
+                updateData
+            );
+
+            req.flash(
+                "success",
+                "Donation updated successfully."
+            );
+
+            res.redirect(
+                "/donor/donations/pending"
+            );
+
+        } catch (err) {
+
+            console.log(err);
+
+            req.flash(
+                "error",
+                "Some error occurred on the server."
+            );
+
+            res.redirect("back");
+        }
+    }
+);
+
+
+// ===============================
+// CANCEL DONATION
+// ===============================
+
+router.get(
+    "/donor/donation/cancel/:donationId",
+    middleware.ensureDonorLoggedIn,
+    async (req, res) => {
+
+        try {
+
+            const donation =
+                await Donation.findOne({
+                    _id: req.params.donationId,
+                    donor: req.user._id,
+                    status: "pending"
+                });
+
+            if (!donation) {
+
+                req.flash(
+                    "error",
+                    "This donation cannot be cancelled."
+                );
+
+                return res.redirect(
+                    "/donor/donations/pending"
+                );
+            }
+
+            await Donation.findByIdAndDelete(
+                req.params.donationId
+            );
+
+            req.flash(
+                "success",
+                "Donation cancelled successfully."
+            );
+
+            res.redirect(
+                "/donor/donations/pending"
+            );
+
+        } catch (err) {
+
+            console.log(err);
+
+            req.flash(
+                "error",
+                "Some error occurred on the server."
+            );
+
+            res.redirect("back");
+        }
+    }
+);
 
 // ===============================
 // DONOR PROFILE
