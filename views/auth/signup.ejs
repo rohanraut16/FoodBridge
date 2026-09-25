@@ -510,6 +510,7 @@
                 action="/auth/signup"
                 method="POST"
                 class="signup-form"
+                autocomplete="off"
             >
 
 
@@ -589,6 +590,7 @@
                             name="email"
                             id="email"
                             placeholder="Enter email.."
+                            autocomplete="off"
                             value="<%= typeof email != 'undefined' ? email : '' %>"
                             required
                         >
@@ -621,6 +623,7 @@
                             name="password1"
                             id="password1"
                             placeholder="Enter password.."
+                            autocomplete="new-password"
                             value="<%= typeof password1 != 'undefined' ? password1 : '' %>"
                             required
                         >
@@ -649,6 +652,7 @@
                             name="password2"
                             id="password2"
                             placeholder="Re-enter password.."
+                            autocomplete="new-password"
                             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
                             required
                         >
@@ -672,16 +676,26 @@
                             👥
                         </span>
 
-                        <select
+                       <select
                             name="role"
                             id="role"
+                            required
                         >
 
-                            <option value="donor">
-                                Donor
-                            </option>
+                         <option value="" disabled selected>
+                             Select your role
+                         </option>
 
-                        </select>
+                        <option value="donor">
+                              Donor
+                        </option>
+
+                        <option value="agent">
+                              NGO
+                        </option>
+
+
+                    </select>
 
                     </div>
 

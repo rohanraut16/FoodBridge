@@ -34,17 +34,25 @@ const middleware = {
 	},
 	
 	ensureAgentLoggedIn: (req, res, next) => {
-		if(req.isUnauthenticated()) {
-			req.session.returnTo = req.originalUrl;
-			req.flash("warning", "Please log in first to continue");
-			return res.redirect("/auth/login");
-		}
-		if(req.user.role != "agent") {
-			req.flash("warning", "This route is allowed for agent only!!");
-			return res.redirect("back");
-		}
-		next();
-	},
+
+    console.log("===== AGENT/NGO MIDDLEWARE =====");
+    console.log("Authenticated:", req.isAuthenticated());
+    console.log("User:", req.user);
+    console.log("Role:", req.user ? req.user.role : "NO USER");
+
+    if (req.isUnauthenticated()) {
+        req.session.returnTo = req.originalUrl;
+        req.flash("warning", "Please log in first to continue");
+        return res.redirect("/auth/login");
+    }
+
+    if (req.user.role !== "ngo" && req.user.role !== "agent") {
+        req.flash("warning", "This route is allowed for NGO only!!");
+        return res.redirect("/auth/login");
+    }
+
+    next();
+},
 	
 	ensureNotLoggedIn: (req, res, next) => {
 		if(req.isAuthenticated()) {
@@ -53,7 +61,7 @@ const middleware = {
 				return res.redirect("/admin/dashboard");
 			if(req.user.role == "donor")
 				return res.redirect("/donor/dashboard");
-			if(req.user.role == "agent")
+			if(req.user.role == "ngo")
 				return res.redirect("/agent/dashboard");
 		}
 		next();
