@@ -1,13 +1,63 @@
-<div id="sidebar">
-	<ul id="sidebar-nav">
-		<li>Welcome <%= currentUser.firstName %></li>
-		<li><a href="/admin/dashboard">Dashboard</a></li>
-		<li><a href="/admin/donations/pending">Pending Donations</a></li>
-		<li><a href="/admin/donations/previous">Previous Donations</a></li>
-		<li><a href="/admin/agents">Agents</a></li>
-		<li><a href="/admin/profile">My Profile</a></li>
-		<li><a href="https://app.powerbi.com/reportEmbed?reportId=8569b307-10b7-49a8-a3b2-7302631db78b&autoAuth=true&ctid=4bc9df11-1291-4d7a-9015-aa308945e8dd" target="_blank">Report</a></li>
-		
-		<li><a href="/auth/logout" class="btn">Logout</a></li>
-	</ul>
-</div>
+<aside id="admin-sidebar">
+
+    <div class="admin-sidebar-title">
+        <h3>FoodBridge</h3>
+        <p>Admin Panel</p>
+    </div>
+
+    <ul class="admin-nav">
+
+        <li>
+            <a href="/admin/dashboard">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin/donations/pending">
+                <i class="fa-solid fa-clock"></i>
+                <span>Pending Approvals</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin/donations/previous">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Manage Donations</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin/agents">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <span>Manage NGOs</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin/profile">
+                <i class="fa-solid fa-user"></i>
+                <span>My Profile</span>
+            </a>
+        </li>
+
+     
+        <li class="admin-logout">
+            <a href="/auth/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
+
+<script>
+    document.querySelectorAll(".admin-nav a").forEach(link => {
+        if (link.getAttribute("href") === window.location.pathname) {
+            link.classList.add("active");
+        }
+    });
+</script>

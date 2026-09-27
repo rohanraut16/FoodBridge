@@ -1,59 +1,246 @@
-<main>
-	<%- include('../partials/adminSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Profile</h5>
-		</div>
-		
-		<form action="/admin/profile?_method=PUT" method="POST" class="w-75 border ms-3 my-3 p-4 bg-white rounded-2 shadow" style="min-width: 400px;">
-			
-			<div class="row">
-				<div class="col-sm-6 mb-4">
-					<label for="first-name" class="form-label">First Name</label>
-					<input type="text" name="admin[firstName]" class="form-control" id="first-name" placeholder="Enter first name.." value="<%= currentUser.firstName %>" required>
-				</div>
-				
-				<div class="col-sm-6 mb-4">
-					<label for="last-name" class="form-label">Last Name</label>
-					<input type="text" name="admin[lastName]" class="form-control" id="last-name" placeholder="Enter last name.." value="<%= currentUser.lastName %>" required>
-				</div>
-			</div>
-			
-			
-			<div class="mb-4">
-				<label for="email" class="form-label">Email</label>
-				<input type="email" id="email" class="form-control" value="<%= currentUser.email %>" disabled>
-			</div>
-			
-			<div class="mb-4">
-				<span class="d-inline-block me-2">Gender:</span>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="admin[gender]" id="male" value="male" <% if(currentUser.gender=='male'){%> checked <%}%> >
-					<label class="form-check-label" for="male">Male</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="admin[gender]" id="female" value="female" <% if(currentUser.gender=='female'){%> checked <%}%> >
-					<label class="form-check-label" for="female">Female</label>
-				</div>
-			</div>
-			
-			<div class="mb-4">
-				<label for="address" class="form-label">Address</label>
-				<input type="text" name="admin[address]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.address %>">
-			</div>
-			
-			<div class="mb-4">
-				<label for="phone" class="form-label">Phone</label>
-				<input type="number" name="admin[phone]" class="form-control" id="phone" placeholder="Enter phone.." value="<%= currentUser.phone %>">
-			</div>
-			
-			<button type="submit" class="btn w-75 d-block m-auto mt-4">Update</button>
-		</form>
-		
-		
-		
-	</div>
+<main class="admin-main">
+
+    <%- include('../partials/adminSidebar') %>
+
+    <div id="admin-main-wrapper">
+
+        <!-- Page Header -->
+        <div class="admin-page-header">
+
+            <div>
+                <h2>My Profile</h2>
+                <p>View and update your administrator account information.</p>
+            </div>
+
+        </div>
+
+
+        <!-- Profile Card -->
+        <div class="admin-simple-profile">
+
+            <!-- Profile Header -->
+            <div class="admin-profile-top">
+
+                <div class="admin-profile-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+
+                <div>
+                    <h3>
+                        <%= currentUser.firstName %>
+                        <%= currentUser.lastName %>
+                    </h3>
+
+                    <p>Administrator Account</p>
+                </div>
+
+            </div>
+
+
+            <!-- Profile Form -->
+            <form action="/admin/profile?_method=PUT" method="POST">
+
+                <!-- First Name + Last Name -->
+                <div class="admin-profile-grid">
+
+                    <div class="admin-profile-field">
+
+                        <label for="first-name">
+                            First Name <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="first-name"
+                            name="admin[firstName]"
+                            value="<%= currentUser.firstName || '' %>"
+                            placeholder="Enter first name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="admin-profile-field">
+
+                        <label for="last-name">
+                            Last Name <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="last-name"
+                            name="admin[lastName]"
+                            value="<%= currentUser.lastName || '' %>"
+                            placeholder="Enter last name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="admin-profile-field">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        value="<%= currentUser.email || '' %>"
+                        disabled
+                    >
+
+                    <small>
+                        Email address cannot be changed.
+                    </small>
+
+                </div>
+
+
+                <!-- Gender -->
+                <div class="admin-profile-field">
+
+                    <label>
+                        Gender <span>*</span>
+                    </label>
+
+                    <div class="admin-gender-options">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="admin[gender]"
+                                value="male"
+                                <% if(currentUser.gender === "male"){ %>
+                                    checked
+                                <% } %>
+                            >
+                            <span>Male</span>
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="admin[gender]"
+                                value="female"
+                                <% if(currentUser.gender === "female"){ %>
+                                    checked
+                                <% } %>
+                            >
+                            <span>Female</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Address -->
+                <div class="admin-profile-field">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address"
+                        name="admin[address]"
+                        value="<%= currentUser.address || '' %>"
+                        placeholder="Enter your address"
+                    >
+
+                </div>
+
+
+                <!-- Phone -->
+                <div class="admin-profile-field">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="admin[phone]"
+                        value="<%= currentUser.phone || '' %>"
+                        placeholder="Enter phone number"
+                        maxlength="10"
+                    >
+
+                </div>
+
+
+                <!-- Account Info -->
+                <div class="admin-profile-info-grid">
+
+                    <!-- Role -->
+                    <div class="admin-account-info">
+
+                        <div class="admin-account-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+
+                        <div class="admin-account-text">
+                            <span>Account Role</span>
+                            <strong>Administrator</strong>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Joined Date -->
+                    <div class="admin-account-info">
+
+                        <div class="admin-account-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+
+                        <div class="admin-account-text">
+                            <span>Joined Date</span>
+
+                            <strong>
+                                <%= currentUser.joinedTime
+                                    ? new Date(currentUser.joinedTime).toLocaleDateString("en-IN", {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric"
+                                    })
+                                    : "Not available"
+                                %>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Update Button -->
+                <div class="admin-profile-actions">
+
+                    <button
+                        type="submit"
+                        class="admin-profile-update"
+                    >
+                        <i class="fas fa-save"></i>
+                        Update Profile
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </main>

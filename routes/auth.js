@@ -27,11 +27,11 @@ router.post("/auth/signup", middleware.ensureNotLoggedIn, async (req, res) => {
     } = req.body;
 
     // Admin cannot signup from public signup
-    if (!["donor", "agent", "ngo"].includes(role)) {
-        req.flash("error", "Invalid signup role.");
-        return res.redirect("/auth/signup");
+    if (!["donor", "ngo"].includes(role)) {
+    req.flash("error", "Invalid signup role.");
+    return res.redirect("/auth/signup");
     }
-
+       
     let errors = [];
 
     if (!firstName || !lastName || !email || !password1 || !password2) {

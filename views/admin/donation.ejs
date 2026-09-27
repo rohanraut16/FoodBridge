@@ -1,88 +1,508 @@
-<main>
-	<%- include('../partials/adminSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Donation</h5>
-		</div>
-		
-		<div class="border m-4 my-3 p-4 bg-white rounded-2 shadow-sm">
-			<div class="mb-2">
-				<span>Donor Name:</span>
-				<span><%= donation.donor.firstName + " " + donation.donor.lastName %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Food type:</span>
-				<span><%= donation.foodType %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Quantity:</span>
-				<span><%= donation.quantity %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Time of cooking:</span>
-				<span><%= donation.cookingTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Address to collect:</span>
-				<span><%= donation.address %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Phone:</span>
-				<span><%= donation.phone %></span>
-			</div>
-			
-			<% if(donation.donorToAdminMsg != "") { %>
-				<div class="mb-2">
-					<span>Message from Donor:</span>
-					<div class="ms-3"><%= donation.donorToAdminMsg %></div>
-				</div>
-			<% } %>
-				
-			<div class="mb-2">
-				<span>Status:</span>
-				<span class="fw-bold text-<%= donation.status %>"><%= donation.status %></span>
-			</div>
-			
-			<% if(donation.status == "assigned") { %>
-				<div class="mb-2">
-					<span>Agent assigned:</span>
-					<span><%= donation.agent.firstName + " "  + donation.agent.lastName %></span>
-				</div>
-			<% } %>
-			
-			<% if(donation.status == "assigned" && donation.adminToAgentMsg != "") { %>
-				<div class="mb-2">
-					<span>Your message to Agent:</span>
-					<div class="ms-3"><%= donation.adminToAgentMsg %></div>
-				</div>
-			<% } %>
-			
-			<% if(donation.status == "collected") { %>
-				<div class="mb-2">
-					<span>Collection time:</span>
-					<span><%= donation.collectionTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %></span>
-				</div>
-			<% } %>
-			
-			
-			<div class="mt-4">
-				<% if(donation.status == "pending") { %>
-					<a href="/admin/donation/accept/<%= donation._id %>" class="btn">Accept</a>
-					<a href="/admin/donation/reject/<%= donation._id %>" class="btn btn-danger">Reject</a>
-				<% } else if(donation.status == "accepted") { %>
-					<a href="/admin/donation/assign/<%= donation._id %>" class="btn">Assign agent</a>
-				<% } %>
-			</div>
-			
-		</div>
-		
-	</div>
+<main class="admin-main admin-donation-page">
+
+    <%- include('../partials/adminSidebar') %>
+
+    <div id="main-wrapper">
+
+        <!-- Top Bar -->
+        <div class="bg-white shadow-sm p-3 d-flex align-items-center">
+
+           
+
+            <div>
+                <h5 class="m-0 color-theme">
+                    Donation Details
+                </h5>
+
+                <small class="text-muted">
+                    Review donation information and approval status
+                </small>
+            </div>
+
+        </div>
+
+
+        <!-- Content -->
+        <div class="p-4">
+
+            <% if (!donation) { %>
+
+                <div class="alert alert-danger">
+                    Donation not found.
+                </div>
+
+            <% } else { %>
+
+
+                <!-- Donation Header -->
+                <div class="bg-white rounded shadow-sm p-4 mb-4">
+
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                        <div>
+                            <h3 class="fw-bold mb-1">
+                                <%= donation.foodType %>
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                Donation ID:
+                                <%= donation._id %>
+                            </p>
+                        </div>
+
+
+                        <div>
+
+                            <% if (donation.status === "pending") { %>
+
+                                <span class="badge bg-warning text-dark fs-6">
+                                    Pending Approval
+                                </span>
+
+                            <% } else if (donation.status === "accepted") { %>
+
+                                <span class="badge bg-success fs-6">
+                                    Available for NGO
+                                </span>
+
+                            <% } else if (donation.status === "rejected") { %>
+
+                                <span class="badge bg-danger fs-6">
+                                    Rejected
+                                </span>
+
+                            <% } else if (donation.status === "collected") { %>
+
+                                <span class="badge bg-primary fs-6">
+                                    Completed
+                                </span>
+
+                            <% } else if (donation.status === "assigned") { %>
+
+                                <span class="badge bg-info text-dark fs-6">
+                                    Accepted by NGO
+                                </span>
+
+                            <% } else { %>
+
+                                <span class="badge bg-secondary fs-6">
+                                    <%= donation.status %>
+                                </span>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row g-4">
+
+
+                    <!-- Food Information -->
+                    <div class="col-lg-7">
+
+                        <div class="bg-white rounded shadow-sm p-4 h-100">
+
+                            <h5 class="fw-bold mb-4">
+                                <i class="fas fa-utensils me-2"></i>
+                                Food Information
+                            </h5>
+
+
+                            <div class="mb-3">
+
+                                <small class="text-muted">
+                                    Food Name / Type
+                                </small>
+
+                                <div class="fw-semibold">
+                                    <%= donation.foodType %>
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <small class="text-muted">
+                                    Quantity
+                                </small>
+
+                                <div class="fw-semibold">
+                                    <%= donation.quantity %>
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <small class="text-muted">
+                                    Food Condition
+                                </small>
+
+                                <div>
+
+                                    <% if (donation.foodCondition === "cooked") { %>
+
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-utensils me-1"></i>
+                                            Cooked Food
+                                        </span>
+
+                                    <% } else if (donation.foodCondition === "packaged") { %>
+
+                                        <span class="badge bg-info">
+                                            <i class="fas fa-box me-1"></i>
+                                            Packaged Food
+                                        </span>
+
+                                    <% } else { %>
+
+                                        <span class="badge bg-secondary">
+                                            <%= donation.foodCondition %>
+                                        </span>
+
+                                    <% } %>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Cooked Food -->
+                            <% if (
+                                donation.foodCondition === "cooked" &&
+                                donation.cookingTime
+                            ) { %>
+
+                                <div class="mb-3">
+
+                                    <small class="text-muted">
+                                        Time of Cooking
+                                    </small>
+
+                                    <div class="fw-semibold">
+
+                                        <%= new Date(
+                                            donation.cookingTime
+                                        ).toLocaleString("en-IN", {
+                                            dateStyle: "medium",
+                                            timeStyle: "short"
+                                        }) %>
+
+                                    </div>
+
+                                </div>
+
+                            <% } %>
+
+
+                            <!-- Packaged Food -->
+                            <% if (donation.foodCondition === "packaged") { %>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <small class="text-muted">
+                                            Manufacture Date
+                                        </small>
+
+                                        <div class="fw-semibold">
+
+                                            <% if (donation.manufactureDate) { %>
+
+                                                <%= new Date(
+                                                    donation.manufactureDate
+                                                ).toLocaleDateString("en-IN") %>
+
+                                            <% } else { %>
+
+                                                —
+
+                                            <% } %>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6 mb-3">
+
+                                        <small class="text-muted">
+                                            Expiry Date
+                                        </small>
+
+                                        <div class="fw-semibold">
+
+                                            <% if (donation.expiryDate) { %>
+
+                                                <%= new Date(
+                                                    donation.expiryDate
+                                                ).toLocaleDateString("en-IN") %>
+
+                                            <% } else { %>
+
+                                                —
+
+                                            <% } %>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            <% } %>
+
+
+                            <!-- Food Image -->
+                            <% if (donation.foodImage) { %>
+
+                                <div class="mt-3">
+
+                                    <small class="text-muted d-block mb-2">
+                                        Food Image
+                                    </small>
+
+                                    <img
+                                        src="<%= donation.foodImage %>"
+                                        alt="Food donation"
+                                        class="img-fluid rounded"
+                                        style="max-height: 280px;"
+                                    >
+
+                                </div>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Donor Information -->
+                    <div class="col-lg-5">
+
+                        <div class="bg-white rounded shadow-sm p-4 h-100">
+
+                            <h5 class="fw-bold mb-4">
+                                <i class="fas fa-user me-2"></i>
+                                Donor Information
+                            </h5>
+
+
+                            <% if (donation.donor) { %>
+
+                                <div class="mb-3">
+
+                                    <small class="text-muted">
+                                        Donor Name
+                                    </small>
+
+                                    <div class="fw-semibold">
+                                        <%= donation.donor.firstName %>
+                                        <%= donation.donor.lastName %>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="mb-3">
+
+                                    <small class="text-muted">
+                                        Email
+                                    </small>
+
+                                    <div class="fw-semibold">
+                                        <%= donation.donor.email %>
+                                    </div>
+
+                                </div>
+
+                            <% } %>
+
+
+                            <div class="mb-3">
+
+                                <small class="text-muted">
+                                    Pickup Address
+                                </small>
+
+                                <div class="fw-semibold">
+                                    <%= donation.address %>
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <small class="text-muted">
+                                    Phone
+                                </small>
+
+                                <div class="fw-semibold">
+                                    <%= donation.phone %>
+                                </div>
+
+                            </div>
+
+
+                            <% if (donation.donorToAdminMsg) { %>
+
+                                <div class="mt-4">
+
+                                    <small class="text-muted">
+                                        Message from Donor
+                                    </small>
+
+                                    <div class="bg-light rounded p-3 mt-2">
+                                        <%= donation.donorToAdminMsg %>
+                                    </div>
+
+                                </div>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Verification / Decision -->
+                <div class="bg-white rounded shadow-sm p-4 mt-4">
+
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Admin Verification
+                    </h5>
+
+
+                    <% if (donation.status === "pending") { %>
+
+                        <p class="text-muted">
+                            Review the food details before approving this
+                            donation. Once approved, the donation will become
+                            available for NGOs to accept.
+                        </p>
+
+
+                        <div class="d-flex gap-2 flex-wrap mt-4">
+
+                            <a
+                                href="/admin/donation/accept/<%= donation._id %>"
+                                class="btn btn-success"
+                                onclick="return confirm('Approve this donation and make it available to NGOs?');"
+                            >
+                                <i class="fas fa-check me-2"></i>
+                                Approve Donation
+                            </a>
+
+
+                            <a
+                                href="/admin/donation/reject/<%= donation._id %>"
+                                class="btn btn-danger"
+                                onclick="return confirm('Reject this donation?');"
+                            >
+                                <i class="fas fa-times me-2"></i>
+                                Reject Donation
+                            </a>
+
+                        </div>
+
+
+                    <% } else if (donation.status === "accepted") { %>
+
+                        <div class="alert alert-success mb-0">
+
+                            <i class="fas fa-check-circle me-2"></i>
+
+                            This donation has been approved and is now
+                            <strong>available for NGOs</strong>.
+
+                        </div>
+
+
+                    <% } else if (donation.status === "rejected") { %>
+
+                        <div class="alert alert-danger mb-0">
+
+                            <i class="fas fa-times-circle me-2"></i>
+
+                            This donation has been rejected.
+
+                        </div>
+
+
+                    <% } else if (donation.status === "assigned") { %>
+
+                        <div class="alert alert-info mb-0">
+
+                            <i class="fas fa-hand-holding-heart me-2"></i>
+
+                            This donation has been accepted by an NGO.
+
+                        </div>
+
+
+                    <% } else if (donation.status === "collected") { %>
+
+                        <div class="alert alert-success">
+
+                            <i class="fas fa-check-circle me-2"></i>
+
+                            This donation has been collected successfully.
+
+                        </div>
+
+
+                        <% if (donation.collectionTime) { %>
+
+                            <p class="mb-0">
+
+                                <strong>Collection Time:</strong>
+
+                                <%= new Date(
+                                    donation.collectionTime
+                                ).toLocaleString("en-IN", {
+                                    dateStyle: "medium",
+                                    timeStyle: "short"
+                                }) %>
+
+                            </p>
+
+                        <% } %>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- Back -->
+                <div class="mt-4">
+
+                    <a
+                        href="/admin/donations/pending"
+                        class="btn btn-outline-secondary"
+                    >
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Pending Donations
+                    </a>
+
+                </div>
+
+
+            <% } %>
+
+        </div>
+
+    </div>
+
 </main>
