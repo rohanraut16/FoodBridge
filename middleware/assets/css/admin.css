@@ -2226,6 +2226,7 @@ body:has(#admin-sidebar) #main-wrapper::-webkit-scrollbar-track {
 }
 
 
+
 /* ---------------------------------
    Responsive
 --------------------------------- */
@@ -2276,4 +2277,50 @@ body:has(#admin-sidebar) #main-wrapper::-webkit-scrollbar-track {
     margin: 8px 0 0;
     font-size: 16px;
     color: #6b7d74;
+}
+
+
+/* ================= ADMIN FOODBRIDGE LOGO ================= */
+
+.admin-sidebar-title {
+    text-align: center;
+    padding: 20px 10px 28px;
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.admin-logo {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    border: 2px solid #108d4b;
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #108d4b;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.admin-brand h3 {
+    margin: 0 !important;
+    color: #108d4b !important;
+    font-size: 25px !important;
+    font-weight: 700 !important;
+}
+
+.admin-sidebar-title p {
+    margin: 6px 0 0;
+    color: #8a9992;
+    font-size: 13px;
 }
