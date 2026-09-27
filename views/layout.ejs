@@ -29,13 +29,22 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar.css">
 
-    <% if (currentUser && currentUser.role === "donor") { %>
-        <!-- Donor CSS only for donor -->
-        <link rel="stylesheet" href="/assets/css/donor.css">
-    <% } else { %>
-        <!-- Public/Home CSS only for public pages -->
-        <link rel="stylesheet" href="/css/style.css">
-    <% } %>
+    <% if (currentUser && currentUser.role === "admin") { %>
+
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="/assets/css/admin.css">
+
+<% } else if (currentUser && currentUser.role === "donor") { %>
+
+    <!-- Donor CSS -->
+    <link rel="stylesheet" href="/assets/css/donor.css">
+
+<% } else { %>
+
+    <!-- Public/Home CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+<% } %>
 
     <title>
         <%= typeof title !== 'undefined' ? title : 'FoodBridge' %>
@@ -304,7 +313,7 @@
 
 <body>
 
-    <% if (currentUser && currentUser.role === "donor") { %>
+    <% if (currentUser && (currentUser.role === "donor" || currentUser.role === "admin")) { %>
 
         <!-- ================= DONOR ================= -->
 

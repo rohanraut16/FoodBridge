@@ -4,7 +4,7 @@ const middleware = require("../middleware/index.js");
 const User = require("../models/user.js");
 const Donation = require("../models/donation.js");
 
-router.get("/agent/dashboard", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.get("/agent/dashboard", middleware.ensureNGOLoggedIn, async (req,res) => {
 	const agentId = req.user._id;
 	const numAssignedDonations = await Donation.countDocuments({ agent: agentId, status: "assigned" });
 	const numCollectedDonations = await Donation.countDocuments({ agent: agentId, status: "collected" });
@@ -14,7 +14,7 @@ router.get("/agent/dashboard", middleware.ensureAgentLoggedIn, async (req,res) =
 	});
 });
 
-router.get("/agent/collections/pending", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.get("/agent/collections/pending", middleware.ensureNGOLoggedIn, async (req,res) => {
 	try
 	{
 		const pendingCollections = await Donation.find({ agent: req.user._id, status: "assigned" }).populate("donor");
@@ -28,7 +28,7 @@ router.get("/agent/collections/pending", middleware.ensureAgentLoggedIn, async (
 	}
 });
 
-router.get("/agent/collections/previous", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.get("/agent/collections/previous", middleware.ensureNGOLoggedIn, async (req,res) => {
 	try
 	{
 		const previousCollections = await Donation.find({ agent: req.user._id, status: "collected" }).populate("donor");
@@ -42,7 +42,7 @@ router.get("/agent/collections/previous", middleware.ensureAgentLoggedIn, async 
 	}
 });
 
-router.get("/agent/collection/view/:collectionId", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.get("/agent/collection/view/:collectionId", middleware.ensureNGOLoggedIn, async (req,res) => {
 	try
 	{
 		const collectionId = req.params.collectionId;
@@ -57,7 +57,7 @@ router.get("/agent/collection/view/:collectionId", middleware.ensureAgentLoggedI
 	}
 });
 
-router.get("/agent/collection/collect/:collectionId", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.get("/agent/collection/collect/:collectionId", middleware.ensureNGOLoggedIn, async (req,res) => {
 	try
 	{
 		const collectionId = req.params.collectionId;
@@ -75,11 +75,11 @@ router.get("/agent/collection/collect/:collectionId", middleware.ensureAgentLogg
 
 
 
-router.get("/agent/profile", middleware.ensureAgentLoggedIn, (req,res) => {
+router.get("/agent/profile", middleware.ensureNGOLoggedIn, (req,res) => {
 	res.render("agent/profile", { title: "My Profile" });
 });
 
-router.put("/agent/profile", middleware.ensureAgentLoggedIn, async (req,res) => {
+router.put("/agent/profile", middleware.ensureNGOLoggedIn, async (req,res) => {
 	try
 	{
 		const id = req.user._id;

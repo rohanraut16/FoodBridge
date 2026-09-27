@@ -1,51 +1,591 @@
-<main>
-	<%- include('../partials/adminSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
-		</div>
-		
-		<div class="d-flex gap-3 flex-wrap m-4 text-white">
-			
-			<div class="bg-primary rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numAdmins %></div>
-				<div class="fs-5">admins</div>
-			</div>
-			
-			<div class="bg-success rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numDonors %></div>
-				<div class="fs-5">donors</div>
-			</div>
-			
-			<div class="bg-primary rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numAgents %></div>
-				<div class="fs-5">agents</div>
-			</div>
-			
-			<div class="bg-success rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numPendingDonations %></div>
-				<div class="fs-5">new donation requests</div>
-			</div>
-			
-			<div class="bg-warning rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numAcceptedDonations %></div>
-				<div class="fs-5">donations to be assigned to agent</div>
-			</div>
-			
-			<div class="bg-danger rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numAssignedDonations %></div>
-				<div class="fs-5">donations not collected yet</div>
-			</div>
-			
-			<div class="bg-success rounded p-3" style="width: 350px;">
-				<div class="fs-1"><%= numCollectedDonations %></div>
-				<div class="fs-5">donations collected</div>
-			</div>
-			
-		</div>
-		
-	</div>
+<style>
+    /* =====================================================
+   FOODBRIDGE ADMIN DASHBOARD
+   ===================================================== */
+
+.admin-dashboard {
+    min-height: calc(100vh - 50px);
+    display: flex;
+    overflow: hidden;
+    background: #f6f8f7;
+    font-family: "Josefin Sans", sans-serif;
+    color: #17231d;
+}
+
+.admin-dashboard #main-wrapper {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+    background: #f6f8f7;
+}
+
+/* Admin top bar */
+.admin-dashboard #main-wrapper > .bg-white {
+    border-bottom: 1px solid #e5eae7;
+}
+
+/* Welcome section */
+.admin-dashboard .p-4 {
+    padding: 28px !important;
+}
+
+.admin-dashboard h3 {
+    color: #17231d;
+}
+
+/* =====================================================
+   STATISTICS CARDS
+   ===================================================== */
+
+.admin-dashboard .row.g-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin: 0;
+}
+
+.admin-dashboard .row.g-4 > div {
+    width: 100%;
+    padding: 0;
+}
+
+.admin-dashboard .row.g-4 > div > div {
+    background: white;
+    border: 1px solid #e5eae7;
+    border-radius: 12px;
+    min-height: 125px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.admin-dashboard .row.g-4 > div > div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Card numbers */
+.admin-dashboard .row.g-4 h2,
+.admin-dashboard .row.g-4 h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 5px 0;
+    color: #17231d;
+}
+
+/* Card titles */
+.admin-dashboard .row.g-4 p {
+    margin: 0;
+    color: #68746c;
+    font-size: 14px;
+}
+
+/* Icons */
+.admin-dashboard .row.g-4 i {
+    font-size: 20px;
+    color: #168447;
+    margin-bottom: 8px;
+}
+
+/* =====================================================
+   TABLE CARDS
+   ===================================================== */
+
+.admin-dashboard .admin-table-card {
+    background: white;
+    border: 1px solid #e5eae7;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow-x: auto;
+}
+
+.admin-dashboard .admin-table-card h5,
+.admin-dashboard .admin-table-card h4 {
+    color: #17231d;
+    font-weight: 700;
+}
+
+.admin-dashboard .admin-table-card table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.admin-dashboard .admin-table-card th {
+    background: #f4f8f5;
+    color: #34483b;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px;
+}
+
+.admin-dashboard .admin-table-card td {
+    padding: 12px;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+/* =====================================================
+   STATUS BADGES
+   ===================================================== */
+
+.admin-dashboard .badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 1100px) {
+
+    .admin-dashboard .row.g-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .admin-dashboard .row.g-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard .p-4 {
+        padding: 18px !important;
+    }
+
+}
+
+
+</style>
+
+<main class="admin-dashboard">
+
+    <%- include('../partials/adminSidebar') %>
+
+    <div id="main-wrapper">
+
+        <!-- Top Bar -->
+        <!-- Top Bar -->
+<div class="admin-page-title">
+
+    <h2>Admin Dashboard</h2>
+
+    <p>
+        Monitor and manage FoodBridge
+    </p>
+
+</div>
+
+
+        <!-- Dashboard Content -->
+        <div class="p-4">
+
+            <!-- Welcome -->
+            <div class="mb-4">
+                <h3 class="fw-bold">Welcome, <%= currentUser.firstName %> 👋</h3>
+                <p class="text-muted mb-0">
+                    Here's what's happening on FoodBridge today.
+                </p>
+            </div>
+
+
+            <!-- Statistics Cards -->
+            <div class="row g-4">
+
+
+                <!-- Total Donations -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= totalDonations %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Total Donations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Total Donors -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= totalDonors %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Total Donors
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Total NGOs -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= totalNGOs %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Total NGOs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Pending Approvals -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= pendingApprovals %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Pending Approvals
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Active Donations -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= activeDonations %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Active Donations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Successful Deliveries -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= successfulDeliveries %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Successful Deliveries
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Rejected Donations -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= rejectedDonations %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Rejected Donations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Food Saved -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+
+                        <div>
+                            <div class="admin-stat-number">
+                                <%= successfulDeliveries %>
+                            </div>
+
+                            <div class="admin-stat-label">
+                                Food Saved
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Recent Donations -->
+            <div class="admin-table-card mt-5">
+
+                <div class="admin-table-header">
+                    <div>
+                        <h5 class="mb-1">Recent Donations</h5>
+                        <p class="text-muted mb-0">
+                            Latest food donation activities
+                        </p>
+                    </div>
+
+                    <a href="/admin/donations/previous"
+                       class="btn btn-sm btn-outline-success">
+                        View All
+                    </a>
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>Food</th>
+                                <th>Donor</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% if (recentDonations.length === 0) { %>
+
+                                <tr>
+                                    <td colspan="5"
+                                        class="text-center text-muted py-4">
+                                        No donations found.
+                                    </td>
+                                </tr>
+
+                            <% } else { %>
+
+                                <% recentDonations.forEach(donation => { %>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                <%= donation.foodType %>
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            <% if (donation.donor) { %>
+                                                <%= donation.donor.firstName %>
+                                                <%= donation.donor.lastName %>
+                                            <% } else { %>
+                                                Unknown
+                                            <% } %>
+                                        </td>
+
+                                        <td>
+                                            <%= donation.quantity %>
+                                        </td>
+
+                                        <td>
+
+                                            <% if (donation.status === "pending") { %>
+
+                                                <span class="admin-status pending">
+                                                    Pending
+                                                </span>
+
+                                            <% } else if (donation.status === "accepted") { %>
+
+                                                <span class="admin-status accepted">
+                                                    Available
+                                                </span>
+
+                                            <% } else if (donation.status === "collected") { %>
+
+                                                <span class="admin-status collected">
+                                                    Completed
+                                                </span>
+
+                                            <% } else if (donation.status === "rejected") { %>
+
+                                                <span class="admin-status rejected">
+                                                    Rejected
+                                                </span>
+
+                                            <% } else { %>
+
+                                                <span class="admin-status">
+                                                    <%= donation.status %>
+                                                </span>
+
+                                            <% } %>
+
+                                        </td>
+
+                                        <td>
+                                            <a href="/admin/donation/view/<%= donation._id %>"
+                                               class="btn btn-sm btn-outline-success">
+                                                View
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                <% }) %>
+
+                            <% } %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pending Approvals -->
+            <div class="admin-table-card mt-4">
+
+                <div class="admin-table-header">
+
+                    <div>
+                        <h5 class="mb-1">Pending Approvals</h5>
+
+                        <p class="text-muted mb-0">
+                            Donations waiting for admin verification
+                        </p>
+                    </div>
+
+                    <a href="/admin/donations/pending"
+                       class="btn btn-sm btn-success">
+                        Review Donations
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>Food</th>
+                                <th>Donor</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% if (pendingApprovals === 0) { %>
+
+                                <tr>
+                                    <td colspan="4"
+                                        class="text-center text-muted py-4">
+                                        No pending approvals 🎉
+                                    </td>
+                                </tr>
+
+                            <% } else { %>
+
+                                <% recentDonations
+                                    .filter(donation => donation.status === "pending")
+                                    .forEach(donation => { %>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                <%= donation.foodType %>
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            <% if (donation.donor) { %>
+                                                <%= donation.donor.firstName %>
+                                                <%= donation.donor.lastName %>
+                                            <% } else { %>
+                                                Unknown
+                                            <% } %>
+                                        </td>
+
+                                        <td>
+                                            <%= donation.quantity %>
+                                        </td>
+
+                                        <td>
+                                            <a href="/admin/donation/view/<%= donation._id %>"
+                                               class="btn btn-sm btn-success">
+                                                Review
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                <% }) %>
+
+                            <% } %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </main>

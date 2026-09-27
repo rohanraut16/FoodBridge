@@ -1,36 +1,194 @@
-<main>
-	<%- include('../partials/adminSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
-		</div>
-		
-		<div class="col col-sm-10 col-12 m-auto my-4" style="max-height: 75%; overflow: auto;">
-			<table class="table table-info table-striped table-hover m-0 bg-white">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Agent name</th>
-						<th scope="col">Email</th>
-						<th scope="col">Phone</th>
-						<th scope="col">Joined time</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% for(let i=0; i<agents.length; i++) { %>
-						<tr>
-							<th scope="row"> <%= i+1 %> </th>
-							<td> <%= agents[i].firstName + " " + agents[i].lastName %> </td>
-							<td> <%= agents[i].email %> </td>
-							<td> <%= agents[i].phone %> </td>
-							<td> <%= agents[i].joinedTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %> </td>
-					<% } %>
-				</tbody>
-			</table>
-		</div>
-		
-	</div>
+<main class="admin-main">
+
+    <%- include('../partials/adminSidebar') %>
+
+    <div id="admin-main-wrapper">
+
+        <!-- Page Header -->
+        <div class="admin-page-header">
+            <h2>
+                <i class="fas fa-building me-2"></i>
+                Manage NGOs
+            </h2>
+
+            <p>
+                View and manage registered NGOs on FoodBridge.
+            </p>
+        </div>
+
+        <!-- NGO Section -->
+        <div class="admin-card">
+
+            <div class="admin-card-header">
+                <div>
+                    <h3>NGO Management</h3>
+                    <p>
+                        View registered NGOs and their contact information.
+                    </p>
+                </div>
+
+                <div class="admin-card-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+            </div>
+
+            <% if (!ngos || ngos.length === 0) { %>
+
+                <!-- Empty State -->
+                <div class="admin-empty">
+                    <div class="admin-empty-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+
+                    <h4>No NGOs Registered</h4>
+
+                    <p>
+                        Registered NGOs will appear here.
+                    </p>
+                </div>
+
+            <% } else { %>
+
+                <!-- NGO Table -->
+                <div class="admin-table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NGO</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Joined Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% ngos.forEach((ngo, index) => { %>
+
+                                <tr>
+
+                                    <!-- Number -->
+                                    <td>
+                                        <span class="admin-number">
+                                            <%= index + 1 %>
+                                        </span>
+                                    </td>
+
+                                    <!-- NGO -->
+                                    <td>
+
+                                        <div class="admin-user-cell">
+
+                                            <div class="admin-user-icon">
+                                                <i class="fas fa-building"></i>
+                                            </div>
+
+                                            <div>
+                                                <strong>
+                                                    <%= ngo.firstName %>
+                                                    <%= ngo.lastName %>
+                                                </strong>
+
+                                                <small>
+                                                    NGO
+                                                </small>
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+                                    <!-- Email -->
+                                    <td>
+                                        <%= ngo.email %>
+                                    </td>
+
+                                    <!-- Phone -->
+                                    <td>
+
+                                        <% if (ngo.phone) { %>
+
+                                            <%= ngo.phone %>
+
+                                        <% } else { %>
+
+                                            <span class="admin-muted">
+                                                Not provided
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Address -->
+                                    <td>
+
+                                        <% if (ngo.address) { %>
+
+                                            <%= ngo.address %>
+
+                                        <% } else { %>
+
+                                            <span class="admin-muted">
+                                                Not provided
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Joined Date -->
+                                    <td>
+
+                                        <% if (ngo.joinedTime) { %>
+
+                                            <%= new Date(
+                                                ngo.joinedTime
+                                            ).toLocaleDateString("en-IN", {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric"
+                                            }) %>
+
+                                        <% } else { %>
+
+                                            <span class="admin-muted">
+                                                —
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Status -->
+                                    <td>
+
+                                        <span class="admin-status active">
+                                            <i class="fas fa-circle"></i>
+                                            Active
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
 </main>

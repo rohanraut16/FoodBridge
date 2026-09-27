@@ -1,39 +1,289 @@
-<main>
-	<%- include('../partials/adminSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Pending Donations</h5>
-		</div>
-		
-		<div class="col col-sm-10 col-12 m-auto my-4" style="max-height: 75%; overflow: auto;">
-			<table class="table table-info table-striped table-hover m-0 bg-white">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Donor name</th>
-						<th scope="col">Food type</th>
-						<th scope="col">Quantity</th>
-						<th scope="col">Status</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% for(let i=0; i<pendingDonations.length; i++) { %>
-						<tr>
-							<th scope="row"> <%= i+1 %> </th>
-							<td> <%= pendingDonations[i].donor.firstName + " " + pendingDonations[i].donor.lastName %> </td>
-							<td> <%= pendingDonations[i].foodType %> </td>
-							<td> <%= pendingDonations[i].quantity %> </td>
-							<td class="fw-bold text-<%= pendingDonations[i].status %>"> <%= pendingDonations[i].status %> </td>
-							<td><a href="/admin/donation/view/<%= pendingDonations[i]._id %>" class="btn">View</a></td>
-						</tr>
-					<% } %>
-				</tbody>
-			</table>
-		</div>
-		
-	</div>
+<main class="admin-main">
+
+    <%- include('../partials/adminSidebar') %>
+
+    <div id="admin-main-wrapper">
+
+        <!-- Page Header -->
+        <div class="admin-page-header">
+            <h2>Pending Donations</h2>
+            <p>
+                Review food donations and approve or reject them before
+                they are made available to NGOs.
+            </p>
+        </div>
+
+        <% if (pendingDonations.length === 0) { %>
+
+            <!-- Empty State -->
+            <div class="admin-card admin-empty-state">
+
+                <div class="admin-empty-icon success">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <h3>No Pending Donations</h3>
+
+                <p>
+                    All donation requests have been reviewed.
+                </p>
+
+            </div>
+
+        <% } else { %>
+
+            <!-- Pending Donations Card -->
+            <div class="admin-card">
+
+                <div class="admin-card-header">
+
+                    <div>
+                        <h3>Donation Approval Requests</h3>
+                        <p>
+                            <%= pendingDonations.length %>
+                            donation(s) waiting for verification
+                        </p>
+                    </div>
+
+                    <span class="pending-count">
+                        <i class="fas fa-clock"></i>
+                        <%= pendingDonations.length %> Pending
+                    </span>
+
+                </div>
+
+                <div class="admin-table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Donor</th>
+                                <th>Food</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Important Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% pendingDonations.forEach((donation, index) => { %>
+
+                                <tr>
+
+                                    <!-- Number -->
+                                    <td>
+                                        <span class="row-number">
+                                            <%= index + 1 %>
+                                        </span>
+                                    </td>
+
+                                    <!-- Donor -->
+                                    <td>
+
+                                        <% if (donation.donor) { %>
+
+                                            <div class="donor-info">
+
+                                                <strong>
+                                                    <%= donation.donor.firstName %>
+                                                    <%= donation.donor.lastName %>
+                                                </strong>
+
+                                                <small>
+                                                    <%= donation.donor.email %>
+                                                </small>
+
+                                            </div>
+
+                                        <% } else { %>
+
+                                            <span class="muted-text">
+                                                Unknown Donor
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Food -->
+                                    <td>
+                                        <strong class="food-name">
+                                            <%= donation.foodType %>
+                                        </strong>
+                                    </td>
+
+                                    <!-- Food Type -->
+                                    <td>
+
+                                        <% if (donation.foodCondition === "cooked") { %>
+
+                                            <span class="food-badge cooked">
+                                                <i class="fas fa-utensils"></i>
+                                                Cooked
+                                            </span>
+
+                                        <% } else if (donation.foodCondition === "packaged") { %>
+
+                                            <span class="food-badge packaged">
+                                                <i class="fas fa-box"></i>
+                                                Packaged
+                                            </span>
+
+                                        <% } else { %>
+
+                                            <span class="food-badge">
+                                                <%= donation.foodCondition %>
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Quantity -->
+                                    <td>
+                                        <strong>
+                                            <%= donation.quantity %>
+                                        </strong>
+                                    </td>
+
+                                    <!-- Important Date -->
+                                    <td>
+
+                                        <% if (
+                                            donation.foodCondition === "cooked"
+                                            && donation.cookingTime
+                                        ) { %>
+
+                                            <div class="date-info">
+
+                                                <span>
+                                                    <i class="fas fa-clock"></i>
+                                                    Cooking
+                                                </span>
+
+                                                <strong>
+                                                    <%= new Date(
+                                                        donation.cookingTime
+                                                    ).toLocaleString() %>
+                                                </strong>
+
+                                            </div>
+
+                                        <% } else if (
+                                            donation.foodCondition === "packaged"
+                                        ) { %>
+
+                                            <div class="date-info">
+
+                                                <% if (donation.manufactureDate) { %>
+
+                                                    <span>
+                                                        <i class="fas fa-calendar-plus"></i>
+                                                        Mfg
+                                                    </span>
+
+                                                    <strong>
+                                                        <%= new Date(
+                                                            donation.manufactureDate
+                                                        ).toLocaleDateString() %>
+                                                    </strong>
+
+                                                <% } %>
+
+                                                <% if (donation.expiryDate) { %>
+
+                                                    <span class="expiry-date">
+                                                        <i class="fas fa-calendar-xmark"></i>
+                                                        Exp
+                                                    </span>
+
+                                                    <strong class="expiry-text">
+                                                        <%= new Date(
+                                                            donation.expiryDate
+                                                        ).toLocaleDateString() %>
+                                                    </strong>
+
+                                                <% } %>
+
+                                            </div>
+
+                                        <% } else { %>
+
+                                            <span class="muted-text">
+                                                —
+                                            </span>
+
+                                        <% } %>
+
+                                    </td>
+
+                                    <!-- Status -->
+                                    <td>
+
+                                        <span class="status-badge pending">
+                                            <i class="fas fa-clock"></i>
+                                            Pending
+                                        </span>
+
+                                    </td>
+
+                                    <!-- Actions -->
+                                    <td>
+
+                                        <div class="admin-actions">
+
+                                            <!-- View -->
+                                            <a
+                                                href="/admin/donation/view/<%= donation._id %>"
+                                                class="action-btn view-btn"
+                                            >
+                                                <i class="fas fa-eye"></i>
+                                                View
+                                            </a>
+
+                                            <!-- Approve -->
+                                            <a
+                                                href="/admin/donation/accept/<%= donation._id %>"
+                                                class="action-btn approve-btn"
+                                                onclick="return confirm('Are you sure you want to approve this donation?');"
+                                            >
+                                                <i class="fas fa-check"></i>
+                                                Approve
+                                            </a>
+
+                                            <!-- Reject -->
+                                            <a
+                                                href="/admin/donation/reject/<%= donation._id %>"
+                                                class="action-btn reject-btn"
+                                                onclick="return confirm('Are you sure you want to reject this donation?');"
+                                            >
+                                                <i class="fas fa-times"></i>
+                                                Reject
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        <% } %>
+
+    </div>
+
 </main>
