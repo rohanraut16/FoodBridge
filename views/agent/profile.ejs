@@ -1,271 +1,428 @@
-<main>
 
+<main class="ngo-page">
     <%- include('../partials/agentSidebar') %>
 
     <div id="main-wrapper">
 
-        <!-- TOP BAR -->
-        <div class="bg-white shadow-sm p-3">
+        <style>
+            #main-wrapper {
+                width: calc(100% - 260px);
+                margin-left: 260px;
+                min-height: 100vh;
+                padding: 28px;
+                background: #f3f8f5;
+                color: #164b38;
+                font-family: "Segoe UI", Arial, sans-serif;
+                box-sizing: border-box;
+            }
 
-            <span class="me-3" id="sidebar-toggler-btn">
-                <i class="fas fa-bars"></i>
-            </span>
+            #main-wrapper * {
+                box-sizing: border-box;
+            }
 
-            <h5 class="m-0 color-theme d-inline-block">
-                My Profile
-            </h5>
+            .profile-container {
+                width: 100%;
+                max-width: 1500px;
+                margin: 0 auto;
+            }
+
+            .profile-hero {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                padding: 32px;
+                margin-bottom: 24px;
+                border: 1px solid #dcece2;
+                border-radius: 18px;
+                background: linear-gradient(120deg, #ffffff, #e5f5eb);
+            }
+
+            .profile-eyebrow {
+                margin: 0 0 10px;
+                color: #23835b;
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+            }
+
+            .profile-hero h1 {
+                margin: 0 0 10px;
+                color: #164b38;
+                font-size: 30px;
+                font-weight: 800;
+            }
+
+            .profile-hero p:last-child {
+                margin: 0;
+                color: #78877f;
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .profile-hero-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                width: 65px;
+                height: 65px;
+                border-radius: 18px;
+                background: #d8f2e2;
+                font-size: 30px;
+            }
+
+            .profile-card {
+                width: 100%;
+                max-width: 950px;
+                padding: 30px;
+                border: 1px solid #dcebe2;
+                border-radius: 18px;
+                background: #ffffff;
+                box-shadow: 0 6px 22px rgba(20, 75, 56, .05);
+            }
+
+            .profile-card-header {
+                padding-bottom: 22px;
+                margin-bottom: 25px;
+                border-bottom: 1px solid #edf2ee;
+            }
+
+            .profile-card-header h2 {
+                margin: 0 0 8px;
+                color: #164b38;
+                font-size: 23px;
+                font-weight: 800;
+            }
+
+            .profile-card-header p {
+                margin: 0;
+                color: #84928a;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .profile-card .form-label {
+                display: block;
+                margin-bottom: 9px;
+                color: #245641;
+                font-size: 13px;
+                font-weight: 700;
+            }
+
+            .profile-card .form-control {
+                display: block;
+                width: 100%;
+                min-height: 46px;
+                padding: 11px 13px;
+                border: 1px solid #dce7df;
+                border-radius: 9px;
+                background-color: #ffffff;
+                color: #164b38;
+                font-size: 14px;
+                box-shadow: none;
+            }
+
+            .profile-card .form-control:focus {
+                border-color: #23835b;
+                box-shadow: 0 0 0 3px rgba(35, 131, 91, .12);
+                outline: none;
+            }
+
+            .profile-card .form-control:disabled {
+                background: #f2f6f3;
+                color: #78877f;
+                opacity: 1;
+            }
+
+            .profile-card .form-check {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                margin: 0 22px 0 0;
+                padding-left: 0;
+            }
+
+            .profile-card .form-check-input {
+                float: none;
+                margin: 0;
+                accent-color: #237b56;
+                cursor: pointer;
+            }
+
+            .profile-card .form-check-label {
+                color: #53685d;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .profile-email-note {
+                display: block;
+                margin-top: 7px;
+                color: #84928a;
+                font-size: 12px;
+            }
+
+            .profile-save {
+                display: block;
+                width: 100%;
+                min-height: 48px;
+                margin-top: 8px;
+                padding: 13px 18px;
+                border: none;
+                border-radius: 9px;
+                background: #237b56;
+                color: #ffffff;
+                font-size: 14px;
+                font-weight: 750;
+                cursor: pointer;
+                transition: background .2s ease;
+            }
+
+            .profile-save:hover {
+                background: #185d40;
+            }
+
+            .profile-footer {
+                padding: 25px 0 8px;
+                color: #84928a;
+                text-align: center;
+                font-size: 12px;
+                line-height: 1.7;
+            }
+
+            @media (max-width: 768px) {
+                #main-wrapper {
+                    width: 100%;
+                    margin-left: 0;
+                    padding: 18px 14px;
+                }
+
+                .profile-hero {
+                    padding: 23px 20px;
+                }
+
+                .profile-hero h1 {
+                    font-size: 25px;
+                }
+
+                .profile-hero-icon {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 23px;
+                }
+
+                .profile-card {
+                    padding: 22px 18px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #main-wrapper {
+                    padding: 12px 10px;
+                }
+
+                .profile-hero {
+                    padding: 19px 15px;
+                }
+
+                .profile-hero h1 {
+                    font-size: 22px;
+                }
+
+                .profile-hero-icon {
+                    width: 42px;
+                    height: 42px;
+                    font-size: 20px;
+                }
+
+                .profile-card {
+                    padding: 20px 14px;
+                }
+            }
+        </style>
+
+        <div class="profile-container">
+
+            <!-- PAGE HEADER -->
+            <section class="profile-hero">
+                <div>
+                    <p class="profile-eyebrow">
+                        FOODBRIDGE · NGO PORTAL
+                    </p>
+                    <h1>My Profile</h1>
+                    <p>
+                        Manage your personal information and account details.
+                    </p>
+                </div>
+
+                <div class="profile-hero-icon">👤</div>
+            </section>
+
+            <!-- PROFILE FORM -->
+            <section class="profile-card">
+
+                <div class="profile-card-header">
+                    <h2>NGO Profile</h2>
+                    <p>
+                        Keep your contact information accurate and up to date.
+                    </p>
+                </div>
+
+                <form action="/agent/profile?_method=PUT" method="POST">
+
+                    <!-- FIRST NAME AND LAST NAME -->
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="first-name" class="form-label">
+                                First Name
+                            </label>
+                            <input
+                                type="text"
+                                name="agent[firstName]"
+                                class="form-control"
+                                id="first-name"
+                                placeholder="Enter first name"
+                                value="<%= currentUser.firstName || '' %>"
+                                required
+                            >
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label for="last-name" class="form-label">
+                                Last Name
+                            </label>
+                            <input
+                                type="text"
+                                name="agent[lastName]"
+                                class="form-control"
+                                id="last-name"
+                                placeholder="Enter last name"
+                                value="<%= currentUser.lastName || '' %>"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="mb-4">
+                        <label for="email" class="form-label">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            value="<%= currentUser.email || '' %>"
+                            disabled
+                        >
+                        <small class="profile-email-note">
+                            Email cannot be changed.
+                        </small>
+                    </div>
+
+                    <!-- GENDER -->
+                    <div class="mb-4">
+                        <label class="form-label">Gender</label>
+
+                        <div>
+                            <label class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="agent[gender]"
+                                    id="male"
+                                    value="male"
+                                    <%= currentUser.gender === 'male' ? 'checked' : '' %>
+                                >
+                                <span class="form-check-label">Male</span>
+                            </label>
+
+                            <label class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="agent[gender]"
+                                    id="female"
+                                    value="female"
+                                    <%= currentUser.gender === 'female' ? 'checked' : '' %>
+                                >
+                                <span class="form-check-label">Female</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ADDRESS -->
+                    <div class="mb-4">
+                        <label for="address" class="form-label">
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            name="agent[address]"
+                            class="form-control"
+                            id="address"
+                            placeholder="Enter your address"
+                            value="<%= currentUser.address || '' %>"
+                        >
+                    </div>
+
+                    <!-- PHONE -->
+                    <div class="mb-4">
+                        <label for="phone" class="form-label">
+                            Phone Number
+                        </label>
+                        <input
+                            type="tel"
+                            name="agent[phone]"
+                            class="form-control"
+                            id="phone"
+                            placeholder="Enter your phone number"
+                            value="<%= currentUser.phone || '' %>"
+                        >
+                    </div>
+
+                    <!-- ROLE AND JOINED DATE -->
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="role" class="form-label">
+                                Role
+                            </label>
+                            <input
+                                type="text"
+                                id="role"
+                                class="form-control"
+                                value="NGO Member"
+                                disabled
+                            >
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label for="joinedDate" class="form-label">
+                                Joined Date
+                            </label>
+                            <input
+                                type="text"
+                                id="joinedDate"
+                                class="form-control"
+                                value="<%= currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Not Available' %>"
+                                disabled
+                            >
+                        </div>
+                    </div>
+
+                    <!-- UPDATE BUTTON -->
+                    <button type="submit" class="profile-save">
+                        Update Profile
+                    </button>
+
+                </form>
+            </section>
+
+            <footer class="profile-footer">
+                FoodBridge NGO Portal · Connecting surplus food with those in need
+            </footer>
 
         </div>
-
-
-        <!-- PROFILE FORM -->
-
-        <form
-            action="/agent/profile?_method=PUT"
-            method="POST"
-            class="w-75 border ms-3 my-3 p-4 bg-white rounded-2 shadow"
-            style="min-width: 400px;"
-        >
-
-            <h4 class="mb-4 color-theme">
-                NGO Profile
-            </h4>
-
-
-            <!-- FIRST NAME + LAST NAME -->
-
-            <div class="row">
-
-                <div class="col-sm-6 mb-4">
-
-                    <label
-                        for="first-name"
-                        class="form-label"
-                    >
-                        First Name
-                    </label>
-
-                    <input
-                        type="text"
-                        name="agent[firstName]"
-                        class="form-control"
-                        id="first-name"
-                        placeholder="Enter first name.."
-                        value="<%= currentUser.firstName || '' %>"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="col-sm-6 mb-4">
-
-                    <label
-                        for="last-name"
-                        class="form-label"
-                    >
-                        Last Name
-                    </label>
-
-                    <input
-                        type="text"
-                        name="agent[lastName]"
-                        class="form-control"
-                        id="last-name"
-                        placeholder="Enter last name.."
-                        value="<%= currentUser.lastName || '' %>"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <!-- EMAIL -->
-
-            <div class="mb-4">
-
-                <label
-                    for="email"
-                    class="form-label"
-                >
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    class="form-control"
-                    value="<%= currentUser.email || '' %>"
-                    disabled
-                >
-
-                <small class="text-muted">
-                    Email cannot be changed.
-                </small>
-
-            </div>
-
-
-            <!-- GENDER -->
-
-            <div class="mb-4">
-
-                <span class="d-inline-block me-3">
-                    Gender:
-                </span>
-
-
-                <div class="form-check form-check-inline">
-
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        name="agent[gender]"
-                        id="male"
-                        value="male"
-                        <% if (currentUser.gender === "male") { %>
-                            checked
-                        <% } %>
-                    >
-
-                    <label
-                        class="form-check-label"
-                        for="male"
-                    >
-                        Male
-                    </label>
-
-                </div>
-
-
-                <div class="form-check form-check-inline">
-
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        name="agent[gender]"
-                        id="female"
-                        value="female"
-                        <% if (currentUser.gender === "female") { %>
-                            checked
-                        <% } %>
-                    >
-
-                    <label
-                        class="form-check-label"
-                        for="female"
-                    >
-                        Female
-                    </label>
-
-                </div>
-
-            </div>
-
-
-            <!-- ADDRESS -->
-
-            <div class="mb-4">
-
-                <label
-                    for="address"
-                    class="form-label"
-                >
-                    Address
-                </label>
-
-                <input
-                    type="text"
-                    name="agent[address]"
-                    class="form-control"
-                    id="address"
-                    placeholder="Enter address.."
-                    value="<%= currentUser.address || '' %>"
-                >
-
-            </div>
-
-
-            <!-- PHONE -->
-
-            <div class="mb-4">
-
-                <label
-                    for="phone"
-                    class="form-label"
-                >
-                    Phone
-                </label>
-
-                <input
-                    type="tel"
-                    name="agent[phone]"
-                    class="form-control"
-                    id="phone"
-                    placeholder="Enter phone number.."
-                    value="<%= currentUser.phone || '' %>"
-                >
-
-            </div>
-
-
-            <!-- ROLE -->
-
-            <div class="mb-4">
-
-                <label
-                    for="role"
-                    class="form-label"
-                >
-                    Role
-                </label>
-
-                <input
-                    type="text"
-                    id="role"
-                    class="form-control"
-                    value="NGO"
-                    disabled
-                >
-
-            </div>
-
-
-            <!-- JOINED DATE -->
-
-            <div class="mb-4">
-
-                <label
-                    for="joinedDate"
-                    class="form-label"
-                >
-                    Joined Date
-                </label>
-
-                <input
-                    type="text"
-                    id="joinedDate"
-                    class="form-control"
-                    value="<%= currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Not Available' %>"
-                    disabled
-                >
-
-            </div>
-
-
-            <!-- UPDATE BUTTON -->
-
-            <button
-                type="submit"
-                class="btn btn-success w-75 d-block m-auto mt-4"
-            >
-                Update Profile
-            </button>
-
-        </form>
-
     </div>
-
 </main>

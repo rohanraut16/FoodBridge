@@ -1,37 +1,408 @@
-<main>
-	<%- include('../partials/agentSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Previous Collections</h5>
-		</div>
-		
-		<div class="col col-sm-10 col-12 m-auto my-4" style="max-height: 75%; overflow: auto;">
-			<table class="table table-info table-striped table-hover m-0 bg-white">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Donor name</th>
-						<th scope="col">Address collected</th>
-						<th scope="col">Phone</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% for(let i=0; i<previousCollections.length; i++) { %>
-						<tr>
-							<th scope="row"> <%= i+1 %> </th>
-							<td> <%= previousCollections[i].donor.firstName + " " + previousCollections[i].donor.lastName %> </td>
-							<td> <%= previousCollections[i].address %> </td>
-							<td> <%= previousCollections[i].phone %> </td>
-							<td><a href="/agent/collection/view/<%= previousCollections[i]._id %>" class="btn">View</a></td>
-						</tr>
-					<% } %>
-				</tbody>
-			</table>
-		</div>
-		
-	</div>
+
+<main class="ngo-page">
+    <%- include('../partials/agentSidebar') %>
+
+    <div id="main-wrapper">
+        <style>
+            #main-wrapper {
+                width: calc(100% - 260px);
+                margin-left: 260px;
+                min-height: 100vh;
+                padding: 28px;
+                background: #f3f8f5;
+                color: #164b38;
+                font-family: "Segoe UI", Arial, sans-serif;
+                box-sizing: border-box;
+            }
+
+            #main-wrapper * {
+                box-sizing: border-box;
+            }
+
+            .previous-page {
+                max-width: 1600px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .previous-hero {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+                padding: 34px;
+                margin-bottom: 28px;
+                border: 1px solid #dcece2;
+                border-radius: 20px;
+                background: linear-gradient(120deg, #fff, #e5f5eb);
+                box-shadow: 0 6px 24px rgba(24, 59, 46, .04);
+            }
+
+            .previous-eyebrow {
+                margin: 0 0 10px;
+                color: #23835b;
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+            }
+
+            .previous-hero h1 {
+                margin: 0 0 10px;
+                color: #164b38;
+                font-size: 32px;
+                font-weight: 800;
+            }
+
+            .previous-hero p:last-child {
+                margin: 0;
+                color: #78877f;
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .previous-hero-icon {
+                width: 68px;
+                height: 68px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 18px;
+                background: #d8f2e2;
+                font-size: 32px;
+            }
+
+            .previous-heading {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-bottom: 18px;
+            }
+
+            .previous-heading h2 {
+                margin: 0;
+                font-size: 22px;
+                font-weight: 800;
+            }
+
+            .previous-count {
+                padding: 10px 14px;
+                border-radius: 10px;
+                background: #d9f3e3;
+                color: #18774e;
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .previous-panel {
+                overflow: hidden;
+                border: 1px solid #dcebe2;
+                border-radius: 18px;
+                background: white;
+                box-shadow: 0 6px 22px rgba(24, 59, 46, .04);
+            }
+
+            .previous-panel-header {
+                padding: 24px 26px;
+                border-bottom: 1px solid #edf2ee;
+            }
+
+            .previous-panel-header h3 {
+                margin: 0 0 7px;
+                color: #164b38;
+                font-size: 17px;
+                font-weight: 800;
+            }
+
+            .previous-panel-header p {
+                margin: 0;
+                color: #84928a;
+                font-size: 13px;
+            }
+
+            .previous-table-wrap {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .previous-table {
+                width: 100%;
+                min-width: 760px;
+                margin: 0;
+                border-collapse: collapse;
+                background: white;
+            }
+
+            .previous-table thead {
+                background: #e9f6ee;
+            }
+
+            .previous-table th {
+                padding: 17px 20px;
+                color: #245641;
+                text-align: left;
+                font-size: 12px;
+                font-weight: 800;
+                text-transform: uppercase;
+                white-space: nowrap;
+                border-bottom: 1px solid #dcebe2;
+            }
+
+            .previous-table td {
+                padding: 18px 20px;
+                color: #53685d;
+                font-size: 13px;
+                line-height: 1.6;
+                vertical-align: middle;
+                border-bottom: 1px solid #edf2ee;
+            }
+
+            .previous-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            .previous-table tbody tr:hover {
+                background: #f8fcf9;
+            }
+
+            .previous-number {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 10px;
+                background: #e4f5ea;
+                color: #18774e;
+                font-weight: 800;
+            }
+
+            .previous-donor {
+                color: #164b38;
+                font-weight: 750;
+            }
+
+            .previous-status {
+                display: inline-block;
+                padding: 6px 10px;
+                border-radius: 20px;
+                background: #dff5e6;
+                color: #18774e;
+                font-size: 11px;
+                font-weight: 800;
+            }
+
+            .previous-view-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 15px;
+                border-radius: 9px;
+                background: #237b56;
+                color: white;
+                font-size: 12px;
+                font-weight: 750;
+                text-decoration: none;
+                white-space: nowrap;
+                transition: background .2s ease;
+            }
+
+            .previous-view-btn:hover {
+                background: #185d40;
+                color: white;
+                text-decoration: none;
+            }
+
+            .previous-empty {
+                padding: 65px 20px;
+                text-align: center;
+            }
+
+            .previous-empty-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 70px;
+                height: 70px;
+                margin: 0 auto 20px;
+                border-radius: 20px;
+                background: #e7f6ec;
+                font-size: 32px;
+            }
+
+            .previous-empty h3 {
+                margin: 0 0 10px;
+                color: #164b38;
+                font-size: 21px;
+                font-weight: 800;
+            }
+
+            .previous-empty p {
+                margin: 0;
+                color: #84928a;
+                font-size: 14px;
+                line-height: 1.8;
+            }
+
+            .previous-footer {
+                padding: 26px 0 8px;
+                color: #8a9991;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            @media (max-width: 768px) {
+                #main-wrapper {
+                    width: 100%;
+                    margin-left: 0;
+                    padding: 18px 14px;
+                }
+
+                .previous-hero {
+                    padding: 23px 20px;
+                }
+
+                .previous-hero h1 {
+                    font-size: 26px;
+                }
+
+                .previous-hero-icon {
+                    width: 52px;
+                    height: 52px;
+                    font-size: 25px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #main-wrapper {
+                    padding: 13px 10px;
+                }
+
+                .previous-hero {
+                    padding: 18px 14px;
+                }
+
+                .previous-hero h1 {
+                    font-size: 22px;
+                }
+
+                .previous-heading h2 {
+                    font-size: 18px;
+                }
+            }
+        </style>
+
+        <div class="previous-page">
+
+            <section class="previous-hero">
+                <div>
+                    <p class="previous-eyebrow">FoodBridge · NGO Portal</p>
+                    <h1>Previous Collections</h1>
+                    <p>
+                        Review donor details and your completed food pickups.
+                    </p>
+                </div>
+
+                <div class="previous-hero-icon">✅</div>
+            </section>
+
+            <div class="previous-heading">
+                <h2>Your Collection History</h2>
+
+                <span class="previous-count">
+                    <%= previousCollections.length %> Records
+                </span>
+            </div>
+
+            <section class="previous-panel">
+                <div class="previous-panel-header">
+                    <h3>Previous Collection Records</h3>
+                    <p>View information about your past collections.</p>
+                </div>
+
+                <div class="previous-table-wrap">
+                    <table class="previous-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Donor Name</th>
+                                <th>Address Collected</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% if (previousCollections && previousCollections.length > 0) { %>
+
+                                <% for (let i = 0; i < previousCollections.length; i++) {
+                                    const collection = previousCollections[i];
+                                %>
+                                    <tr>
+                                        <td>
+                                            <span class="previous-number">
+                                                <%= i + 1 %>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span class="previous-donor">
+                                                <%= collection.donor
+                                                    ? ((collection.donor.firstName || '') + ' ' +
+                                                       (collection.donor.lastName || '')).trim()
+                                                    : 'Donor' %>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <%= collection.address || 'Address not available' %>
+                                        </td>
+
+                                        <td>
+                                            <%= collection.phone || 'Not provided' %>
+                                        </td>
+
+                                        <td>
+                                            <span class="previous-status">Completed</span>
+                                        </td>
+
+                                        <td>
+                                            <a
+                                                href="/agent/collection/view/<%= collection._id %>"
+                                                class="previous-view-btn">
+                                                View Details →
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="previous-empty">
+                                            <div class="previous-empty-icon">📦</div>
+                                            <h3>No Previous Collections</h3>
+                                            <p>
+                                                Your collection history will appear here
+                                                after you complete a pickup.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="previous-footer">
+                FoodBridge NGO Portal · Connecting surplus food with those in need
+            </footer>
+
+        </div>
+    </div>
 </main>

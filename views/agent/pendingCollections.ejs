@@ -1,41 +1,467 @@
-<main>
-	<%- include('../partials/agentSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Pending Collections</h5>
-		</div>
-		
-		<div class="col col-sm-10 col-12 m-auto my-4" style="max-height: 75%; overflow: auto;">
-			<table class="table table-info table-striped table-hover m-0 bg-white">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Donor name</th>
-						<th scope="col">Address to collect</th>
-						<th scope="col">Phone</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% for(let i=0; i<pendingCollections.length; i++) { %>
-						<tr>
-							<th scope="row"> <%= i+1 %> </th>
-							<td> <%= pendingCollections[i].donor.firstName + " " + pendingCollections[i].donor.lastName %> </td>
-							<td> <%= pendingCollections[i].address %> </td>
-							<td> <%= pendingCollections[i].phone %> </td>
-							<td>
-								<a href="/agent/collection/view/<%= pendingCollections[i]._id %>" class="btn">View</a>
-								<a href="/agent/collection/collect/<%= pendingCollections[i]._id %>" class="btn">Collect</a>
-							</td>
-						</tr>
-					<% } %>
-				</tbody>
-			</table>
-		</div>
-		
-		
-	</div>
+
+<main class="ngo-page">
+
+    <%- include('../partials/agentSidebar') %>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #main-wrapper {
+            width: calc(100% - 292px);
+            margin-left: 292px;
+            min-height: 100vh;
+            padding: 1px 0 30px;
+            background: #f3f8f5;
+            color: #174c38;
+            font-family: "Segoe UI", Arial, sans-serif;
+            overflow-x: auto;
+        }
+
+        .pending-page {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 25px 30px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 30px;
+            margin-bottom: 28px;
+            background: linear-gradient(120deg, #ffffff, #e6f5ec);
+            border: 1px solid #dcebe2;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(24, 59, 46, 0.05);
+        }
+
+        .page-eyebrow {
+            margin: 0 0 8px;
+            color: #27815b;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: #174c38;
+            font-size: 32px;
+            line-height: 1.3;
+            font-weight: 800;
+        }
+
+        .page-description {
+            margin: 10px 0 0;
+            color: #718078;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .page-header-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: #d6f0e0;
+            font-size: 30px;
+        }
+
+        .summary-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row h2 {
+            margin: 0;
+            color: #174c38;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .pending-count {
+            display: inline-block;
+            padding: 8px 13px;
+            background: #dcf4e5;
+            color: #237b56;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .table-card {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #dcebe2;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(24, 59, 46, 0.045);
+        }
+
+        .table-card-header {
+            padding: 23px 25px;
+            border-bottom: 1px solid #edf2ee;
+        }
+
+        .table-card-header h3 {
+            margin: 0;
+            color: #174c38;
+            font-size: 17px;
+            font-weight: 750;
+        }
+
+        .table-card-header p {
+            margin: 6px 0 0;
+            color: #84948b;
+            font-size: 13px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .pending-table {
+            width: 100%;
+            min-width: 760px;
+            margin: 0;
+            border-collapse: collapse;
+            background: #ffffff;
+        }
+
+        .pending-table thead th {
+            padding: 17px 20px;
+            background: #eaf6ee;
+            color: #174c38;
+            border-bottom: 1px solid #dcebe2;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .pending-table tbody td,
+        .pending-table tbody th {
+            padding: 19px 20px;
+            color: #52675b;
+            border-bottom: 1px solid #edf2ee;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        .pending-table tbody tr:last-child td,
+        .pending-table tbody tr:last-child th {
+            border-bottom: none;
+        }
+
+        .pending-table tbody tr:hover {
+            background: #f7fbf8;
+        }
+
+        .row-number {
+            color: #237b56 !important;
+            font-weight: 800;
+        }
+
+        .donor-name {
+            color: #174c38 !important;
+            font-weight: 750;
+        }
+
+        .donor-address {
+            max-width: 300px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 3px 4px 3px 0;
+            padding: 9px 13px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 750;
+            white-space: nowrap;
+            transition: background 0.2s ease;
+        }
+
+        .view-btn {
+            background: #e5f4eb;
+            color: #237b56;
+            border-color: #d5eadc;
+        }
+
+        .view-btn:hover {
+            background: #d5ecde;
+            color: #185d40;
+            text-decoration: none;
+        }
+
+        .collect-btn {
+            background: #237b56;
+            color: #ffffff;
+        }
+
+        .collect-btn:hover {
+            background: #185d40;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .empty-state {
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            background: #e8f6ed;
+            border-radius: 18px;
+            font-size: 30px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 10px;
+            color: #174c38;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .empty-state p {
+            margin: 0;
+            color: #84948b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .page-footer {
+            padding: 24px 0 0;
+            color: #8a9991;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            #main-wrapper {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .pending-page {
+                padding: 18px 14px;
+            }
+
+            .page-header {
+                padding: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .page-header-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 23px;
+            }
+
+            .table-card-header {
+                padding: 19px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pending-page {
+                padding: 13px 10px;
+            }
+
+            .page-header {
+                padding: 17px;
+                gap: 10px;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+            }
+
+            .page-description {
+                font-size: 12px;
+            }
+
+            .page-eyebrow {
+                font-size: 10px;
+            }
+
+            .summary-row h2 {
+                font-size: 17px;
+            }
+
+            .empty-state {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+
+    <div id="main-wrapper">
+
+        <div class="pending-page">
+
+            <!-- Page Header -->
+            <section class="page-header">
+                <div>
+                    <p class="page-eyebrow">
+                        FoodBridge · NGO Portal
+                    </p>
+
+                    <h1>Pending Collections</h1>
+
+                    <p class="page-description">
+                        Manage your accepted donations and collection pickups.
+                    </p>
+                </div>
+
+                <div class="page-header-icon">🚚</div>
+            </section>
+
+            <!-- Pending Count -->
+            <div class="summary-row">
+                <h2>Pickups Awaiting Collection</h2>
+
+                <span class="pending-count">
+                    <%= typeof pendingCollections !== 'undefined' && pendingCollections
+                        ? pendingCollections.length
+                        : 0 %>
+                    Pending
+                </span>
+            </div>
+
+            <!-- Collections Table -->
+            <section class="table-card">
+
+                <div class="table-card-header">
+                    <h3>Collection Requests</h3>
+                    <p>
+                        View donor details and manage your collection requests.
+                    </p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="pending-table">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Donor Name</th>
+                                <th>Address to Collect</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% if (typeof pendingCollections !== 'undefined' &&
+                                   pendingCollections &&
+                                   pendingCollections.length > 0) { %>
+
+                                <% for (let i = 0; i < pendingCollections.length; i++) {
+                                    const collection = pendingCollections[i];
+                                %>
+
+                                    <tr>
+                                        <th class="row-number">
+                                            <%= i + 1 %>
+                                        </th>
+
+                                        <td class="donor-name">
+                                            <% if (collection.donor) { %>
+                                                <%= (collection.donor.firstName || '') + ' ' +
+                                                    (collection.donor.lastName || '') %>
+                                            <% } else { %>
+                                                Donor unavailable
+                                            <% } %>
+                                        </td>
+
+                                        <td class="donor-address">
+                                            <%= collection.address || '-' %>
+                                        </td>
+
+                                        <td>
+                                            <%= collection.phone || '-' %>
+                                        </td>
+
+                                        <td>
+                                            <a
+                                                href="/agent/collection/view/<%= collection._id %>"
+                                                class="action-btn view-btn">
+                                                View Details
+                                            </a>
+
+                                            <a
+                                                href="/agent/collection/collect/<%= collection._id %>"
+                                                class="action-btn collect-btn">
+                                                Collect
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                <% } %>
+
+                            <% } else { %>
+
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="empty-state">
+                                            <div class="empty-state-icon">
+                                                📦
+                                            </div>
+
+                                            <h3>No Pending Collections</h3>
+
+                                            <p>
+                                                Accepted donations awaiting pickup
+                                                will appear here.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            <% } %>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                FoodBridge NGO Portal · Connecting surplus food with those in need
+            </footer>
+
+        </div>
+    </div>
+
 </main>
