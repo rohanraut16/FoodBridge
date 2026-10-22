@@ -34,15 +34,15 @@ const donationSchema = new mongoose.Schema({
     },
 
     cookingTime: {
-    type: Date
+        type: Date
     },
-    
+
     manufactureDate: {
-    type: Date
+        type: Date
     },
 
     expiryDate: {
-    type: Date
+        type: Date
     },
 
     address: {
@@ -59,13 +59,69 @@ const donationSchema = new mongoose.Schema({
 
     adminToAgentMsg: String,
 
+    // NGO Physical Food Verification
+    freshnessScore: {
+        type: Number,
+        min: 0,
+        max: 100
+    },
+
+    qualityStatus: {
+        type: String,
+        enum: ["safe", "warning", "unsafe"]
+    },
+
+    shelfLife: {
+        type: String
+    },
+
+    smellCheck: {
+        type: Boolean,
+        default: false
+    },
+
+    appearanceCheck: {
+        type: Boolean,
+        default: false
+    },
+
+    packagingCheck: {
+        type: Boolean,
+        default: false
+    },
+
+    expiryCheck: {
+        type: Boolean,
+        default: false
+    },
+
+    storageCheck: {
+        type: Boolean,
+        default: false
+    },
+
+    qualityVerified: {
+        type: Boolean,
+        default: false
+    },
+
+    qualityVerifiedAt: {
+        type: Date
+    },
+
     collectionTime: {
-        type: Date,
+        type: Date
     },
 
     status: {
         type: String,
-        enum: ["pending", "rejected", "accepted", "assigned", "collected"],
+        enum: [
+            "pending",
+            "rejected",
+            "accepted",
+            "assigned",
+            "collected"
+        ],
         required: true
     }
 

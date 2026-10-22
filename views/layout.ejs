@@ -4,9 +4,13 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="theme-color" content="#108d4b">
+
 
     <!-- Font Awesome -->
     <link
@@ -17,6 +21,7 @@
         referrerpolicy="no-referrer"
     >
 
+
     <!-- Bootstrap -->
     <link
         rel="stylesheet"
@@ -25,32 +30,32 @@
         crossorigin="anonymous"
     >
 
+
     <!-- Common Project CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/sidebar.css">
 
-    <% if (currentUser && currentUser.role === "admin") { %>
 
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="/assets/css/admin.css">
+    <% if (currentUser && currentUser.role === "admin") { %>
 
-<% } else if (currentUser && currentUser.role === "donor") { %>
+        <link rel="stylesheet" href="/assets/css/admin.css">
+
+    <% } %>
+
 
     <!-- Donor CSS -->
-    <link rel="stylesheet" href="/assets/css/donor.css">
+    <% if (currentUser && currentUser.role === "donor") { %>
 
-<% } else { %>
+        <link rel="stylesheet" href="/assets/css/donor.css">
 
-    <!-- Public/Home CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <% } %>
 
-<% } %>
 
     <title>
         <%= typeof title !== 'undefined' ? title : 'FoodBridge' %>
     </title>
 
-    <% if (!currentUser || currentUser.role !== "donor") { %>
 
     <style>
 
@@ -58,16 +63,16 @@
             box-sizing: border-box;
         }
 
+
         body {
-    		margin: 0;
-    		padding: 0;
-   			min-height: 100vh;
-    		display: flex;
-    		flex-direction: column;
-    		font-family: Arial, Helvetica, sans-serif;
-    		background: #f4fbf7;
-    		color: #123d2b;
-}
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4fbf7;
+            color: #123d2b;
+        }
+
 
         /* ================= PUBLIC NAVBAR ================= */
 
@@ -82,9 +87,11 @@
             justify-content: space-between;
 
             padding: 0 6%;
+
             position: relative;
             z-index: 1000;
         }
+
 
         .fb-brand {
             display: flex;
@@ -92,6 +99,7 @@
             gap: 12px;
             text-decoration: none;
         }
+
 
         .fb-logo {
             width: 48px;
@@ -110,6 +118,7 @@
             font-size: 20px;
         }
 
+
         .fb-brand-name {
             font-size: 27px;
             font-weight: 700;
@@ -117,11 +126,13 @@
             letter-spacing: -0.5px;
         }
 
+
         .fb-nav-links {
             display: flex;
             align-items: center;
             gap: 34px;
         }
+
 
         .fb-nav-links a {
             color: #202522;
@@ -131,15 +142,18 @@
             transition: 0.2s ease;
         }
 
+
         .fb-nav-links a:hover {
             color: #108d4b;
         }
+
 
         .fb-nav-actions {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
 
         .fb-login {
             text-decoration: none;
@@ -151,13 +165,8 @@
 
             font-size: 14px;
             font-weight: 700;
-
-            transition: 0.2s ease;
         }
 
-        .fb-login:hover {
-            background: #effaf4;
-        }
 
         .fb-signup {
             text-decoration: none;
@@ -169,32 +178,26 @@
 
             font-size: 14px;
             font-weight: 700;
-
-            transition: 0.2s ease;
         }
 
-        .fb-signup:hover {
-            background: #087d43;
-        }
-
-        /* ================= PUBLIC PAGE ================= */
 
         .fb-page {
-
-    		width: 100%;
-    		flex: 1;
-
+            width: 100%;
+            flex: 1;
         }
+
 
         /* ================= FOOTER ================= */
 
         .fb-footer {
-   				width: 100%;
-   				background: #123d2b;
-   				color: #ffffff;
-    			padding: 35px 6% 20px;
-    			flex-shrink: 0;
-		}
+            width: 100%;
+            background: #123d2b;
+            color: #ffffff;
+            padding: 35px 6% 20px;
+            flex-shrink: 0;
+        }
+
+
         .fb-footer-grid {
             max-width: 1250px;
             margin: auto;
@@ -204,11 +207,13 @@
             gap: 45px;
         }
 
+
         .fb-footer-brand {
             font-size: 25px;
             font-weight: 700;
             margin-bottom: 15px;
         }
+
 
         .fb-footer-description {
             color: #c9d9d0;
@@ -217,10 +222,12 @@
             max-width: 330px;
         }
 
+
         .fb-footer h3 {
             margin: 0 0 17px;
             font-size: 16px;
         }
+
 
         .fb-footer a {
             display: block;
@@ -230,9 +237,6 @@
             margin-bottom: 11px;
         }
 
-        .fb-footer a:hover {
-            color: #ffffff;
-        }
 
         .fb-footer-bottom {
             max-width: 1250px;
@@ -248,6 +252,7 @@
             justify-content: space-between;
             gap: 20px;
         }
+
 
         /* ================= MOBILE ================= */
 
@@ -270,7 +275,9 @@
             .fb-footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
         }
+
 
         @media (max-width: 600px) {
 
@@ -304,27 +311,43 @@
             .fb-footer-bottom {
                 flex-direction: column;
             }
+
         }
 
     </style>
 
-    <% } %>
-
 </head>
+
 
 <body>
 
-    <% if (currentUser && (currentUser.role === "donor" || currentUser.role === "admin")) { %>
 
-        <!-- ================= DONOR ================= -->
+    <!-- ================================================= -->
+    <!-- LOGGED IN USERS -->
+    <!-- ADMIN / DONOR / NGO -->
+    <!-- ================================================= -->
+
+    <% if (
+        currentUser &&
+        (
+            currentUser.role === "donor" ||
+            currentUser.role === "admin" ||
+            currentUser.role === "ngo"
+        )
+    ) { %>
+
 
         <%- include('partials/alerts') %>
 
         <%- body %>
 
+
     <% } else { %>
 
-        <!-- ================= PUBLIC NAVBAR ================= -->
+
+        <!-- ================================================= -->
+        <!-- PUBLIC NAVBAR -->
+        <!-- ================================================= -->
 
         <header class="fb-navbar">
 
@@ -339,6 +362,7 @@
                 </span>
 
 </a>
+
 
             <nav class="fb-nav-links">
 
@@ -360,6 +384,7 @@
 
             </nav>
 
+
             <div class="fb-nav-actions">
 
                 <a href="/auth/login" class="fb-login">
@@ -374,9 +399,11 @@
 
         </header>
 
+
         <!-- Alerts -->
 
         <%- include('partials/alerts') %>
+
 
         <!-- Public Page -->
 
@@ -386,7 +413,10 @@
 
         </main>
 
-        <!-- ================= PUBLIC FOOTER ================= -->
+
+        <!-- ================================================= -->
+        <!-- PUBLIC FOOTER -->
+        <!-- ================================================= -->
 
         <footer class="fb-footer">
 
@@ -404,6 +434,7 @@
                     </p>
 
                 </div>
+
 
                 <div>
 
@@ -429,6 +460,7 @@
 
                 </div>
 
+
                 <div>
 
                     <h3>
@@ -444,6 +476,7 @@
                     </a>
 
                 </div>
+
 
                 <div>
 
@@ -463,10 +496,12 @@
 
             </div>
 
+
             <div class="fb-footer-bottom">
 
                 <span>
-                    © <%= new Date().getFullYear() %> FoodBridge. All rights reserved.
+                    © <%= new Date().getFullYear() %> FoodBridge.
+                    All rights reserved.
                 </span>
 
                 <span>
@@ -477,14 +512,16 @@
 
         </footer>
 
+
     <% } %>
 
 
-    <!-- ================= SCRIPTS ================= -->
+    <!-- Scripts -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="/assets/js/script.js"></script>
+
 
 </body>
 

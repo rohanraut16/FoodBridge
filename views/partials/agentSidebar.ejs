@@ -1,10 +1,301 @@
-<div id="sidebar">
-	<ul id="sidebar-nav">
-		<li>Welcome <%= currentUser.firstName %></li>
-		<li><a href="/agent/dashboard">Dashboard</a></li>
-		<li><a href="/agent/collections/pending">My Pending Collections</a></li>
-		<li><a href="/agent/collections/previous">My Previous Collections</a></li>
-		<li><a href="/agent/profile">My Profile</a></li>
-		<li><a href="/auth/logout" class="btn">Logout</a></li>
-	</ul>
+
+<div class="sidebar">
+
+    <div class="sidebar-brand">
+        <div class="brand-icon">🌱</div>
+        <div class="brand-text">
+            <h2>FoodBridge</h2>
+            <p>NGO PORTAL</p>
+        </div>
+    </div>
+
+    <div class="sidebar-user">
+        <div class="user-avatar">
+            <%= (currentUser && (currentUser.firstName || currentUser.username))
+                ? (currentUser.firstName || currentUser.username).charAt(0).toUpperCase()
+                : "N" %>
+        </div>
+        <div class="user-info">
+            <span class="user-label">WELCOME BACK</span>
+            <h3><%= currentUser ? (currentUser.firstName || currentUser.username || "NGO") : "NGO" %></h3>
+            <span class="user-role">NGO Member</span>
+        </div>
+    </div>
+
+    <div class="sidebar-menu-label">MAIN MENU</div>
+
+    <nav class="sidebar-nav">
+
+        <a href="/agent/dashboard"
+           class="<%= typeof title !== 'undefined' && title === 'Dashboard' ? 'active' : '' %>">
+            <span class="nav-icon">▦</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/agent/donations/available"
+           class="<%= typeof title !== 'undefined' && title === 'Available Donations' ? 'active' : '' %>">
+            <span class="nav-icon">🍱</span>
+            <span>Available Donations</span>
+        </a>
+
+        <a href="/agent/collections/pending"
+           class="<%= typeof title !== 'undefined' && title === 'Pending Pickups' ? 'active' : '' %>">
+            <span class="nav-icon">🚚</span>
+            <span>My Pickups</span>
+        </a>
+
+        <a href="/agent/collections/previous"
+           class="<%= typeof title !== 'undefined' && title === 'Completed Pickups' ? 'active' : '' %>">
+            <span class="nav-icon">✓</span>
+            <span>Completed Pickups</span>
+        </a>
+
+        <a href="/agent/profile"
+           class="<%= typeof title !== 'undefined' && title === 'My Profile' ? 'active' : '' %>">
+            <span class="nav-icon">♙</span>
+            <span>My Profile</span>
+        </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+        <div class="sidebar-note">
+            <span>💚</span>
+            <p>Every meal shared makes a difference.</p>
+        </div>
+
+        <a href="/auth/logout" class="logout-btn">
+            <span class="nav-icon">↪</span>
+            <span>Logout</span>
+        </a>
+    </div>
+
 </div>
+
+<style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px;
+        overflow-y: auto;
+        background: #123b2d;
+        color: #fff;
+        font-family: "Segoe UI", Arial, sans-serif;
+        z-index: 1000;
+        box-sizing: border-box;
+    }
+
+    .sidebar * {
+        box-sizing: border-box;
+    }
+
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 4px 10px 25px;
+        border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .brand-icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        background: #245b43;
+        font-size: 24px;
+    }
+
+    .brand-text h2 {
+        margin: 0;
+        color: #fff;
+        font-size: 21px;
+        font-weight: 750;
+    }
+
+    .brand-text p {
+        margin: 4px 0 0;
+        color: #a8d6b8;
+        font-size: 10px;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+
+    .sidebar-user {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px 0;
+        padding: 15px 11px;
+        border-radius: 13px;
+        background: rgba(255,255,255,.07);
+    }
+
+    .user-avatar {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #c8eed5;
+        color: #174c38;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .user-info {
+        min-width: 0;
+    }
+
+    .user-label {
+        color: #a8d6b8;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .user-info h3 {
+        margin: 4px 0;
+        color: #fff;
+        font-size: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .user-role {
+        color: #c0d3c8;
+        font-size: 11px;
+    }
+
+    .sidebar-menu-label {
+        padding: 0 12px 12px;
+        color: #91b5a1;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .sidebar-nav a,
+    .sidebar .logout-btn {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        width: 100%;
+        padding: 13px 12px;
+        border-radius: 10px;
+        color: #d5e6dc;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background .2s ease, color .2s ease;
+    }
+
+    .sidebar-nav a:hover {
+        background: rgba(255,255,255,.09);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .sidebar-nav a.active {
+        background: #d7f1df;
+        color: #174c38;
+        box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
+
+    .nav-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 23px;
+        min-width: 23px;
+        font-size: 18px;
+    }
+
+    .sidebar-bottom {
+        margin-top: auto;
+        padding-top: 25px;
+    }
+
+    .sidebar-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        margin-bottom: 18px;
+        padding: 13px 11px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 11px;
+        color: #c6ddcf;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .sidebar-note p {
+        margin: 0;
+    }
+
+    .sidebar .logout-btn {
+        border: 1px solid rgba(255,255,255,.15);
+        color: #ffd6d6;
+    }
+
+    .sidebar .logout-btn:hover {
+        background: rgba(255,100,100,.12);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            padding: 14px;
+        }
+
+        .sidebar-brand {
+            padding-bottom: 15px;
+        }
+
+        .sidebar-user {
+            margin: 14px 0;
+        }
+
+        .sidebar-nav {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .sidebar-nav a {
+            font-size: 12px;
+            padding: 11px 8px;
+        }
+
+        .sidebar-bottom {
+            margin-top: 14px;
+            padding-top: 0;
+        }
+
+        .sidebar-note {
+            display: none;
+        }
+
+        .sidebar .logout-btn {
+            width: auto;
+        }
+    }
+</style>

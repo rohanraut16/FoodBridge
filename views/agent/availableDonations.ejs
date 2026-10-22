@@ -1,0 +1,482 @@
+
+<main class="ngo-page">
+
+    <%- include('../partials/agentSidebar') %>
+
+    <div id="main-wrapper">
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            #main-wrapper {
+                width: calc(100% - 260px);
+                min-height: 100vh;
+                margin-left: 260px;
+                background: #f2f7f4;
+                color: #183b2e;
+                font-family: "Segoe UI", Arial, sans-serif;
+                overflow-x: hidden;
+            }
+
+            .available-page {
+                width: 100%;
+                max-width: 1600px;
+                min-height: 100vh;
+                margin: 0 auto;
+                padding: 30px;
+            }
+
+            .available-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                padding: 30px;
+                margin-bottom: 28px;
+                background: linear-gradient(120deg, #fff, #e6f5ec);
+                border: 1px solid #dcebe2;
+                border-radius: 20px;
+                box-shadow: 0 6px 24px rgba(24, 59, 46, .05);
+            }
+
+            .available-eyebrow {
+                margin: 0 0 8px;
+                color: #27815b;
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+            }
+
+            .available-header h1 {
+                margin: 0 0 10px;
+                color: #174c38;
+                font-size: 32px;
+                line-height: 1.3;
+                font-weight: 800;
+            }
+
+            .available-description {
+                margin: 0;
+                color: #718078;
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .available-header-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                width: 76px;
+                height: 76px;
+                border-radius: 22px;
+                background: #d6f0e0;
+                font-size: 36px;
+            }
+
+            .available-section-heading {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin: 0 0 20px;
+            }
+
+            .available-section-heading h2 {
+                margin: 0;
+                color: #174c38;
+                font-size: 21px;
+                font-weight: 800;
+            }
+
+            .donation-count {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 30px;
+                height: 30px;
+                padding: 0 9px;
+                border-radius: 10px;
+                background: #dff4e7;
+                color: #19734e;
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .donation-card {
+                height: 100%;
+                overflow: hidden;
+                background: #fff;
+                border: 1px solid #dcebe2;
+                border-radius: 18px;
+                box-shadow: 0 5px 18px rgba(20, 70, 48, .05);
+                transition: transform .2s ease, box-shadow .2s ease;
+            }
+
+            .donation-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 28px rgba(20, 70, 48, .10);
+            }
+
+            .donation-image {
+                display: block;
+                width: 100%;
+                height: 210px;
+                object-fit: cover;
+                background: #eaf4ee;
+            }
+
+            .donation-no-image {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 210px;
+                background: #eaf4ee;
+                color: #71847a;
+                font-size: 15px;
+            }
+
+            .donation-card-body {
+                padding: 23px;
+            }
+
+            .donation-card-title {
+                margin: 0 0 14px;
+                color: #164b38;
+                font-size: 21px;
+                font-weight: 800;
+                overflow-wrap: anywhere;
+            }
+
+            .donation-type-badge {
+                display: inline-block;
+                margin-bottom: 17px;
+                padding: 7px 12px;
+                border-radius: 20px;
+                background: #e2f5e9;
+                color: #19734e;
+                font-size: 12px;
+                font-weight: 700;
+            }
+
+            .donation-detail {
+                display: flex;
+                align-items: flex-start;
+                gap: 11px;
+                margin-bottom: 14px;
+                color: #64776d;
+                font-size: 13px;
+                line-height: 1.7;
+                overflow-wrap: anywhere;
+            }
+
+            .donation-detail-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                width: 30px;
+                height: 30px;
+                border-radius: 9px;
+                background: #e8f6ed;
+                font-size: 15px;
+            }
+
+            .donation-detail strong {
+                color: #294d3e;
+                font-size: 13px;
+            }
+
+            .donation-view-btn {
+                display: block;
+                width: 100%;
+                margin-top: 20px;
+                padding: 13px 16px;
+                border: 1px solid #237b56;
+                border-radius: 10px;
+                background: #237b56;
+                color: #fff;
+                text-align: center;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 750;
+                transition: background .2s ease;
+            }
+
+            .donation-view-btn:hover {
+                background: #185d40;
+                border-color: #185d40;
+                color: #fff;
+                text-decoration: none;
+            }
+
+            .donation-empty {
+                padding: 55px 25px;
+                border: 1px solid #dcebe2;
+                border-radius: 18px;
+                background: #fff;
+                text-align: center;
+                box-shadow: 0 5px 18px rgba(20, 70, 48, .04);
+            }
+
+            .donation-empty-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 76px;
+                height: 76px;
+                margin: 0 auto 20px;
+                border-radius: 22px;
+                background: #e7f5ec;
+                font-size: 36px;
+            }
+
+            .donation-empty h3 {
+                margin: 0 0 10px;
+                color: #164b38;
+                font-size: 22px;
+                font-weight: 800;
+            }
+
+            .donation-empty p {
+                margin: 0;
+                color: #71847a;
+                font-size: 14px;
+                line-height: 1.8;
+            }
+
+            .available-footer {
+                padding: 25px 0 8px;
+                color: #8a9991;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            @media (max-width: 1100px) {
+                .available-page {
+                    padding: 24px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                #main-wrapper {
+                    width: 100%;
+                    margin-left: 0;
+                }
+
+                .available-page {
+                    padding: 18px 14px;
+                }
+
+                .available-header {
+                    padding: 22px;
+                }
+
+                .available-header h1 {
+                    font-size: 26px;
+                }
+
+                .available-header-icon {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 16px;
+                    font-size: 27px;
+                }
+
+                .donation-empty {
+                    padding: 40px 18px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .available-page {
+                    padding: 14px 10px;
+                }
+
+                .available-header {
+                    padding: 18px;
+                    gap: 10px;
+                }
+
+                .available-header h1 {
+                    font-size: 23px;
+                }
+
+                .available-description {
+                    font-size: 12px;
+                }
+
+                .available-header-icon {
+                    width: 44px;
+                    height: 44px;
+                    font-size: 22px;
+                }
+
+                .available-section-heading h2 {
+                    font-size: 17px;
+                }
+
+                .donation-card-body {
+                    padding: 18px;
+                }
+            }
+        </style>
+
+        <div class="available-page">
+
+            <!-- Page Header -->
+            <section class="available-header">
+                <div>
+                    <p class="available-eyebrow">
+                        FoodBridge · NGO Portal
+                    </p>
+
+                    <h1>Available Donations</h1>
+
+                    <p class="available-description">
+                        Discover food donations approved by Admin and ready for collection.
+                    </p>
+                </div>
+
+                <div class="available-header-icon">🌱</div>
+            </section>
+
+            <!-- Donation Count -->
+            <div class="available-section-heading">
+                <h2>Donations Ready for Collection</h2>
+
+                <span class="donation-count">
+                    <%= availableDonations ? availableDonations.length : 0 %>
+                </span>
+            </div>
+
+            <!-- Donation Cards -->
+            <% if (availableDonations && availableDonations.length > 0) { %>
+
+                <div class="row">
+
+                    <% availableDonations.forEach(function(donation) { %>
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+
+                            <article class="donation-card">
+
+                                <% if (donation.foodImage) { %>
+
+                                    <img
+                                        src="<%= donation.foodImage %>"
+                                        class="donation-image"
+                                        alt="Food donation"
+                                    >
+
+                                <% } else { %>
+
+                                    <div class="donation-no-image">
+                                        🍱 &nbsp; No Food Image
+                                    </div>
+
+                                <% } %>
+
+                                <div class="donation-card-body">
+
+                                    <h3 class="donation-card-title">
+                                        <%= donation.foodType || "Food Donation" %>
+                                    </h3>
+
+                                    <span class="donation-type-badge">
+                                        <%= donation.foodCondition || "Condition not specified" %>
+                                    </span>
+
+                                    <div class="donation-detail">
+                                        <span class="donation-detail-icon">👤</span>
+
+                                        <div>
+                                            <strong>Donor</strong><br>
+
+                                            <% if (donation.donor) { %>
+                                                <%= donation.donor.firstName || "" %>
+                                                <%= donation.donor.lastName || "" %>
+                                            <% } else { %>
+                                                Unknown
+                                            <% } %>
+                                        </div>
+                                    </div>
+
+                                    <div class="donation-detail">
+                                        <span class="donation-detail-icon">📦</span>
+
+                                        <div>
+                                            <strong>Quantity</strong><br>
+                                            <%= donation.quantity || "Not specified" %>
+                                        </div>
+                                    </div>
+
+                                    <div class="donation-detail">
+                                        <span class="donation-detail-icon">📅</span>
+
+                                        <div>
+                                            <strong>Expiry Date</strong><br>
+
+                                            <% if (donation.expiryDate) { %>
+                                                <%= new Date(donation.expiryDate).toLocaleDateString("en-IN") %>
+                                            <% } else { %>
+                                                Not provided
+                                            <% } %>
+                                        </div>
+                                    </div>
+
+                                    <div class="donation-detail">
+                                        <span class="donation-detail-icon">📍</span>
+
+                                        <div>
+                                            <strong>Pickup Address</strong><br>
+                                            <%= donation.address || "Address not provided" %>
+                                        </div>
+                                    </div>
+
+                                    <a
+                                        href="/agent/donation/view/<%= donation._id %>"
+                                        class="donation-view-btn"
+                                    >
+                                        View Donation Details →
+                                    </a>
+
+                                </div>
+                            </article>
+
+                        </div>
+
+                    <% }); %>
+
+                </div>
+
+            <% } else { %>
+
+                <!-- Empty State -->
+                <section class="donation-empty">
+
+                    <div class="donation-empty-icon">🍲</div>
+
+                    <h3>No Available Donations</h3>
+
+                    <p>
+                        There are currently no approved donations available.<br>
+                        Please check again later for new food donations.
+                    </p>
+
+                </section>
+
+            <% } %>
+
+            <footer class="available-footer">
+                FoodBridge NGO Portal · Connecting surplus food with those in need
+            </footer>
+
+        </div>
+
+    </div>
+
+</main>
