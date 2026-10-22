@@ -1,0 +1,616 @@
+<style>
+    .donation-page {
+        padding: 28px 32px;
+        background: #f4f8f5;
+        min-height: calc(100vh - 60px);
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .donation-header {
+        background: #ffffff;
+
+        padding: 25px 28px;
+
+        border-radius: 10px;
+
+        border: 1px solid #e1ebe5;
+
+        box-shadow: 0 4px 14px rgba(31, 78, 57, 0.07);
+
+        margin-bottom: 22px;
+    }
+
+    .donation-header h2 {
+        margin: 0;
+
+        color: #174c38;
+
+        font-size: 28px;
+
+        font-weight: 700;
+    }
+
+    .donation-header p {
+        margin: 7px 0 0;
+
+        color: #718078;
+
+        font-size: 15px;
+    }
+
+
+    /* =========================
+       MAIN CARD
+    ========================= */
+
+    .donation-card {
+        background: #ffffff;
+
+        border-radius: 10px;
+
+        border: 1px solid #e1ebe5;
+
+        box-shadow: 0 4px 14px rgba(31, 78, 57, 0.07);
+
+        overflow: hidden;
+    }
+
+
+    .donation-content {
+        display: grid;
+
+        grid-template-columns: 40% 60%;
+    }
+
+
+    /* =========================
+       IMAGE
+    ========================= */
+
+    .food-image-section {
+        padding: 25px;
+
+        background: #f7faf8;
+    }
+
+    .food-image {
+        width: 100%;
+
+        height: 350px;
+
+        object-fit: cover;
+
+        border-radius: 8px;
+
+        display: block;
+    }
+
+    .no-image {
+        height: 350px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #eaf2ed;
+
+        color: #718078;
+
+        border-radius: 8px;
+    }
+
+
+    /* =========================
+       DETAILS
+    ========================= */
+
+    .details-section {
+        padding: 25px 30px;
+    }
+
+    .details-section h3 {
+        color: #174c38;
+
+        margin-top: 0;
+
+        margin-bottom: 18px;
+
+        font-size: 20px;
+    }
+
+    .detail-row {
+        display: flex;
+
+        padding: 11px 0;
+
+        border-bottom: 1px solid #edf2ef;
+    }
+
+    .detail-label {
+        width: 180px;
+
+        color: #64766d;
+
+        font-weight: 600;
+
+        font-size: 14px;
+    }
+
+    .detail-value {
+        flex: 1;
+
+        color: #253b32;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .action-section {
+        padding: 20px 30px;
+
+        border-top: 1px solid #e1ebe5;
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    .accept-btn {
+        background: #2e7d5b;
+
+        color: #ffffff;
+
+        border: none;
+
+        padding: 11px 25px;
+
+        border-radius: 5px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+    }
+
+    .accept-btn:hover {
+        background: #24664b;
+    }
+
+
+    .reject-btn {
+        background: #ffffff;
+
+        color: #b94a48;
+
+        border: 1px solid #b94a48;
+
+        padding: 10px 25px;
+
+        border-radius: 5px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+    }
+
+    .reject-btn:hover {
+        background: #b94a48;
+
+        color: #ffffff;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+        .donation-page {
+            padding: 20px 15px;
+        }
+
+        .donation-content {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+        .detail-row {
+            display: block;
+        }
+
+        .detail-label {
+            width: auto;
+
+            margin-bottom: 4px;
+        }
+
+        .action-section {
+            flex-direction: column;
+        }
+
+        .accept-btn,
+        .reject-btn {
+            width: 100%;
+        }
+
+    }
+</style>
+
+
+
+<div class="donation-page">
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <div class="donation-header">
+
+        <h2>
+            Donation Details
+        </h2>
+
+        <p>
+            Review the donation information before accepting it.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         DONATION CARD
+    ========================= -->
+
+    <div class="donation-card">
+
+
+        <div class="donation-content">
+
+
+            <!-- =========================
+                 FOOD IMAGE
+            ========================= -->
+
+            <div class="food-image-section">
+
+                <% if (donation.foodImage) { %>
+
+                    <img
+                        src="<%= donation.foodImage %>"
+                        class="food-image"
+                        alt="Food Donation"
+                    >
+
+                <% } else { %>
+
+                    <div class="no-image">
+                        No Food Image Available
+                    </div>
+
+                <% } %>
+
+            </div>
+
+
+
+            <!-- =========================
+                 DONATION DETAILS
+            ========================= -->
+
+            <div class="details-section">
+
+
+                <h3>
+                    Food Information
+                </h3>
+
+
+                <!-- FOOD TYPE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Food Type
+                    </div>
+
+                    <div class="detail-value">
+
+                        <%= donation.foodType || "Not provided" %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Quantity
+                    </div>
+
+                    <div class="detail-value">
+
+                        <%= donation.quantity || "Not provided" %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONDITION -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Food Condition
+                    </div>
+
+                    <div class="detail-value">
+
+                        <%= donation.foodCondition || "Not provided" %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COOKING TIME -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Cooking Time
+                    </div>
+
+                    <div class="detail-value">
+
+                        <% if (donation.cookingTime) { %>
+
+                            <%= new Date(
+                                donation.cookingTime
+                            ).toLocaleString("en-IN") %>
+
+                        <% } else { %>
+
+                            Not provided
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MANUFACTURE DATE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Manufacture Date
+                    </div>
+
+                    <div class="detail-value">
+
+                        <% if (donation.manufactureDate) { %>
+
+                            <%= new Date(
+                                donation.manufactureDate
+                            ).toLocaleDateString("en-IN") %>
+
+                        <% } else { %>
+
+                            Not provided
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXPIRY DATE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Expiry Date
+                    </div>
+
+                    <div class="detail-value">
+
+                        <% if (donation.expiryDate) { %>
+
+                            <%= new Date(
+                                donation.expiryDate
+                            ).toLocaleDateString("en-IN") %>
+
+                        <% } else { %>
+
+                            Not provided
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     PICKUP INFORMATION
+                ========================= -->
+
+                <h3 style="margin-top: 25px;">
+
+                    Pickup Information
+
+                </h3>
+
+
+                <!-- ADDRESS -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Pickup Address
+                    </div>
+
+                    <div class="detail-value">
+
+                        <%= donation.address || "Not provided" %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Contact Number
+                    </div>
+
+                    <div class="detail-value">
+
+                        <%= donation.phone || "Not provided" %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DONOR -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Donor
+                    </div>
+
+                    <div class="detail-value">
+
+                        <% if (donation.donor) { %>
+
+                            <%= donation.donor.firstName || "" %>
+                            <%= donation.donor.lastName || "" %>
+
+                        <% } else { %>
+
+                            Not available
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DONOR MESSAGE -->
+
+                <% if (donation.donorToAdminMsg) { %>
+
+                    <div class="detail-row">
+
+                        <div class="detail-label">
+                            Donor Message
+                        </div>
+
+                        <div class="detail-value">
+
+                            <%= donation.donorToAdminMsg %>
+
+                        </div>
+
+                    </div>
+
+                <% } %>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             ACTION BUTTONS
+        ========================= -->
+
+        <div class="action-section">
+
+
+            <!-- REJECT -->
+
+            <form
+                action="/agent/donation/reject/<%= donation._id %>"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to reject this donation?');"
+            >
+
+                <button
+                    type="submit"
+                    class="reject-btn"
+                >
+                    Reject Donation
+                </button>
+
+            </form>
+
+
+
+            <!-- ACCEPT -->
+
+            <form
+                action="/agent/donation/accept/<%= donation._id %>"
+                method="POST"
+            >
+
+                <button
+                    type="submit"
+                    class="accept-btn"
+                >
+                    Accept Donation
+                </button>
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+</div>

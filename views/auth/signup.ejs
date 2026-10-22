@@ -1,39 +1,71 @@
 <style>
+    /* =====================================================
+       PAGE RESET
+    ===================================================== */
+
     .signup-page {
-        min-height: calc(100vh - 82px);
+        width: 100%;
+        min-height: 100vh;
+        box-sizing: border-box;
         background: linear-gradient(135deg, #f2fbf6 0%, #e9f8ef 100%);
-        padding: 55px 25px 70px;
+        padding: 30px 20px 80px;
         font-family: Arial, Helvetica, sans-serif;
+        position: relative;
+        z-index: 999;
+        overflow: visible;
     }
 
+    /* Keep signup content above any footer */
     .signup-container {
+        position: relative;
+        z-index: 9999 !important;
+    }
+
+
+    /* =====================================================
+       MAIN CONTAINER
+    ===================================================== */
+
+    .signup-container {
+        width: 100%;
         max-width: 1050px;
-        margin: 0 auto;
+        margin: 0 auto 40px;
+
         display: grid;
         grid-template-columns: 45% 55%;
-        background: #fff;
+
+        background: #ffffff;
         border-radius: 22px;
         overflow: hidden;
+
         box-shadow: 0 15px 45px rgba(20, 100, 60, 0.12);
         border: 1px solid #dcefe3;
     }
 
-    /* ================= LEFT SIDE ================= */
+
+    /* =====================================================
+       LEFT SIDE
+    ===================================================== */
 
     .signup-left {
         background: linear-gradient(145deg, #e7f9ee, #d3f2de);
-        padding: 50px 45px;
+        padding: 35px 40px;
         position: relative;
         overflow: hidden;
+        box-sizing: border-box;
     }
 
     .signup-left::before {
         content: "";
         position: absolute;
+
         width: 270px;
         height: 270px;
+
         border-radius: 50%;
+
         background: rgba(255,255,255,0.40);
+
         top: -130px;
         right: -100px;
     }
@@ -41,10 +73,14 @@
     .signup-left::after {
         content: "";
         position: absolute;
+
         width: 230px;
         height: 230px;
+
         border-radius: 50%;
+
         background: rgba(255,255,255,0.35);
+
         bottom: -130px;
         left: -110px;
     }
@@ -54,24 +90,35 @@
         z-index: 2;
     }
 
+
+    /* =====================================================
+       BRAND
+    ===================================================== */
+
     .signup-brand {
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 45px;
+        margin-bottom: 30px;
     }
 
     .signup-logo {
         width: 52px;
         height: 52px;
+
         border-radius: 14px;
+
         background: #10904d;
         color: white;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         font-size: 27px;
         font-weight: bold;
+
+        flex-shrink: 0;
     }
 
     .signup-brand-name {
@@ -80,10 +127,17 @@
         color: #087d43;
     }
 
+
+    /* =====================================================
+       LEFT HEADING
+    ===================================================== */
+
     .signup-left h1 {
-        margin: 0 0 18px;
-        font-size: 36px;
+        margin: 0 0 14px;
+
+        font-size: 32px;
         line-height: 1.15;
+
         color: #104f36;
     }
 
@@ -92,167 +146,266 @@
     }
 
     .signup-left-description {
-        font-size: 16px;
-        line-height: 1.7;
+        font-size: 15px;
+        line-height: 1.6;
+
         color: #477464;
+
         margin: 0;
     }
 
-    /* Food illustration */
+
+    /* =====================================================
+       FOOD ILLUSTRATION
+    ===================================================== */
 
     .food-illustration {
-        height: 190px;
-        margin: 25px 0 20px;
+        height: 140px;
+
+        margin: 15px 0;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         position: relative;
     }
 
     .food-card {
-        width: 190px;
-        height: 105px;
+        width: 180px;
+        height: 95px;
+
         background: #d99b5e;
+
         border-radius: 10px;
+
         position: relative;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         box-shadow: 0 15px 25px rgba(50,100,70,0.15);
     }
 
     .food-card::before {
         content: "";
+
         position: absolute;
-        width: 205px;
-        height: 28px;
+
+        width: 195px;
+        height: 27px;
+
         background: #e8b676;
+
         border-radius: 7px;
-        top: -13px;
+
+        top: -12px;
     }
 
     .food-items {
         position: absolute;
-        top: 5px;
+
+        top: 2px;
+
         z-index: 3;
-        font-size: 42px;
-        letter-spacing: -8px;
+
+        font-size: 38px;
+
+        letter-spacing: -7px;
     }
 
     .food-heart {
         position: relative;
+
         z-index: 4;
+
         color: white;
-        font-size: 38px;
+
+        font-size: 35px;
     }
 
-    /* Features */
+
+    /* =====================================================
+       FEATURES
+    ===================================================== */
 
     .signup-features {
         display: grid;
+
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-top: 10px;
+
+        gap: 10px;
+
+        margin-top: 5px;
     }
 
     .feature {
         text-align: center;
+
         color: #176b48;
-        font-size: 12px;
+
+        font-size: 11px;
+
         font-weight: 700;
+
         line-height: 1.4;
     }
 
     .feature-icon {
-        width: 46px;
-        height: 46px;
-        margin: 0 auto 8px;
+        width: 42px;
+        height: 42px;
+
+        margin: 0 auto 6px;
+
         border-radius: 50%;
+
         background: rgba(255,255,255,0.65);
+
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 21px;
+
+        font-size: 20px;
     }
 
-    /* ================= RIGHT SIDE ================= */
+
+    /* =====================================================
+       RIGHT SIDE
+    ===================================================== */
 
     .signup-right {
-        padding: 45px 50px;
+        padding: 30px 45px 35px;
+
         background: white;
+
+        box-sizing: border-box;
+
+        position: relative;
+
+        z-index: 10000;
     }
 
+
+    /* =====================================================
+       HEADING
+    ===================================================== */
+
     .signup-heading {
-        margin-bottom: 25px;
+        margin-bottom: 18px;
     }
 
     .signup-heading h2 {
-        margin: 0 0 8px;
-        font-size: 30px;
+        margin: 0 0 6px;
+
+        font-size: 29px;
+
         color: #124f38;
     }
 
     .signup-heading p {
         margin: 0;
+
         font-size: 14px;
+
         color: #789087;
     }
 
-    /* Error messages */
+
+    /* =====================================================
+       ERRORS
+    ===================================================== */
 
     .signup-errors {
-        margin-bottom: 18px;
+        margin-bottom: 15px;
     }
 
     .signup-error {
         background: #fff0f0;
+
         color: #a52d2d;
+
         border: 1px solid #f1caca;
+
         border-radius: 8px;
-        padding: 10px 13px;
-        margin-bottom: 8px;
+
+        padding: 9px 12px;
+
+        margin-bottom: 7px;
+
         font-size: 13px;
     }
 
-    /* Form */
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    .signup-form {
+        width: 100%;
+    }
 
     .signup-form .form-group {
-        margin-bottom: 17px;
+        margin-bottom: 10px;
     }
 
     .signup-form label {
         display: block;
-        margin-bottom: 7px;
+
+        margin-bottom: 4px;
+
         font-size: 14px;
+
         font-weight: 700;
+
         color: #174f3b;
     }
 
     .input-wrapper {
         position: relative;
+
+        width: 100%;
     }
 
     .input-icon {
         position: absolute;
+
         left: 14px;
         top: 50%;
+
         transform: translateY(-50%);
+
         color: #65957e;
+
         font-size: 16px;
+
         z-index: 2;
+
+        pointer-events: none;
     }
 
     .signup-form input,
     .signup-form select {
         width: 100%;
-        height: 46px;
+
+        height: 40px;
+
+        box-sizing: border-box;
+
         border: 1px solid #d5e3dc;
+
         border-radius: 9px;
+
         background: #fff;
+
         outline: none;
+
         padding: 0 14px 0 42px;
+
         font-size: 14px;
+
         color: #254d3e;
+
         transition: 0.2s ease;
     }
 
@@ -263,12 +416,15 @@
     .signup-form input:focus,
     .signup-form select:focus {
         border-color: #10904d;
+
         box-shadow: 0 0 0 3px rgba(16,144,77,0.10);
     }
 
     .form-help {
-        margin-top: 6px;
-        font-size: 12px;
+        margin-top: 3px;
+
+        font-size: 11px;
+
         color: #8a9d95;
     }
 
@@ -276,106 +432,172 @@
         cursor: pointer;
     }
 
-    /* Submit */
+
+    /* =====================================================
+       SUBMIT BUTTON
+    ===================================================== */
 
     .signup-submit {
-        width: 100%;
-        height: 48px;
-        margin-top: 7px;
-        border: none;
-        border-radius: 9px;
-        background: #10904d;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
+        display: block !important;
+
+        width: 100% !important;
+
+        height: 46px !important;
+
+        margin-top: 8px !important;
+
+        border: none !important;
+
+        border-radius: 9px !important;
+
+        background: #10904d !important;
+
+        color: white !important;
+
+        font-size: 16px !important;
+
+        font-weight: 700 !important;
+
+        cursor: pointer !important;
+
+        position: relative !important;
+
+        z-index: 99999 !important;
+
+        visibility: visible !important;
+
+        opacity: 1 !important;
+
+        box-shadow: none;
+
         transition: 0.2s ease;
     }
 
     .signup-submit:hover {
-        background: #087d43;
+        background: #087d43 !important;
+
         transform: translateY(-1px);
+
         box-shadow: 0 7px 18px rgba(16,144,77,0.20);
     }
 
+
+    /* =====================================================
+       LOGIN LINK
+    ===================================================== */
+
     .login-text {
         text-align: center;
-        margin-top: 21px;
-        font-size: 14px;
+
+        margin-top: 10px;
+
+        padding-bottom: 2px;
+
+        font-size: 13px;
+
         color: #718b81;
     }
 
     .login-text a {
         color: #087d43;
+
         font-weight: 700;
+
         text-decoration: underline;
     }
 
-    /* ================= RESPONSIVE ================= */
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
 
     @media (max-width: 900px) {
 
+        .signup-page {
+            padding: 25px 20px 70px;
+        }
+
         .signup-container {
             grid-template-columns: 1fr;
+
             max-width: 650px;
         }
 
         .signup-left {
-            padding: 35px;
+            padding: 30px 35px;
         }
 
         .signup-right {
-            padding: 40px 35px;
+            padding: 30px 35px 35px;
         }
 
         .food-illustration {
-            height: 150px;
+            height: 120px;
         }
     }
+
 
     @media (max-width: 600px) {
 
         .signup-page {
-            padding: 25px 15px 45px;
+            padding: 20px 12px 60px;
+        }
+
+        .signup-container {
+            border-radius: 15px;
         }
 
         .signup-left {
-            padding: 30px 25px;
+            padding: 25px 22px;
         }
 
         .signup-left h1 {
-            font-size: 29px;
+            font-size: 28px;
         }
 
         .signup-brand {
-            margin-bottom: 28px;
+            margin-bottom: 22px;
+        }
+
+        .signup-brand-name {
+            font-size: 24px;
         }
 
         .signup-features {
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .signup-right {
-            padding: 30px 22px;
+            padding: 25px 20px 30px;
         }
 
         .signup-heading h2 {
-            font-size: 26px;
+            font-size: 25px;
         }
     }
 </style>
 
 
+<!-- =====================================================
+     SIGNUP PAGE
+===================================================== -->
+
 <div class="signup-page">
 
     <div class="signup-container">
 
-        <!-- ================= LEFT SIDE ================= -->
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================= -->
 
         <div class="signup-left">
 
             <div class="left-content">
+
+
+                <!-- BRAND -->
 
                 <div class="signup-brand">
 
@@ -390,11 +612,15 @@
                 </div>
 
 
+                <!-- HEADING -->
+
                 <h1>
                     Join FoodBridge.<br>
                     <span>Make an Impact.</span>
                 </h1>
 
+
+                <!-- DESCRIPTION -->
 
                 <p class="signup-left-description">
                     Join our community and help connect surplus food
@@ -403,7 +629,7 @@
                 </p>
 
 
-                <!-- Food Illustration -->
+                <!-- FOOD ILLUSTRATION -->
 
                 <div class="food-illustration">
 
@@ -412,15 +638,17 @@
                     </div>
 
                     <div class="food-card">
+
                         <div class="food-heart">
                             ♥
                         </div>
+
                     </div>
 
                 </div>
 
 
-                <!-- Features -->
+                <!-- FEATURES -->
 
                 <div class="signup-features">
 
@@ -466,9 +694,14 @@
         </div>
 
 
-        <!-- ================= RIGHT SIDE ================= -->
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================= -->
 
         <div class="signup-right">
+
+
+            <!-- HEADING -->
 
             <div class="signup-heading">
 
@@ -483,18 +716,16 @@
             </div>
 
 
-            <!-- ================= EXISTING ERRORS ================= -->
+            <!-- ERRORS -->
 
-            <% if(typeof errors != 'undefined') { %>
+            <% if(typeof errors != 'undefined' && errors.length > 0) { %>
 
                 <div class="signup-errors">
 
                     <% errors.forEach(function(error) { %>
 
                         <div class="signup-error">
-
                             <%= error.msg %>
-
                         </div>
 
                     <% }); %>
@@ -504,7 +735,9 @@
             <% } %>
 
 
-            <!-- ================= EXISTING FORM ================= -->
+            <!-- =================================================
+                 FORM
+            ================================================= -->
 
             <form
                 action="/auth/signup"
@@ -514,7 +747,7 @@
             >
 
 
-                <!-- First Name -->
+                <!-- FIRST NAME -->
 
                 <div class="form-group">
 
@@ -543,7 +776,7 @@
                 </div>
 
 
-                <!-- Last Name -->
+                <!-- LAST NAME -->
 
                 <div class="form-group">
 
@@ -571,7 +804,7 @@
                 </div>
 
 
-                <!-- Email -->
+                <!-- EMAIL -->
 
                 <div class="form-group">
 
@@ -604,7 +837,7 @@
                 </div>
 
 
-                <!-- Password -->
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -633,7 +866,7 @@
                 </div>
 
 
-                <!-- Confirm Password -->
+                <!-- CONFIRM PASSWORD -->
 
                 <div class="form-group">
 
@@ -662,7 +895,7 @@
                 </div>
 
 
-                <!-- Signup As -->
+                <!-- ROLE -->
 
                 <div class="form-group">
 
@@ -676,33 +909,34 @@
                             👥
                         </span>
 
-                       <select
+                        <select
                             name="role"
                             id="role"
                             required
                         >
 
-                         <option value="" disabled selected>
-                             Select your role
-                         </option>
+                            <option value="" disabled selected>
+                                Select your role
+                            </option>
 
-                        <option value="donor">
-                              Donor
-                        </option>
+                            <option value="donor">
+                                Donor
+                            </option>
 
-                        <option value="agent">
-                              NGO
-                        </option>
+                            <option value="ngo">
+                                NGO
+                            </option>
 
-
-                    </select>
+                        </select>
 
                     </div>
 
                 </div>
 
 
-                <!-- Submit -->
+                <!-- =================================================
+                     CREATE ACCOUNT BUTTON
+                ================================================= -->
 
                 <button
                     type="submit"
@@ -712,7 +946,7 @@
                 </button>
 
 
-                <!-- Login -->
+                <!-- LOGIN -->
 
                 <div class="login-text">
 
@@ -723,6 +957,7 @@
                     </a>
 
                 </div>
+
 
             </form>
 

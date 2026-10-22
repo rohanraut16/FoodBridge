@@ -1,10 +1,43 @@
-<div id="sidebar">
-	<ul id="sidebar-nav">
-		<li>Welcome <%= currentUser.firstName %></li>
-		<li><a href="/agent/dashboard">Dashboard</a></li>
-		<li><a href="/agent/collections/pending">My Pending Collections</a></li>
-		<li><a href="/agent/collections/previous">My Previous Collections</a></li>
-		<li><a href="/agent/profile">My Profile</a></li>
-		<li><a href="/auth/logout" class="btn">Logout</a></li>
-	</ul>
+<div class="sidebar">
+
+    <!-- NGO NAME -->
+    <div class="sidebar-header">
+        Welcome <%= currentUser ? (currentUser.firstName || currentUser.username || "NGO") : "NGO" %>
+    </div>
+
+    <!-- DASHBOARD -->
+    <a href="/agent/dashboard"
+       class="<%= typeof title !== 'undefined' && title === 'Dashboard' ? 'active' : '' %>">
+        Dashboard
+    </a>
+
+    <!-- AVAILABLE DONATIONS -->
+    <a href="/agent/donations/available"
+       class="<%= typeof title !== 'undefined' && title === 'Available Donations' ? 'active' : '' %>">
+        Available Donations
+    </a>
+
+    <!-- MY PICKUPS -->
+    <a href="/agent/collections/pending"
+       class="<%= typeof title !== 'undefined' && title === 'Pending Pickups' ? 'active' : '' %>">
+        My Pickups
+    </a>
+
+    <!-- COMPLETED PICKUPS -->
+    <a href="/agent/collections/previous"
+       class="<%= typeof title !== 'undefined' && title === 'Completed Pickups' ? 'active' : '' %>">
+        Completed Pickups
+    </a>
+
+    <!-- PROFILE -->
+    <a href="/agent/profile"
+       class="<%= typeof title !== 'undefined' && title === 'My Profile' ? 'active' : '' %>">
+        My Profile
+    </a>
+
+    <!-- LOGOUT -->
+    <a href="/auth/logout" class="logout-btn">
+        Logout
+    </a>
+
 </div>

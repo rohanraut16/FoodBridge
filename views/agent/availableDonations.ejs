@@ -1,0 +1,140 @@
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>Available Donations</h2>
+
+            <p class="text-muted mb-0">
+                Food donations approved by Admin and available for NGOs.
+            </p>
+        </div>
+    </div>
+
+
+    <% if (availableDonations && availableDonations.length > 0) { %>
+
+        <div class="row">
+
+            <% availableDonations.forEach(function(donation) { %>
+
+                <div class="col-md-6 col-lg-4 mb-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <% if (donation.foodImage) { %>
+
+                            <img
+                                src="<%= donation.foodImage %>"
+                                class="card-img-top"
+                                style="height: 200px; object-fit: cover;"
+                                alt="Food Image"
+                            >
+
+                        <% } else { %>
+
+                            <div
+                                class="d-flex align-items-center justify-content-center bg-light"
+                                style="height: 200px;"
+                            >
+                                <span class="text-muted">
+                                    No Food Image
+                                </span>
+                            </div>
+
+                        <% } %>
+
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                <%= donation.foodType %>
+                            </h5>
+
+
+                            <p class="mb-2">
+                                <strong>Donor:</strong>
+
+                                <% if (donation.donor) { %>
+
+                                    <%= donation.donor.firstName || "" %>
+                                    <%= donation.donor.lastName || "" %>
+
+                                <% } else { %>
+
+                                    Unknown
+
+                                <% } %>
+                            </p>
+
+
+                            <p class="mb-2">
+                                <strong>Quantity:</strong>
+                                <%= donation.quantity %>
+                            </p>
+
+
+                            <p class="mb-2">
+                                <strong>Type:</strong>
+                                <%= donation.foodCondition %>
+                            </p>
+
+
+                            <p class="mb-2">
+                                <strong>Expiry:</strong>
+
+                                <% if (donation.expiryDate) { %>
+
+                                    <%= new Date(donation.expiryDate).toLocaleDateString("en-IN") %>
+
+                                <% } else { %>
+
+                                    Not provided
+
+                                <% } %>
+
+                            </p>
+
+
+                            <p class="mb-3">
+                                <strong>Pickup Address:</strong>
+                                <%= donation.address %>
+                            </p>
+
+
+                            <a
+                                href="/agent/donation/view/<%= donation._id %>"
+                                class="btn btn-primary w-100"
+                            >
+                                View Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }); %>
+
+        </div>
+
+
+    <% } else { %>
+
+        <div class="card shadow-sm">
+
+            <div class="card-body text-center py-5">
+
+                <h5>No Available Donations</h5>
+
+                <p class="text-muted mb-0">
+                    There are currently no approved donations available.
+                </p>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+</div>

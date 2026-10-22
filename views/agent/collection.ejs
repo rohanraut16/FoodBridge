@@ -1,64 +1,776 @@
-<main>
-	<%- include('../partials/agentSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Collection</h5>
-		</div>
-		
-		<div class="border m-4 my-3 p-4 bg-white rounded-2 shadow-sm">
-			<div class="mb-2">
-				<span>Donor Name:</span>
-				<span><%= collection.donor.firstName + " " + collection.donor.lastName %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Food type:</span>
-				<span><%= collection.foodType %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Quantity:</span>
-				<span><%= collection.quantity %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Time of cooking:</span>
-				<span><%= collection.cookingTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Address to collect:</span>
-				<span><%= collection.address %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Phone:</span>
-				<span><%= collection.phone %></span>
-			</div>
-			
-			<div class="mb-2">
-				<span>Status:</span>
-				<span class="fw-bold text-<%= collection.status %>"><%= collection.status %></span>
-			</div>
-			
-			<% if(collection.status == "assigned" && collection.adminToAgentMsg != "") { %>
-				<div class="mb-2">
-					<span>Message from Admin:</span>
-					<div class="ms-3"><%= collection.adminToAgentMsg %></div>
-				</div>
-			<% } %>
-			
-			<% if(collection.status == "collected") { %>
-				<div class="mb-2">
-					<span>Collection time:</span>
-					<span><%= collection.collectionTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %></span>
-				</div>
-			<% } %>
-			
-		</div>
-		
-	</div>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Collection Details</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .card-header {
+            background: #198754;
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 20px;
+        }
+
+        .food-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .info-row {
+            padding: 12px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .quality-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .btn-area {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-area a {
+            flex: 1;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3 class="mb-1">
+                Collection Details
+            </h3>
+
+            <p class="mb-0">
+                Details of the assigned food donation.
+            </p>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="row">
+
+
+                <!-- FOOD IMAGE -->
+
+                <div class="col-md-5 mb-4 mb-md-0">
+
+                    <% if (collection.foodImage) { %>
+
+                        <img
+                            src="<%= collection.foodImage %>"
+                            alt="Food Image"
+                            class="food-image"
+                        >
+
+                    <% } else { %>
+
+                        <div
+                            class="d-flex align-items-center justify-content-center bg-light"
+                            style="height:250px;border-radius:10px;"
+                        >
+
+                            <span class="text-muted">
+                                No food image available
+                            </span>
+
+                        </div>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- BASIC FOOD DETAILS -->
+
+                <div class="col-md-7">
+
+                    <h3 class="mb-4">
+                        <%= collection.foodType %>
+                    </h3>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Quantity:
+                        </span>
+
+                        <span>
+                            <%= collection.quantity %>
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Food Type:
+                        </span>
+
+                        <span>
+
+                            <% if (collection.foodCondition === "cooked") { %>
+
+                                Cooked
+
+                            <% } else { %>
+
+                                Packaged
+
+                            <% } %>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Donor:
+                        </span>
+
+                        <span>
+
+                            <% if (collection.donor) { %>
+
+                                <%= collection.donor.firstName || "" %>
+                                <%= collection.donor.lastName || "" %>
+
+                            <% } else { %>
+
+                                Unknown
+
+                            <% } %>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Pickup Address:
+                        </span>
+
+                        <span>
+                            <%= collection.address %>
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Phone:
+                        </span>
+
+                        <span>
+                            <%= collection.phone %>
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Status:
+                        </span>
+
+                        <span class="status-badge bg-success text-white">
+
+                            <%= collection.status %>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DATE INFORMATION -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h4 class="mb-0">
+                Food Date Information
+            </h4>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <!-- COOKING TIME -->
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Time of Cooking:
+                </span>
+
+                <span>
+
+                    <% if (collection.cookingTime) { %>
+
+                        <%= new Date(collection.cookingTime).toLocaleString(
+                            "en-IN",
+                            {
+                                dateStyle: "medium",
+                                timeStyle: "short"
+                            }
+                        ) %>
+
+                    <% } else { %>
+
+                        Not Available
+
+                    <% } %>
+
+                </span>
+
+            </div>
+
+
+            <!-- MANUFACTURE DATE -->
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Manufacture Date:
+                </span>
+
+                <span>
+
+                    <% if (collection.manufactureDate) { %>
+
+                        <%= new Date(collection.manufactureDate).toLocaleDateString(
+                            "en-IN",
+                            {
+                                dateStyle: "medium"
+                            }
+                        ) %>
+
+                    <% } else { %>
+
+                        Not Available
+
+                    <% } %>
+
+                </span>
+
+            </div>
+
+
+            <!-- EXPIRY DATE -->
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Expiry Date:
+                </span>
+
+                <span>
+
+                    <% if (collection.expiryDate) { %>
+
+                        <%= new Date(collection.expiryDate).toLocaleDateString(
+                            "en-IN",
+                            {
+                                dateStyle: "medium"
+                            }
+                        ) %>
+
+                    <% } else { %>
+
+                        Not Available
+
+                    <% } %>
+
+                </span>
+
+            </div>
+
+
+            <!-- COLLECTION TIME -->
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Collection Time:
+                </span>
+
+                <span>
+
+                    <% if (collection.collectionTime) { %>
+
+                        <%= new Date(collection.collectionTime).toLocaleString(
+                            "en-IN",
+                            {
+                                dateStyle: "medium",
+                                timeStyle: "short"
+                            }
+                        ) %>
+
+                    <% } else { %>
+
+                        Not Collected Yet
+
+                    <% } %>
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- QUALITY VERIFICATION -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h4 class="mb-0">
+                Food Quality Verification
+            </h4>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+
+                <!-- FRESHNESS SCORE -->
+
+                <div class="col-md-4">
+
+                    <div class="quality-box">
+
+                        <div class="text-muted">
+                            Freshness Score
+                        </div>
+
+                        <div class="score">
+
+                            <% if (
+                                collection.freshnessScore !== null &&
+                                collection.freshnessScore !== undefined
+                            ) { %>
+
+                                <%= collection.freshnessScore %>/100
+
+                            <% } else { %>
+
+                                N/A
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUALITY STATUS -->
+
+                <div class="col-md-4">
+
+                    <div class="quality-box">
+
+                        <div class="text-muted">
+                            Quality Status
+                        </div>
+
+
+                        <% if (collection.qualityStatus === "safe") { %>
+
+                            <span class="badge bg-success fs-6 mt-3">
+                                Safe to Donate
+                            </span>
+
+                        <% } else if (collection.qualityStatus === "warning") { %>
+
+                            <span class="badge bg-warning text-dark fs-6 mt-3">
+                                Warning
+                            </span>
+
+                        <% } else if (collection.qualityStatus === "unsafe") { %>
+
+                            <span class="badge bg-danger fs-6 mt-3">
+                                Unsafe
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="badge bg-secondary fs-6 mt-3">
+                                Not Verified
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SHELF LIFE -->
+
+                <div class="col-md-4">
+
+                    <div class="quality-box">
+
+                        <div class="text-muted">
+                            Estimated Shelf Life
+                        </div>
+
+                        <h5 class="mt-3">
+
+                            <% if (collection.shelfLife) { %>
+
+                                <%= collection.shelfLife %>
+
+                            <% } else { %>
+
+                                Not Available
+
+                            <% } %>
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PHYSICAL CHECKS -->
+
+            <hr class="my-4">
+
+            <h5 class="mb-3">
+                Physical Verification Checks
+            </h5>
+
+
+            <div class="row">
+
+
+                <!-- SMELL -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Smell Check:
+                        </span>
+
+                        <% if (collection.smellCheck) { %>
+
+                            <span class="text-success">
+                                ✓ Passed
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-danger">
+                                ✕ Not Passed
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- APPEARANCE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Appearance Check:
+                        </span>
+
+                        <% if (collection.appearanceCheck) { %>
+
+                            <span class="text-success">
+                                ✓ Passed
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-danger">
+                                ✕ Not Passed
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PACKAGING -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Packaging Check:
+                        </span>
+
+                        <% if (collection.packagingCheck) { %>
+
+                            <span class="text-success">
+                                ✓ Passed
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-danger">
+                                ✕ Not Passed
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXPIRY -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Expiry Check:
+                        </span>
+
+                        <% if (collection.expiryCheck) { %>
+
+                            <span class="text-success">
+                                ✓ Passed
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-danger">
+                                ✕ Not Passed
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STORAGE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Storage Check:
+                        </span>
+
+                        <% if (collection.storageCheck) { %>
+
+                            <span class="text-success">
+                                ✓ Passed
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-danger">
+                                ✕ Not Passed
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VERIFICATION -->
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Quality Verified:
+                        </span>
+
+                        <% if (collection.qualityVerified) { %>
+
+                            <span class="text-success">
+                                ✓ Verified
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="text-warning">
+                                Pending
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BUTTONS -->
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="btn-area">
+
+                <a
+                    href="/agent/collections/pending"
+                    class="btn btn-success btn-lg"
+                >
+                    Back to Pending Pickups
+                </a>
+
+
+                <% if (collection.status === "assigned") { %>
+
+                    <a
+                        href="/agent/collection/collect/<%= collection._id %>"
+                        class="btn btn-primary btn-lg"
+                        onclick="return confirm('Are you sure you want to mark this donation as collected?')"
+                    >
+                        Mark as Collected
+                    </a>
+
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

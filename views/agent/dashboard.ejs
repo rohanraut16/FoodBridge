@@ -1,27 +1,562 @@
 <main>
-	<%- include('../partials/agentSidebar') %>
-	
-	<div id="main-wrapper">
-		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
-		</div>
-		
-		<div class="d-flex gap-3 flex-wrap m-4 text-white">
-			
-			<div class="bg-primary rounded p-3" style="width: 300px;">
-				<div class="fs-1"><%= numAssignedDonations %></div>
-				<div class="fs-5">donations not collected yet</div>
-			</div>
-			
-			<div class="bg-success rounded p-3" style="width: 300px;">
-				<div class="fs-1"><%= numCollectedDonations %></div>
-				<div class="fs-5">donations collected by you</div>
-			</div>
-			
-		</div>
-		
-		
-	</div>
+
+    <!-- =========================
+         NGO SIDEBAR
+    ========================= -->
+
+    <%- include('../partials/agentSidebar') %>
+
+
+    <!-- =========================
+         MAIN WRAPPER
+    ========================= -->
+
+    <div id="main-wrapper">
+
+
+        <style>
+
+            .ngo-dashboard {
+                padding: 28px 32px;
+                background: #f4f8f5;
+                min-height: calc(100vh - 60px);
+            }
+
+
+            /* =========================
+               HEADER
+            ========================= */
+
+            .dashboard-header {
+                background: #ffffff;
+                padding: 28px 30px;
+                margin-bottom: 28px;
+                border-radius: 10px;
+                border: 1px solid #e1ebe5;
+                box-shadow: 0 3px 12px rgba(31, 78, 57, 0.06);
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .dashboard-header h2 {
+                margin: 0;
+                color: #174c38;
+                font-size: 30px;
+                font-weight: 700;
+            }
+
+            .dashboard-header p {
+                margin: 0;
+                color: #687b72;
+                font-size: 15px;
+            }
+
+
+            /* =========================
+               STAT CARDS
+            ========================= */
+
+            .stats-row {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+
+            .stat-card {
+                background: #ffffff;
+                border-radius: 10px;
+                padding: 22px 25px;
+
+                border-left: 5px solid #2e7d5b;
+
+                box-shadow: 0 4px 14px rgba(31, 78, 57, 0.08);
+
+                transition: all 0.2s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 7px 20px rgba(31, 78, 57, 0.13);
+            }
+
+            .stat-title {
+                color: #64766d;
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .stat-number {
+                color: #174c38;
+                font-size: 30px;
+                font-weight: 700;
+            }
+
+
+            /* =========================
+               DASHBOARD SECTIONS
+            ========================= */
+
+            .dashboard-section {
+                background: #ffffff;
+                border-radius: 10px;
+                margin-bottom: 28px;
+
+                border: 1px solid #e1ebe5;
+
+                box-shadow: 0 4px 14px rgba(31, 78, 57, 0.07);
+
+                overflow: hidden;
+            }
+
+            .section-header {
+                padding: 17px 22px;
+
+                border-bottom: 1px solid #e5ece8;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .section-header h4 {
+                margin: 0;
+                color: #174c38;
+                font-size: 19px;
+                font-weight: 700;
+            }
+
+            .section-body {
+                padding: 20px 22px;
+            }
+
+
+            /* =========================
+               EMPTY MESSAGE
+            ========================= */
+
+            .empty-message {
+                text-align: center;
+
+                color: #718078;
+
+                padding: 28px 10px;
+
+                margin: 0;
+
+                font-size: 15px;
+            }
+
+
+            /* =========================
+               DONATION ITEMS
+            ========================= */
+
+            .donation-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                padding: 16px 0;
+
+                border-bottom: 1px solid #edf2ef;
+            }
+
+            .donation-item:last-child {
+                border-bottom: none;
+            }
+
+            .donation-info h5 {
+                margin: 0 0 6px;
+
+                color: #174c38;
+
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            .donation-info p {
+                margin: 4px 0;
+
+                color: #687b72;
+
+                font-size: 13px;
+            }
+
+
+            /* =========================
+               GREEN BUTTON
+            ========================= */
+
+            .view-btn {
+                background: #2e7d5b;
+
+                color: #ffffff;
+
+                padding: 9px 16px;
+
+                border-radius: 5px;
+
+                text-decoration: none;
+
+                font-size: 13px;
+
+                font-weight: 600;
+
+                border: none;
+
+                transition: all 0.2s ease;
+            }
+
+            .view-btn:hover {
+                background: #24664b;
+
+                color: #ffffff;
+
+                text-decoration: none;
+            }
+
+
+            /* =========================
+               RESPONSIVE
+            ========================= */
+
+            @media (max-width: 1000px) {
+
+                .stats-row {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .dashboard-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+            }
+
+
+            @media (max-width: 600px) {
+
+                .ngo-dashboard {
+                    padding: 20px 15px;
+                }
+
+                .stats-row {
+                    grid-template-columns: 1fr;
+                }
+
+                .dashboard-header {
+                    padding: 22px;
+                }
+
+                .dashboard-header h2 {
+                    font-size: 25px;
+                }
+
+                .donation-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 12px;
+                }
+
+            }
+
+        </style>
+
+
+        <!-- =========================
+             NGO DASHBOARD
+        ========================= -->
+
+        <div class="ngo-dashboard">
+
+
+            <!-- =========================
+                 HEADER
+            ========================= -->
+
+            <div class="dashboard-header">
+
+                <div>
+
+                    <h2>
+                        NGO Dashboard
+                    </h2>
+
+                    <p>
+                        Manage food donations, pickups and completed collections.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 STAT CARDS
+            ========================= -->
+
+            <div class="stats-row">
+
+
+                <!-- AVAILABLE DONATIONS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        Available Donations
+                    </div>
+
+                    <div class="stat-number">
+                        <%= numAvailableDonations || 0 %>
+                    </div>
+
+                </div>
+
+
+                <!-- ACCEPTED DONATIONS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        Accepted Donations
+                    </div>
+
+                    <div class="stat-number">
+                        <%= numAcceptedDonations || 0 %>
+                    </div>
+
+                </div>
+
+
+                <!-- PENDING PICKUPS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        Pending Pickups
+                    </div>
+
+                    <div class="stat-number">
+                        <%= numPendingPickups || 0 %>
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLETED PICKUPS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        Completed Pickups
+                    </div>
+
+                    <div class="stat-number">
+                        <%= numCompletedPickups || 0 %>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 RECENT AVAILABLE DONATIONS
+            ========================= -->
+
+            <div class="dashboard-section">
+
+
+                <div class="section-header">
+
+                    <h4>
+                        Recent Available Donations
+                    </h4>
+
+                    <a
+                        href="/agent/donations/available"
+                        class="view-btn"
+                    >
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <% if (
+                        recentAvailableDonations &&
+                        recentAvailableDonations.length > 0
+                    ) { %>
+
+
+                        <% recentAvailableDonations.forEach(function(donation) { %>
+
+
+                            <div class="donation-item">
+
+
+                                <div class="donation-info">
+
+                                    <h5>
+                                        <%= donation.foodType %>
+                                    </h5>
+
+                                    <p>
+                                        <strong>Quantity:</strong>
+                                        <%= donation.quantity %>
+                                    </p>
+
+                                    <p>
+                                        <strong>Address:</strong>
+                                        <%= donation.address %>
+                                    </p>
+
+                                </div>
+
+
+                                <a
+                                    href="/agent/donation/view/<%= donation._id %>"
+                                    class="view-btn"
+                                >
+                                    View Details
+                                </a>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
+                    <% } else { %>
+
+
+                        <p class="empty-message">
+                            No available donations at the moment.
+                        </p>
+
+
+                    <% } %>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 RECENT COMPLETED PICKUPS
+            ========================= -->
+
+            <div class="dashboard-section">
+
+
+                <div class="section-header">
+
+                    <h4>
+                        Recent Completed Pickups
+                    </h4>
+
+                    <a
+                        href="/agent/collections/previous"
+                        class="view-btn"
+                    >
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="section-body">
+
+
+                    <% if (
+                        recentCompletedPickups &&
+                        recentCompletedPickups.length > 0
+                    ) { %>
+
+
+                        <% recentCompletedPickups.forEach(function(donation) { %>
+
+
+                            <div class="donation-item">
+
+
+                                <div class="donation-info">
+
+                                    <h5>
+                                        <%= donation.foodType %>
+                                    </h5>
+
+                                    <p>
+                                        <strong>Quantity:</strong>
+                                        <%= donation.quantity %>
+                                    </p>
+
+                                    <p>
+
+                                        <strong>Collected:</strong>
+
+
+                                        <% if (donation.collectionTime) { %>
+
+                                            <%= new Date(
+                                                donation.collectionTime
+                                            ).toLocaleDateString("en-IN") %>
+
+                                        <% } else { %>
+
+                                            -
+
+                                        <% } %>
+
+                                    </p>
+
+                                </div>
+
+
+                                <a
+                                    href="/agent/collection/view/<%= donation._id %>"
+                                    class="view-btn"
+                                >
+                                    View Details
+                                </a>
+
+
+                            </div>
+
+
+                        <% }); %>
+
+
+                    <% } else { %>
+
+
+                        <p class="empty-message">
+                            No completed pickups yet.
+                        </p>
+
+
+                    <% } %>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
 </main>
